@@ -1,0 +1,15 @@
+D:\_lab\Carllet_Poc_V2\Infra\bin\Release\net7.0\Infra.deps.json
+D:\_lab\Carllet_Poc_V2\Infra\bin\Release\net7.0\Infra.dll
+D:\_lab\Carllet_Poc_V2\Infra\bin\Release\net7.0\Infra.pdb
+D:\_lab\Carllet_Poc_V2\Infra\bin\Release\net7.0\Domain.dll
+D:\_lab\Carllet_Poc_V2\Infra\bin\Release\net7.0\Domain.pdb
+D:\_lab\Carllet_Poc_V2\Infra\obj\Release\net7.0\Infra.csproj.AssemblyReference.cache
+D:\_lab\Carllet_Poc_V2\Infra\obj\Release\net7.0\Infra.GeneratedMSBuildEditorConfig.editorconfig
+D:\_lab\Carllet_Poc_V2\Infra\obj\Release\net7.0\Infra.AssemblyInfoInputs.cache
+D:\_lab\Carllet_Poc_V2\Infra\obj\Release\net7.0\Infra.AssemblyInfo.cs
+D:\_lab\Carllet_Poc_V2\Infra\obj\Release\net7.0\Infra.csproj.CoreCompileInputs.cache
+D:\_lab\Carllet_Poc_V2\Infra\obj\Release\net7.0\Infra.csproj.CopyComplete
+D:\_lab\Carllet_Poc_V2\Infra\obj\Release\net7.0\Infra.dll
+D:\_lab\Carllet_Poc_V2\Infra\obj\Release\net7.0\refint\Infra.dll
+D:\_lab\Carllet_Poc_V2\Infra\obj\Release\net7.0\Infra.pdb
+D:\_lab\Carllet_Poc_V2\Infra\obj\Release\net7.0\ref\Infra.dll
