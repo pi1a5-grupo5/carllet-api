@@ -1,9 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Application",
     "\\Domain",
+    "\\Domain\\Entities",
     "\\Domain\\Interfaces"
   ],
-  "SelectedNode": "\\Domain\\Interfaces\\IDbService.cs",
   "PreviewInSolutionExplorer": false
 }
