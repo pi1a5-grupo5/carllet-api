@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PI78iIl1cNAOrTqoa4l4lJF4eoVWAtUuNUCq03snQpyP5P1Y5woQGmOe9gu44JvO5uERzjaKY9ae3Y+gL01JeA==",
+  "dgSpecHash": "H0Yxv8nz+/hqiivX9oHo0F/dgK2advq/QdtAUucW1IgzMeqNJW7hYrOTaKisYQsDVN9TOLa1ptTcELiWT3HQlA==",
   "success": true,
-  "projectFilePath": "D:\\_lab\\Carllet_Poc_V2\\Services\\Services.csproj",
+  "projectFilePath": "D:\\_lab\\PDW\\RESTful\\Services\\Services.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

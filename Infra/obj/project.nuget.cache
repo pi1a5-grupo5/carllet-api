@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "repGF8Yz+8FM7ytgrr9YlmiPtWlZN32O9KbAsiqQOmj01ZCTGCB8C8VOygtNzynWHuAgmV5EoJhNQUh5hunInw==",
+  "dgSpecHash": "2IJl+c8kHGsKNoSPQd5RieTFqtst+W2vPHN1pUu0nAPcchN2PDmU087HSb8oTFN4KdwIKaRDLF5o/epDwFBRVw==",
   "success": true,
-  "projectFilePath": "D:\\_lab\\Carllet_Poc_V2\\Infra\\Infra.csproj",
+  "projectFilePath": "D:\\_lab\\PDW\\RESTful\\Infra\\Infra.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\joaop\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\joaop\\.nuget\\packages\\microsoft.extensions.configuration\\7.0.0\\microsoft.extensions.configuration.7.0.0.nupkg.sha512",
