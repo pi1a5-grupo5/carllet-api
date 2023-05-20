@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Application</name>
+    </assembly>
+    <members>
+        <member name="M:Application.Controllers.UserController.Get">
+            <summary>
+                Retorna todos os usuários do sistema
+            </summary>
+            <remarks>
+            Exemplo de requisição
+                GET /User
+            </remarks>
+        </member>
+        <member name="M:Application.Controllers.UserController.GetUser(System.Int32)">
+            <summary>
+                Retorna um usuário espeficio do sistema
+            </summary>
+            <remarks>
+            Exemplo de request
+                GET /User/{id}
+            </remarks>
+        </member>
+        <member name="M:Application.Controllers.UserController.Post(Domain.Entities.User)">
+            <summary>
+                Registra um novo usuário e criptografa sua senha
+            </summary>
+            <remarks>
+            Sample request:
+            
+                POST /User
+                {
+                    "name": "João",
+                    "email": "joao@gmail.com",
+                    "password": "123456",
+                    "devideId": "167536"
+                }
+                
+            </remarks>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Application.Controllers.UserController.DeleteUser(System.Int32)" -->
+    </members>
+</doc>

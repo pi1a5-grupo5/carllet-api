@@ -39,3 +39,4 @@ D:\_lab\Carllet_Poc_V2\Application\obj\Release\net7.0\refint\Application.dll
 D:\_lab\Carllet_Poc_V2\Application\obj\Release\net7.0\Application.pdb
 D:\_lab\Carllet_Poc_V2\Application\obj\Release\net7.0\Application.genruntimeconfig.cache
 D:\_lab\Carllet_Poc_V2\Application\obj\Release\net7.0\ref\Application.dll
+D:\_lab\Carllet_Poc_V2\Application\bin\Release\net7.0\BCrypt.Net.dll

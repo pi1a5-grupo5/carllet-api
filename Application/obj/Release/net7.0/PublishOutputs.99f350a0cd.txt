@@ -5,6 +5,7 @@ D:\_lab\Carllet_Poc_V2\Application\obj\Release\net7.0\PubTmp\Out\Application.dll
 D:\_lab\Carllet_Poc_V2\Application\obj\Release\net7.0\PubTmp\Out\Application.deps.json
 D:\_lab\Carllet_Poc_V2\Application\obj\Release\net7.0\PubTmp\Out\Application.runtimeconfig.json
 D:\_lab\Carllet_Poc_V2\Application\obj\Release\net7.0\PubTmp\Out\Application.pdb
+D:\_lab\Carllet_Poc_V2\Application\obj\Release\net7.0\PubTmp\Out\BCrypt.Net.dll
 D:\_lab\Carllet_Poc_V2\Application\obj\Release\net7.0\PubTmp\Out\Dapper.dll
 D:\_lab\Carllet_Poc_V2\Application\obj\Release\net7.0\PubTmp\Out\Microsoft.AspNetCore.OpenApi.dll
 D:\_lab\Carllet_Poc_V2\Application\obj\Release\net7.0\PubTmp\Out\Microsoft.OpenApi.dll
