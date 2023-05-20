@@ -1,43 +1,75 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
+using Infra.Data;
 
 namespace Services
 {
     public class UserService : IUserService
     {
-        private readonly IDbService _dbService;
-        public UserService(IDbService dbService)
+        private readonly CarlletDbContext _dbContext;
+        public UserService(CarlletDbContext dbContext)
         {
-            _dbService = dbService;
+            _dbContext = dbContext;
         }
 
-        public async Task<bool> DeleteUser(int id)
+        public async Task<User> DeleteUser(int id)
         {
-            _ = await _dbService.EditData(
-                "DELETE * FROM usuarios WHERE Id = @id", new { id });
-            return true;
+            var user = _dbContext.User.Find(id);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            _dbContext.User.Remove(user);
+            _dbContext.SaveChanges();
+
+            user.Password = "";
+
+            return user;
+            
         }
 
         public async Task<List<User>> GetUserList()
         {
-            var userList = await _dbService.GetAll<User>(
-                "SELECT * FROM usuarios", new { });
-            return userList;
+            var users = _dbContext.User.ToList();
+
+
+            if (users.Count == 0)
+            {
+                return null;
+            }
+
+            return users;
         }
 
         public async Task<User> GetUser(int id)
         {
-            var user = await _dbService.GetAsync<User>(
-                "SELECT * FROM usuarios WHERE id = @id", id);
+            var user = _dbContext.User.Find(id);
+
+            if (user == null)
+            {
+                return null;
+            }
+
             return user;
         }
 
 
-        public async Task<bool> Register(User user)
+        public async Task<User> Register(User user)
         {
-            _ = await _dbService.EditData(
-                "INSERT INTO usuarios (name, email, password, deviceId) VALUES (@name, @email, @password, @deviceId)", user);
-            return true;
+            var setUser = _dbContext.User.Add(user);
+            
+            if(setUser == null)
+            {
+                return null;
+            }
+
+            _dbContext.SaveChanges();
+
+            user.Password = null;
+
+            return user;
         }
     }
 }

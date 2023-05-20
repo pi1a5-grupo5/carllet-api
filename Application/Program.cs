@@ -1,16 +1,21 @@
 using Domain.Interfaces;
 using Infra.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Services;
 using System.Reflection;
 
-var builder = WebApplication.CreateBuilder(args);
 
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IDbService, DbService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllers();
+builder.Services.AddDbContext<CarlletDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("poc_v1")));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>

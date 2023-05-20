@@ -3,7 +3,8 @@ using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using BCrypt.Net;
 using static BCrypt.Net.BCrypt;
-
+using Microsoft.EntityFrameworkCore;
+using Infra.Data;
 
 namespace Application.Controllers
 {
@@ -11,15 +12,14 @@ namespace Application.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
-    {   
-        
+    {        
         private readonly IUserService _userService;
         private const int WorkFactor = 8;
 
-        public UserController(IUserService userService) 
+        public UserController(IUserService userService)
         {
-            _userService = userService;
-        }
+            _userService = userService; 
+         }
 
         /// <summary>
         ///     Retorna todos os usuários do sistema

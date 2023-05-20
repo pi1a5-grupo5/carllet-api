@@ -9,9 +9,9 @@ namespace Domain.Interfaces
 {
     public interface IUserService
     {
-        Task<bool> Register(User user);
+        Task<User> Register(User user);
         Task<User> GetUser(int id);
         Task<List<User>> GetUserList();
-        Task<bool> DeleteUser(int id);
+        Task<User> DeleteUser(int id);
     }
 }
