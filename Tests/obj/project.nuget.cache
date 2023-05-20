@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9ZaQ+J5SOqi0ngsr+tvvRPrhKLIJ85JSQHmvho1LUQ6WuNB7vS8in3Y7Q0cnoVz022ygWsUP+8sdwNA4BJL1lQ==",
+  "dgSpecHash": "Vd9Klcp/QXBoTTCl2JqRz3WSYTj3jndP8xrLKEwlxICUV+BsNqkIXi9Do33KlBmN5mZ0pktAmvCsbsJSsIJseQ==",
   "success": true,
-  "projectFilePath": "D:\\_lab\\Carllet_Poc_V2\\Tests\\Tests.csproj",
+  "projectFilePath": "D:\\_lab\\PDW\\RESTful\\Tests\\Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\joaop\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\joaop\\.nuget\\packages\\microsoft.codecoverage\\17.3.2\\microsoft.codecoverage.17.3.2.nupkg.sha512",

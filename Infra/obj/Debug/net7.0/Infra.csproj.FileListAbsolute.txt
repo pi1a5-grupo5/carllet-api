@@ -3,3 +3,31 @@ D:\_lab\Carllet_Poc_V2\Infra\obj\Debug\net7.0\Infra.GeneratedMSBuildEditorConfig
 D:\_lab\Carllet_Poc_V2\Infra\obj\Debug\net7.0\Infra.AssemblyInfoInputs.cache
 D:\_lab\Carllet_Poc_V2\Infra\obj\Debug\net7.0\Infra.AssemblyInfo.cs
 D:\_lab\Carllet_Poc_V2\Infra\obj\Debug\net7.0\Infra.csproj.CoreCompileInputs.cache
+<<<<<<< HEAD
+=======
+D:\_lab\Carllet_Poc_V2\Infra\bin\Debug\net7.0\Infra.deps.json
+D:\_lab\Carllet_Poc_V2\Infra\bin\Debug\net7.0\Infra.dll
+D:\_lab\Carllet_Poc_V2\Infra\bin\Debug\net7.0\Infra.pdb
+D:\_lab\Carllet_Poc_V2\Infra\bin\Debug\net7.0\Domain.dll
+D:\_lab\Carllet_Poc_V2\Infra\bin\Debug\net7.0\Domain.pdb
+D:\_lab\Carllet_Poc_V2\Infra\obj\Debug\net7.0\Infra.csproj.CopyComplete
+D:\_lab\Carllet_Poc_V2\Infra\obj\Debug\net7.0\Infra.dll
+D:\_lab\Carllet_Poc_V2\Infra\obj\Debug\net7.0\refint\Infra.dll
+D:\_lab\Carllet_Poc_V2\Infra\obj\Debug\net7.0\Infra.pdb
+D:\_lab\Carllet_Poc_V2\Infra\obj\Debug\net7.0\ref\Infra.dll
+D:\_lab\PDW\RESTful\Infra\bin\Debug\net7.0\Infra.deps.json
+D:\_lab\PDW\RESTful\Infra\bin\Debug\net7.0\Infra.dll
+D:\_lab\PDW\RESTful\Infra\bin\Debug\net7.0\Infra.pdb
+D:\_lab\PDW\RESTful\Infra\bin\Debug\net7.0\Domain.dll
+D:\_lab\PDW\RESTful\Infra\bin\Debug\net7.0\Domain.pdb
+D:\_lab\PDW\RESTful\Infra\obj\Debug\net7.0\Infra.csproj.AssemblyReference.cache
+D:\_lab\PDW\RESTful\Infra\obj\Debug\net7.0\Infra.GeneratedMSBuildEditorConfig.editorconfig
+D:\_lab\PDW\RESTful\Infra\obj\Debug\net7.0\Infra.AssemblyInfoInputs.cache
+D:\_lab\PDW\RESTful\Infra\obj\Debug\net7.0\Infra.AssemblyInfo.cs
+D:\_lab\PDW\RESTful\Infra\obj\Debug\net7.0\Infra.csproj.CoreCompileInputs.cache
+D:\_lab\PDW\RESTful\Infra\obj\Debug\net7.0\Infra.csproj.CopyComplete
+D:\_lab\PDW\RESTful\Infra\obj\Debug\net7.0\Infra.dll
+D:\_lab\PDW\RESTful\Infra\obj\Debug\net7.0\refint\Infra.dll
+D:\_lab\PDW\RESTful\Infra\obj\Debug\net7.0\Infra.pdb
+D:\_lab\PDW\RESTful\Infra\obj\Debug\net7.0\ref\Infra.dll
+>>>>>>> 87b539b8a45b087e1a09d5ebf30833ff258728bb

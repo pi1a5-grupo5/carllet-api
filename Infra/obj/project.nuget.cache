@@ -1,8 +1,12 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "GwHXVyYfkJNTJHGtQiytFE7BbhArx6lFkVEb5L/s+8+FdbQdVsjd/JVdXopgMyvt6Zq6TzjNZI8sYJdt8YO8zw==",
+=======
+  "dgSpecHash": "2IJl+c8kHGsKNoSPQd5RieTFqtst+W2vPHN1pUu0nAPcchN2PDmU087HSb8oTFN4KdwIKaRDLF5o/epDwFBRVw==",
+>>>>>>> 87b539b8a45b087e1a09d5ebf30833ff258728bb
   "success": true,
-  "projectFilePath": "D:\\_lab\\Carllet_Poc_V2\\Infra\\Infra.csproj",
+  "projectFilePath": "D:\\_lab\\PDW\\RESTful\\Infra\\Infra.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\joaop\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\joaop\\.nuget\\packages\\crc32.net\\1.2.0\\crc32.net.1.2.0.nupkg.sha512",

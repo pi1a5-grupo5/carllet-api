@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\_lab\\Carllet_Poc_V2\\Tests\\Tests.csproj": {}
+    "D:\\_lab\\PDW\\RESTful\\Tests\\Tests.csproj": {}
   },
   "projects": {
-    "D:\\_lab\\Carllet_Poc_V2\\Tests\\Tests.csproj": {
+    "D:\\_lab\\PDW\\RESTful\\Tests\\Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\_lab\\Carllet_Poc_V2\\Tests\\Tests.csproj",
+        "projectUniqueName": "D:\\_lab\\PDW\\RESTful\\Tests\\Tests.csproj",
         "projectName": "Tests",
-        "projectPath": "D:\\_lab\\Carllet_Poc_V2\\Tests\\Tests.csproj",
+        "projectPath": "D:\\_lab\\PDW\\RESTful\\Tests\\Tests.csproj",
         "packagesPath": "C:\\Users\\joaop\\.nuget\\packages\\",
-        "outputPath": "D:\\_lab\\Carllet_Poc_V2\\Tests\\obj\\",
+        "outputPath": "D:\\_lab\\PDW\\RESTful\\Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\joaop\\AppData\\Roaming\\NuGet\\NuGet.Config",

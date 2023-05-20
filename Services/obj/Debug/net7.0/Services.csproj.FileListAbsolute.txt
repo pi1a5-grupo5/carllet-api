@@ -3,3 +3,26 @@ D:\_lab\Carllet_Poc_V2\Services\obj\Debug\net7.0\Services.GeneratedMSBuildEditor
 D:\_lab\Carllet_Poc_V2\Services\obj\Debug\net7.0\Services.AssemblyInfoInputs.cache
 D:\_lab\Carllet_Poc_V2\Services\obj\Debug\net7.0\Services.AssemblyInfo.cs
 D:\_lab\Carllet_Poc_V2\Services\obj\Debug\net7.0\Services.csproj.CoreCompileInputs.cache
+<<<<<<< HEAD
+=======
+D:\_lab\Carllet_Poc_V2\Services\obj\Debug\net7.0\Services.csproj.CopyComplete
+D:\_lab\Carllet_Poc_V2\Services\obj\Debug\net7.0\Services.dll
+D:\_lab\Carllet_Poc_V2\Services\obj\Debug\net7.0\refint\Services.dll
+D:\_lab\Carllet_Poc_V2\Services\obj\Debug\net7.0\Services.pdb
+D:\_lab\Carllet_Poc_V2\Services\obj\Debug\net7.0\ref\Services.dll
+D:\_lab\PDW\RESTful\Services\bin\Debug\net7.0\Services.deps.json
+D:\_lab\PDW\RESTful\Services\bin\Debug\net7.0\Services.dll
+D:\_lab\PDW\RESTful\Services\bin\Debug\net7.0\Services.pdb
+D:\_lab\PDW\RESTful\Services\bin\Debug\net7.0\Domain.dll
+D:\_lab\PDW\RESTful\Services\bin\Debug\net7.0\Domain.pdb
+D:\_lab\PDW\RESTful\Services\obj\Debug\net7.0\Services.csproj.AssemblyReference.cache
+D:\_lab\PDW\RESTful\Services\obj\Debug\net7.0\Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\_lab\PDW\RESTful\Services\obj\Debug\net7.0\Services.AssemblyInfoInputs.cache
+D:\_lab\PDW\RESTful\Services\obj\Debug\net7.0\Services.AssemblyInfo.cs
+D:\_lab\PDW\RESTful\Services\obj\Debug\net7.0\Services.csproj.CoreCompileInputs.cache
+D:\_lab\PDW\RESTful\Services\obj\Debug\net7.0\Services.csproj.CopyComplete
+D:\_lab\PDW\RESTful\Services\obj\Debug\net7.0\Services.dll
+D:\_lab\PDW\RESTful\Services\obj\Debug\net7.0\refint\Services.dll
+D:\_lab\PDW\RESTful\Services\obj\Debug\net7.0\Services.pdb
+D:\_lab\PDW\RESTful\Services\obj\Debug\net7.0\ref\Services.dll
+>>>>>>> 87b539b8a45b087e1a09d5ebf30833ff258728bb

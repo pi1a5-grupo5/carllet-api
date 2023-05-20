@@ -31,6 +31,15 @@ namespace Application.Controllers
         [AllowAnonymous]
         [HttpPost("refresh-token")]
         public ActionResult<AuthenticateResponse> RefreshToken()
+        /// <summary>
+        ///     Retorna todos os usuários do sistema
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição
+        ///     GET /User
+        /// </remarks>
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
             var refreshToken = Request.Cookies["refreshToken"];
             var response = _userService.RefreshToken(refreshToken, ipAddress());

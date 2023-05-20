@@ -10281,11 +10281,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\_lab\\Carllet_Poc_V2\\Services\\Services.csproj",
+      "projectUniqueName": "D:\\_lab\\PDW\\RESTful\\Services\\Services.csproj",
       "projectName": "Services",
-      "projectPath": "D:\\_lab\\Carllet_Poc_V2\\Services\\Services.csproj",
+      "projectPath": "D:\\_lab\\PDW\\RESTful\\Services\\Services.csproj",
       "packagesPath": "C:\\Users\\joaop\\.nuget\\packages\\",
-      "outputPath": "D:\\_lab\\Carllet_Poc_V2\\Services\\obj\\",
+      "outputPath": "D:\\_lab\\PDW\\RESTful\\Services\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\joaop\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -10302,6 +10302,7 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
+<<<<<<< HEAD
             "D:\\_lab\\Carllet_Poc_V2\\Commons\\Common.csproj": {
               "projectPath": "D:\\_lab\\Carllet_Poc_V2\\Commons\\Common.csproj"
             },
@@ -10310,6 +10311,10 @@
             },
             "D:\\_lab\\Carllet_Poc_V2\\Infra\\Infra.csproj": {
               "projectPath": "D:\\_lab\\Carllet_Poc_V2\\Infra\\Infra.csproj"
+=======
+            "D:\\_lab\\PDW\\RESTful\\Domain\\Domain.csproj": {
+              "projectPath": "D:\\_lab\\PDW\\RESTful\\Domain\\Domain.csproj"
+>>>>>>> 87b539b8a45b087e1a09d5ebf30833ff258728bb
             }
           }
         }

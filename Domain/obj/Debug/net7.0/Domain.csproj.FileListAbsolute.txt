@@ -20,5 +20,8 @@ D:\_lab\PDW\RESTful\Domain\obj\Debug\net7.0\Domain.dll
 D:\_lab\PDW\RESTful\Domain\obj\Debug\net7.0\refint\Domain.dll
 D:\_lab\PDW\RESTful\Domain\obj\Debug\net7.0\Domain.pdb
 D:\_lab\PDW\RESTful\Domain\obj\Debug\net7.0\ref\Domain.dll
+<<<<<<< HEAD
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> 87b539b8a45b087e1a09d5ebf30833ff258728bb

@@ -1,5 +1,6 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "BbLFEYuIBmdQuCNDkKdiDBvXas3x1D8smrKAk03T3fUK9Ar7QXSDtkOszsNuFY3P7hUWi4BIdpW9OsiEbisHEg==",
   "success": true,
   "projectFilePath": "D:\\_lab\\Carllet_Poc_V2\\Services\\Services.csproj",
@@ -252,4 +253,11 @@
       ]
     }
   ]
+=======
+  "dgSpecHash": "H0Yxv8nz+/hqiivX9oHo0F/dgK2advq/QdtAUucW1IgzMeqNJW7hYrOTaKisYQsDVN9TOLa1ptTcELiWT3HQlA==",
+  "success": true,
+  "projectFilePath": "D:\\_lab\\PDW\\RESTful\\Services\\Services.csproj",
+  "expectedPackageFiles": [],
+  "logs": []
+>>>>>>> 87b539b8a45b087e1a09d5ebf30833ff258728bb
 }

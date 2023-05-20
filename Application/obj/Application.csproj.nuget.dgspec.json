@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\_lab\\Carllet_Poc_V2\\Application\\Application.csproj": {}
+    "D:\\_lab\\PDW\\RESTful\\Application\\Application.csproj": {}
   },
   "projects": {
-    "D:\\_lab\\Carllet_Poc_V2\\Application\\Application.csproj": {
+    "D:\\_lab\\PDW\\RESTful\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\_lab\\Carllet_Poc_V2\\Application\\Application.csproj",
+        "projectUniqueName": "D:\\_lab\\PDW\\RESTful\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "D:\\_lab\\Carllet_Poc_V2\\Application\\Application.csproj",
+        "projectPath": "D:\\_lab\\PDW\\RESTful\\Application\\Application.csproj",
         "packagesPath": "C:\\Users\\joaop\\.nuget\\packages\\",
-        "outputPath": "D:\\_lab\\Carllet_Poc_V2\\Application\\obj\\",
+        "outputPath": "D:\\_lab\\PDW\\RESTful\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\joaop\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,14 +28,14 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\_lab\\Carllet_Poc_V2\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\_lab\\Carllet_Poc_V2\\Domain\\Domain.csproj"
+              "D:\\_lab\\PDW\\RESTful\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\_lab\\PDW\\RESTful\\Domain\\Domain.csproj"
               },
-              "D:\\_lab\\Carllet_Poc_V2\\Infra\\Infra.csproj": {
-                "projectPath": "D:\\_lab\\Carllet_Poc_V2\\Infra\\Infra.csproj"
+              "D:\\_lab\\PDW\\RESTful\\Infra\\Infra.csproj": {
+                "projectPath": "D:\\_lab\\PDW\\RESTful\\Infra\\Infra.csproj"
               },
-              "D:\\_lab\\Carllet_Poc_V2\\Services\\Services.csproj": {
-                "projectPath": "D:\\_lab\\Carllet_Poc_V2\\Services\\Services.csproj"
+              "D:\\_lab\\PDW\\RESTful\\Services\\Services.csproj": {
+                "projectPath": "D:\\_lab\\PDW\\RESTful\\Services\\Services.csproj"
               }
             }
           }
@@ -86,6 +86,7 @@
         }
       }
     },
+<<<<<<< HEAD
     "D:\\_lab\\Carllet_Poc_V2\\Commons\\Common.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -152,13 +153,16 @@
       }
     },
     "D:\\_lab\\Carllet_Poc_V2\\Domain\\Domain.csproj": {
+=======
+    "D:\\_lab\\PDW\\RESTful\\Domain\\Domain.csproj": {
+>>>>>>> 87b539b8a45b087e1a09d5ebf30833ff258728bb
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\_lab\\Carllet_Poc_V2\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\_lab\\PDW\\RESTful\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\_lab\\Carllet_Poc_V2\\Domain\\Domain.csproj",
+        "projectPath": "D:\\_lab\\PDW\\RESTful\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\joaop\\.nuget\\packages\\",
-        "outputPath": "D:\\_lab\\Carllet_Poc_V2\\Domain\\obj\\",
+        "outputPath": "D:\\_lab\\PDW\\RESTful\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\joaop\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -240,14 +244,14 @@
         }
       }
     },
-    "D:\\_lab\\Carllet_Poc_V2\\Infra\\Infra.csproj": {
+    "D:\\_lab\\PDW\\RESTful\\Infra\\Infra.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\_lab\\Carllet_Poc_V2\\Infra\\Infra.csproj",
+        "projectUniqueName": "D:\\_lab\\PDW\\RESTful\\Infra\\Infra.csproj",
         "projectName": "Infra",
-        "projectPath": "D:\\_lab\\Carllet_Poc_V2\\Infra\\Infra.csproj",
+        "projectPath": "D:\\_lab\\PDW\\RESTful\\Infra\\Infra.csproj",
         "packagesPath": "C:\\Users\\joaop\\.nuget\\packages\\",
-        "outputPath": "D:\\_lab\\Carllet_Poc_V2\\Infra\\obj\\",
+        "outputPath": "D:\\_lab\\PDW\\RESTful\\Infra\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\joaop\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -264,8 +268,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\_lab\\Carllet_Poc_V2\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\_lab\\Carllet_Poc_V2\\Domain\\Domain.csproj"
+              "D:\\_lab\\PDW\\RESTful\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\_lab\\PDW\\RESTful\\Domain\\Domain.csproj"
               }
             }
           }
@@ -321,14 +325,14 @@
         }
       }
     },
-    "D:\\_lab\\Carllet_Poc_V2\\Services\\Services.csproj": {
+    "D:\\_lab\\PDW\\RESTful\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\_lab\\Carllet_Poc_V2\\Services\\Services.csproj",
+        "projectUniqueName": "D:\\_lab\\PDW\\RESTful\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "D:\\_lab\\Carllet_Poc_V2\\Services\\Services.csproj",
+        "projectPath": "D:\\_lab\\PDW\\RESTful\\Services\\Services.csproj",
         "packagesPath": "C:\\Users\\joaop\\.nuget\\packages\\",
-        "outputPath": "D:\\_lab\\Carllet_Poc_V2\\Services\\obj\\",
+        "outputPath": "D:\\_lab\\PDW\\RESTful\\Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\joaop\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -345,6 +349,7 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
+<<<<<<< HEAD
               "D:\\_lab\\Carllet_Poc_V2\\Commons\\Common.csproj": {
                 "projectPath": "D:\\_lab\\Carllet_Poc_V2\\Commons\\Common.csproj"
               },
@@ -353,6 +358,10 @@
               },
               "D:\\_lab\\Carllet_Poc_V2\\Infra\\Infra.csproj": {
                 "projectPath": "D:\\_lab\\Carllet_Poc_V2\\Infra\\Infra.csproj"
+=======
+              "D:\\_lab\\PDW\\RESTful\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\_lab\\PDW\\RESTful\\Domain\\Domain.csproj"
+>>>>>>> 87b539b8a45b087e1a09d5ebf30833ff258728bb
               }
             }
           }
