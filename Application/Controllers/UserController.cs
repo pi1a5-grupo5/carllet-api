@@ -79,12 +79,10 @@ namespace Application.Controllers
         /// <summary>
         ///     Deleta um usuária o partir do seu Id
         /// </summary>
+        /// <remarks>
         /// Sample request:
         ///     Delete /id
         ///     {
-        ///        "id": 1,
-        ///        "name": "Item #1",
-        ///        "isComplete": true
         ///     }
         ///
         /// </remarks>

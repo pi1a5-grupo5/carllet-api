@@ -10,8 +10,9 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IDbService, DbService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<CarlletDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("poc_v1")));

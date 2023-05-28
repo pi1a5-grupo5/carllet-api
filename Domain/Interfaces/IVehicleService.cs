@@ -1,0 +1,14 @@
+﻿
+using Domain.Entities;
+
+namespace Domain.Interfaces
+{
+    public interface IVehicleService
+    {
+        Task<Vehicle> CreateVehicle(Vehicle vehicle);
+        Task<Vehicle> GetVehicleById(int id);
+        Task<List<Vehicle>> GetVehicleByOwner(int userId);
+        Task<List<Vehicle>> GetVehicleList();
+        Task<Vehicle> DeleteVehicle(int id);
+    }
+}
