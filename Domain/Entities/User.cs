@@ -32,17 +32,17 @@ namespace Domain.Entities
         public string DeviceId { get; set; }
 
         [Column("refresh_token")]
-        public string RefreshToken{ get; set; }
+        public string? RefreshToken{ get; set; }
 
         [Column("refresh_token_expiration")]
-        public DateTime RefreshTokenExpiration { get; set; }
+        public DateTime? RefreshTokenExpiration { get; set; }
 
         [Column("access_token")]
         public string? AccessToken { get; set; } = null;
 
         [Column("access_token_expiration")]
-        public DateTime AccessTokenExpiration { get; set; }
+        public DateTime? AccessTokenExpiration { get; set; }
 
-        public List<Course>? Courses { get; set; } = new List<Course>();
+        public List<Course>? Courses { get; set; }
     }
 }

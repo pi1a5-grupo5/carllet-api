@@ -5,6 +5,7 @@ using BCrypt.Net;
 using static BCrypt.Net.BCrypt;
 using Microsoft.EntityFrameworkCore;
 using Infra.Data;
+using Application.Requests;
 
 namespace Application.Controllers
 {
@@ -32,6 +33,14 @@ namespace Application.Controllers
         public async Task<IActionResult> Get()
         {
             var result = await _userService.GetUserList();
+
+            return Ok(result);
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest model)
+        {
+            var result = await _userService.Login(model.Email, model.Password);
 
             return Ok(result);
         }
@@ -94,4 +103,5 @@ namespace Application.Controllers
             return Ok(result);
         }
     }
+
 }

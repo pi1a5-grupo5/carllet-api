@@ -3,6 +3,7 @@ using System;
 using Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infra.Data.Migrations
 {
     [DbContext(typeof(CarlletDbContext))]
-    partial class CarlletDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230528193046_nullable_owner_3")]
+    partial class nullable_owner_3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,7 +89,7 @@ namespace Infra.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("access_token");
 
-                    b.Property<DateTime?>("AccessTokenExpiration")
+                    b.Property<DateTime>("AccessTokenExpiration")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("access_token_expiration");
 
@@ -121,10 +124,11 @@ namespace Infra.Data.Migrations
                         .HasColumnName("senha");
 
                     b.Property<string>("RefreshToken")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("refresh_token");
 
-                    b.Property<DateTime?>("RefreshTokenExpiration")
+                    b.Property<DateTime>("RefreshTokenExpiration")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("refresh_token_expiration");
 

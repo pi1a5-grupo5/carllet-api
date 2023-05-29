@@ -20,7 +20,7 @@ namespace Services
         }
         public async Task<Course> Register(Course course)
         {
-           
+
             User user = _dbContext.User.FirstOrDefault(u => u.Id == course.OwnerId);
             Vehicle vehicle = _dbContext.Vehicle.FirstOrDefault(v => v.Id == course.VehicleId);
 
@@ -29,7 +29,7 @@ namespace Services
 
             var setCourse = _dbContext.Course.Add(course);
 
-            if (setCourse == null || vehicle == null)
+            if (setCourse == null) // || vehicle == null)
             {
                 return null;
             }

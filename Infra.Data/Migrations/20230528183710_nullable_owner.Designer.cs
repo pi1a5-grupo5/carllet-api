@@ -3,6 +3,7 @@ using System;
 using Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infra.Data.Migrations
 {
     [DbContext(typeof(CarlletDbContext))]
-    partial class CarlletDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230528183710_nullable_owner")]
+    partial class nullable_owner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,11 +27,13 @@ namespace Infra.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.Course", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                    b.Property<int?>("OwnerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("id_condutor");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<int?>("VehicleId")
+                        .HasColumnType("integer")
+                        .HasColumnName("id_veiculo");
 
                     b.Property<DateTime>("CourseEndTime")
                         .HasColumnType("timestamp with time zone")
@@ -42,33 +47,16 @@ namespace Infra.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("data_inicio_percurso");
 
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("integer")
-                        .HasColumnName("id_condutor");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("VehicleId")
-                        .HasColumnType("integer")
-                        .HasColumnName("id_veiculo");
-
-                    b.Property<int?>("VehicleId1")
+                    b.Property<int>("Id")
                         .HasColumnType("integer");
 
                     b.Property<char>("type")
                         .HasColumnType("character(1)")
                         .HasColumnName("tipo");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.HasIndex("UserId");
+                    b.HasKey("OwnerId", "VehicleId");
 
                     b.HasIndex("VehicleId");
-
-                    b.HasIndex("VehicleId1");
 
                     b.ToTable("Percurso");
                 });
@@ -86,7 +74,7 @@ namespace Infra.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("access_token");
 
-                    b.Property<DateTime?>("AccessTokenExpiration")
+                    b.Property<DateTime>("AccessTokenExpiration")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("access_token_expiration");
 
@@ -121,10 +109,11 @@ namespace Infra.Data.Migrations
                         .HasColumnName("senha");
 
                     b.Property<string>("RefreshToken")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("refresh_token");
 
-                    b.Property<DateTime?>("RefreshTokenExpiration")
+                    b.Property<DateTime>("RefreshTokenExpiration")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("refresh_token_expiration");
 
@@ -172,22 +161,16 @@ namespace Infra.Data.Migrations
             modelBuilder.Entity("Domain.Entities.Course", b =>
                 {
                     b.HasOne("Domain.Entities.User", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Domain.Entities.User", null)
                         .WithMany("Courses")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entities.Vehicle", "Vehicle")
-                        .WithMany()
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Domain.Entities.Vehicle", null)
                         .WithMany("Courses")
-                        .HasForeignKey("VehicleId1");
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Owner");
 

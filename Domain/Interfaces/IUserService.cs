@@ -8,5 +8,6 @@ namespace Domain.Interfaces
         Task<User> GetUser(int id);
         Task<List<User>> GetUserList();
         Task<User> DeleteUser(int id);
+        Task<User> Login(string email, string password);
     }
 }

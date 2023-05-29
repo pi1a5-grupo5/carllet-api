@@ -20,17 +20,19 @@ namespace Infra.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Course>()
-            .HasKey(c => new { c.OwnerId, c.VehicleId });
+            .HasKey(c => c.Id);
 
             modelBuilder.Entity<Course>()
                 .HasOne(c => c.Owner)
-                .WithMany(u => u.Courses)
-                .HasForeignKey(c => c.OwnerId);
+                .WithMany()
+                .HasForeignKey(c => c.OwnerId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Course>()
                 .HasOne(c => c.Vehicle)
-                .WithMany(v => v.Courses)
-                .HasForeignKey(c => c.VehicleId);
+                .WithMany()
+                .HasForeignKey(c => c.VehicleId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
 

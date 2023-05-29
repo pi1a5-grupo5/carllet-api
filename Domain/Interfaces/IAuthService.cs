@@ -1,9 +1,12 @@
 ﻿
+using Domain.Entities;
+
 namespace Domain.Interfaces
 {
     public interface IAuthService
     {
-        Task<bool> AuthGrant();
-        Task<bool> AuthRevoke();
+        Task<string> GenerateAccessToken(User user);
+        Task<string> GenerateRefreshToken(User user);
+        Task<int?> ValidateToken(string token);
     }
 }

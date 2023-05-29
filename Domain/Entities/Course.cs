@@ -17,12 +17,11 @@ namespace Domain.Entities
         [ForeignKey("id")]
         [Column("id_condutor")]
         public int? OwnerId { get; set; }
-
         public User? Owner { get; set; }
 
         [ForeignKey("id")]
         [Column("id_veiculo")]
-        public int VehicleId { get; set; }
+        public int? VehicleId { get; set; }
 
         public Vehicle? Vehicle { get; set; }
 

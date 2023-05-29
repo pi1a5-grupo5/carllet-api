@@ -57,16 +57,13 @@ namespace Services
 
         public async Task<List<Vehicle>> GetVehicleByOwner(int userId)
         {
-            var owners = _dbContext.User.Include(u => u.Courses)
-                .ThenInclude(p => p.Vehicle)
-                .FirstOrDefault(u => u.Id== userId);
-               
-            var vehicles = owners.Courses.Select(p => p.Vehicle).ToList();
+            var user = _dbContext.User.Include(u => u.Courses).FirstOrDefault(u => u.Id == userId);
 
-            if (vehicles == null)
+            if (user == null)
             {
                 return null;
             }
+            List<Vehicle> vehicles  = user.Courses.Select(c => c.Vehicle).ToList();
 
             return vehicles;
         }
