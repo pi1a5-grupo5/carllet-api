@@ -78,7 +78,6 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] User user)
         {
-            user.Password = HashPassword(user.Password, WorkFactor);
             var result = await _userService.Register(user);
 
             return Ok(result);
