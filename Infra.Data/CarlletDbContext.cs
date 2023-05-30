@@ -28,11 +28,11 @@ namespace Infra.Data
                 .HasForeignKey(c => c.OwnerId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Course>()
-                .HasOne(c => c.Vehicle)
-                .WithMany()
-                .HasForeignKey(c => c.VehicleId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<Course>()
+            //    .HasOne(c => c.Vehicle)
+            //    .WithMany()
+            //    .HasForeignKey(c => c.VehicleId)
+            //    .OnDelete(DeleteBehavior.Cascade);
         }
 
 

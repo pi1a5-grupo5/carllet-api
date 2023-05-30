@@ -25,5 +25,13 @@ namespace Application.Controllers
             return Ok(result);
         }
 
+        [HttpGet("ByUserId/{id:int}")]
+        public async Task<IActionResult> GetByUserId(Guid driverId)
+        {
+            //course.OwnerId = HttpContext.Items["UserId"];
+            var result = await _courseService.GetByUserId(driverId);
+
+            return Ok(result);
+        }
     }
 }

@@ -11,22 +11,15 @@ namespace Domain.Entities
     [Table("Percurso")]
     public class Course
     {
-        [Key]
-        public int Id { get; set; }
+
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("Id")]
+        public Guid Id { get; set; }
 
         [ForeignKey("id")]
         [Column("id_condutor")]
-        public int? OwnerId { get; set; }
+        public Guid? OwnerId { get; set; }
         public User? Owner { get; set; }
-
-        [ForeignKey("id")]
-        [Column("id_veiculo")]
-        public int? VehicleId { get; set; }
-
-        public Vehicle? Vehicle { get; set; }
-
-        [Column("tipo")]
-        public char type { get; set; }
 
         [Column("distancia_percurso")]
         public int CourseLength { get; set; }

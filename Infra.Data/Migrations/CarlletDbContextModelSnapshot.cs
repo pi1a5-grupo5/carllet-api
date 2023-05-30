@@ -24,11 +24,10 @@ namespace Infra.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.Course", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
 
                     b.Property<DateTime>("CourseEndTime")
                         .HasColumnType("timestamp with time zone")
@@ -42,23 +41,12 @@ namespace Infra.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("data_inicio_percurso");
 
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("integer")
+                    b.Property<Guid?>("OwnerId")
+                        .HasColumnType("uuid")
                         .HasColumnName("id_condutor");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("VehicleId")
-                        .HasColumnType("integer")
-                        .HasColumnName("id_veiculo");
-
-                    b.Property<int?>("VehicleId1")
-                        .HasColumnType("integer");
-
-                    b.Property<char>("type")
-                        .HasColumnType("character(1)")
-                        .HasColumnName("tipo");
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -66,21 +54,15 @@ namespace Infra.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("VehicleId");
-
-                    b.HasIndex("VehicleId1");
-
                     b.ToTable("Percurso");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AccessToken")
                         .HasColumnType("text")
@@ -91,17 +73,14 @@ namespace Infra.Data.Migrations
                         .HasColumnName("access_token_expiration");
 
                     b.Property<string>("Cellphone")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("telefone");
 
                     b.Property<string>("Cnh")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("numero_cnh");
 
                     b.Property<string>("DeviceId")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("deviceid");
 
@@ -138,7 +117,8 @@ namespace Infra.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("id_veiculo");
+                        .HasColumnName("id_veiculo")
+                        .HasColumnOrder(1);
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
@@ -180,26 +160,10 @@ namespace Infra.Data.Migrations
                         .WithMany("Courses")
                         .HasForeignKey("UserId");
 
-                    b.HasOne("Domain.Entities.Vehicle", "Vehicle")
-                        .WithMany()
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Domain.Entities.Vehicle", null)
-                        .WithMany("Courses")
-                        .HasForeignKey("VehicleId1");
-
                     b.Navigation("Owner");
-
-                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
-                {
-                    b.Navigation("Courses");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Vehicle", b =>
                 {
                     b.Navigation("Courses");
                 });

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infra.Data.Migrations
 {
     [DbContext(typeof(CarlletDbContext))]
-    [Migration("20230528050145_CoursesAreNullable")]
-    partial class CoursesAreNullable
+    [Migration("20230530041952_init_db")]
+    partial class init_db
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,13 +27,10 @@ namespace Infra.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.Course", b =>
                 {
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("integer")
-                        .HasColumnName("id_condutor");
-
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("integer")
-                        .HasColumnName("id_veiculo");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("Id");
 
                     b.Property<DateTime>("CourseEndTime")
                         .HasColumnType("timestamp with time zone")
@@ -47,46 +44,46 @@ namespace Infra.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("data_inicio_percurso");
 
-                    b.Property<char>("type")
-                        .HasColumnType("character(1)")
-                        .HasColumnName("tipo");
+                    b.Property<Guid?>("OwnerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id_condutor");
 
-                    b.HasKey("OwnerId", "VehicleId");
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uuid");
 
-                    b.HasIndex("VehicleId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Percurso");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AccessToken")
                         .HasColumnType("text")
                         .HasColumnName("access_token");
 
-                    b.Property<DateTime>("AccessTokenExpiration")
+                    b.Property<DateTime?>("AccessTokenExpiration")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("access_token_expiration");
 
                     b.Property<string>("Cellphone")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("telefone");
 
                     b.Property<string>("Cnh")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("numero_cnh");
 
                     b.Property<string>("DeviceId")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("deviceid");
 
@@ -106,11 +103,10 @@ namespace Infra.Data.Migrations
                         .HasColumnName("senha");
 
                     b.Property<string>("RefreshToken")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("refresh_token");
 
-                    b.Property<DateTime>("RefreshTokenExpiration")
+                    b.Property<DateTime?>("RefreshTokenExpiration")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("refresh_token_expiration");
 
@@ -124,7 +120,8 @@ namespace Infra.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("id_veiculo");
+                        .HasColumnName("id_veiculo")
+                        .HasColumnOrder(1);
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
@@ -158,28 +155,18 @@ namespace Infra.Data.Migrations
             modelBuilder.Entity("Domain.Entities.Course", b =>
                 {
                     b.HasOne("Domain.Entities.User", "Owner")
-                        .WithMany("Courses")
+                        .WithMany()
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Domain.Entities.Vehicle", "Vehicle")
+                    b.HasOne("Domain.Entities.User", null)
                         .WithMany("Courses")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Owner");
-
-                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
-                {
-                    b.Navigation("Courses");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Vehicle", b =>
                 {
                     b.Navigation("Courses");
                 });

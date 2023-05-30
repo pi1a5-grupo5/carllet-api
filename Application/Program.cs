@@ -17,7 +17,7 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<CarlletDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("poc_v1")));
+builder.Services.AddDbContext<CarlletDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("mvp_v1")));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

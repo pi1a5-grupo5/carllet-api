@@ -55,18 +55,24 @@ namespace Services
             return vehicle;
         }
 
-        public async Task<List<Vehicle>> GetVehicleByOwner(int userId)
+        public Task<List<Vehicle>> GetVehicleByOwner(int userId)
         {
-            var user = _dbContext.User.Include(u => u.Courses).FirstOrDefault(u => u.Id == userId);
-
-            if (user == null)
-            {
-                return null;
-            }
-            List<Vehicle> vehicles  = user.Courses.Select(c => c.Vehicle).ToList();
-
-            return vehicles;
+            throw new NotImplementedException();
         }
+
+        //public async Task<List<Vehicle>> GetVehicleByOwner(int userId)
+        //{
+
+        //    var user = _dbContext.User.Include(u => u.Courses).FirstOrDefault(u => u.Id == userId);
+
+        //    if (user == null)
+        //    {
+        //        return null;
+        //    }
+        //    List<Vehicle> vehicles  = user.Courses.Select(c => c.Vehicle).ToList();
+
+        //    return vehicles;
+        //}
 
         public async Task<List<Vehicle>> GetVehicleList()
         {

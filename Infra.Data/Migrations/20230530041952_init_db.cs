@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infra.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class v2_migration : Migration
+    public partial class init_db : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,18 +16,17 @@ namespace Infra.Data.Migrations
                 name: "usuarios",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     nome = table.Column<string>(type: "text", nullable: false),
-                    numero_cnh = table.Column<string>(type: "text", nullable: false),
+                    numero_cnh = table.Column<string>(type: "text", nullable: true),
                     email = table.Column<string>(type: "text", nullable: false),
                     senha = table.Column<string>(type: "text", nullable: false),
-                    telefone = table.Column<string>(type: "text", nullable: false),
-                    deviceid = table.Column<string>(type: "text", nullable: false),
-                    refresh_token = table.Column<string>(type: "text", nullable: false),
-                    refresh_token_expiration = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    telefone = table.Column<string>(type: "text", nullable: true),
+                    deviceid = table.Column<string>(type: "text", nullable: true),
+                    refresh_token = table.Column<string>(type: "text", nullable: true),
+                    refresh_token_expiration = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     access_token = table.Column<string>(type: "text", nullable: true),
-                    access_token_expiration = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    access_token_expiration = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,34 +54,38 @@ namespace Infra.Data.Migrations
                 name: "Percurso",
                 columns: table => new
                 {
-                    id_condutor = table.Column<int>(type: "integer", nullable: false),
-                    id_veiculo = table.Column<int>(type: "integer", nullable: false),
-                    tipo = table.Column<char>(type: "character(1)", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    id_condutor = table.Column<Guid>(type: "uuid", nullable: true),
                     distancia_percurso = table.Column<int>(type: "integer", nullable: false),
                     data_inicio_percurso = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    data_fim_percurso = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    data_fim_percurso = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Percurso", x => new { x.id_condutor, x.id_veiculo });
+                    table.PrimaryKey("PK_Percurso", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Percurso_usuarios_UserId",
+                        column: x => x.UserId,
+                        principalTable: "usuarios",
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_Percurso_usuarios_id_condutor",
                         column: x => x.id_condutor,
                         principalTable: "usuarios",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Percurso_veiculos_id_veiculo",
-                        column: x => x.id_veiculo,
-                        principalTable: "veiculos",
-                        principalColumn: "id_veiculo",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Percurso_id_veiculo",
+                name: "IX_Percurso_id_condutor",
                 table: "Percurso",
-                column: "id_veiculo");
+                column: "id_condutor");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Percurso_UserId",
+                table: "Percurso",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -92,10 +95,10 @@ namespace Infra.Data.Migrations
                 name: "Percurso");
 
             migrationBuilder.DropTable(
-                name: "usuarios");
+                name: "veiculos");
 
             migrationBuilder.DropTable(
-                name: "veiculos");
+                name: "usuarios");
         }
     }
 }

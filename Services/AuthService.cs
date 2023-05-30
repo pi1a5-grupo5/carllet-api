@@ -28,8 +28,8 @@ namespace Services
         public async Task<string> GenerateAccessToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["JWT:Key"]);
-            var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Jwt:AccessTokenExpirationMinutes"]));
+            var key = Encoding.ASCII.GetBytes(_configuration["JWTKey"]);
+            var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["AccessTokenExpirationMinutes"]));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -62,7 +62,7 @@ namespace Services
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["JWT:Key"]);
-            var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["Jwt:RefreshTokenExpirationMinutes"]));
+            var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["RefreshTokenExpirationMinutes"]));
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {

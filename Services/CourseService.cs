@@ -18,14 +18,28 @@ namespace Services
         {
             _dbContext = dbContext;
         }
+
+        public async Task<List<Course>> GetByUserId(Guid driverId)
+        {
+            var courses =_dbContext.Course.Where(u => u.OwnerId == driverId).ToList();
+
+            if (courses == null || courses.Count == 0)
+            {
+                return null;
+            }
+
+            return courses;
+
+        }
+
         public async Task<Course> Register(Course course)
         {
 
             User user = _dbContext.User.FirstOrDefault(u => u.Id == course.OwnerId);
-            Vehicle vehicle = _dbContext.Vehicle.FirstOrDefault(v => v.Id == course.VehicleId);
+            // Vehicle vehicle = _dbContext.Vehicle.FirstOrDefault(v => v.Id == course.VehicleId);
 
             course.Owner = user;
-            course.Vehicle = vehicle;
+            // course.Vehicle = vehicle;
 
             var setCourse = _dbContext.Course.Add(course);
 
@@ -34,10 +48,12 @@ namespace Services
                 return null;
             }
 
-            vehicle.Odometer += course.CourseLength;
+            // vehicle.Odometer += course.CourseLength;
             _dbContext.SaveChanges();
 
             return course;
         }
+
+
     }
 }

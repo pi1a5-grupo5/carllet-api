@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 
@@ -6,7 +7,9 @@ namespace Domain.Entities
     [Table("veiculos")]
     public class Vehicle
     {
-        [Column("id_veiculo")]
+        [Key]
+        [Column("id_veiculo", Order = 1)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Column("marca")]
@@ -24,7 +27,7 @@ namespace Domain.Entities
         [Column("is_alugado")]
         public bool rented { get; set; }
 
-        public List<Course>? Courses { get; set; }  =  new List<Course>();
+        // public List<Course>? Courses { get; set; }  =  new List<Course>();
 
     }
 }
