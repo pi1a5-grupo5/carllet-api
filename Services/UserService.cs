@@ -2,6 +2,7 @@
 using Domain.Interfaces;
 using Infra.Data;
 using BCrypt.Net;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services
 {
@@ -15,9 +16,9 @@ namespace Services
             _authService = authService;
         }
 
-        public async Task<User> DeleteUser(int id)
+        public async Task<User> DeleteUser(Guid id)
         {
-            var user = _dbContext.User.Find(id);
+            var user = _dbContext.User.Where(u => u.Id == id).FirstOrDefault();
 
             if (user == null)
             {
@@ -46,7 +47,7 @@ namespace Services
             return users;
         }
 
-        public async Task<User> GetUser(int id)
+        public async Task<User> GetUser(Guid id)
         {
             var user = _dbContext.User.Find(id);
 
@@ -60,13 +61,18 @@ namespace Services
 
 
         public async Task<User> Register(User user)
-        { 
+        {
+            var userExist = _dbContext.User.FirstOrDefault(u => u.Email == user.Email);
+
+            if(userExist != null) 
+            {
+                return null;
+            }
+
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
 
             var setUser = _dbContext.User.Add(user);
             
-
-
             if(setUser == null)
             {
                 return null;
@@ -101,5 +107,73 @@ namespace Services
 
             return user;
         }
+
+        public async Task<User> Update(User user)
+        {
+            var updateUser = _dbContext.User.Where(u => u.Id == user.Id).FirstOrDefault();
+
+            if (updateUser != null)
+            {
+                // Atualize apenas os campos não nulos do novo objeto
+                if (!string.IsNullOrEmpty(user.Name))
+                {
+                    updateUser.Name = user.Name;
+                }
+
+                if (user.Cnh != null)
+                {
+                    updateUser.Cnh = user.Cnh;
+                }
+
+                if (!string.IsNullOrEmpty(user.Email))
+                {
+                    updateUser.Email = user.Email;
+                }
+                    
+                if (!string.IsNullOrEmpty(user.Password))
+                {
+                    updateUser.Password = user.Password;
+                }
+
+                if (user.Cellphone != null)
+                {
+                    updateUser.Cellphone = user.Cellphone;
+                }
+                    
+                if (user.DeviceId != null)
+                {
+                    updateUser.DeviceId = user.DeviceId;
+                }
+
+                if (user.RefreshToken != null)
+                {
+                    updateUser.RefreshToken = user.RefreshToken;
+                }
+
+                if (user.RefreshTokenExpiration != null)
+                {
+                    updateUser.RefreshTokenExpiration = user.RefreshTokenExpiration;
+                }
+
+                if (user.AccessToken != null)
+                {
+                    updateUser.AccessToken = user.AccessToken;
+                }
+
+                if (user.AccessTokenExpiration != null)
+                {
+                    updateUser.AccessTokenExpiration = user.AccessTokenExpiration;
+                }
+
+                // Salve as alterações no banco de dados
+                _dbContext.SaveChanges();
+                return updateUser;
+            }
+
+            return null;
+
+
+        }
     }
 }
+

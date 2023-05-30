@@ -53,7 +53,7 @@ namespace Application.Controllers
         ///     GET /User/{id}
         /// </remarks>
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetUser(int id)
+        public async Task<IActionResult> GetUser(Guid id)
         {
             var result = await _userService.GetUser(id);
 
@@ -83,6 +83,14 @@ namespace Application.Controllers
             return Ok(result);
         }
 
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> Put([FromBody] User user)
+        {
+            var result = await _userService.Update(user);
+
+            return Ok(result);
+        }
+
 
         /// <summary>
         ///     Deleta um usuária o partir do seu Id
@@ -95,7 +103,7 @@ namespace Application.Controllers
         ///
         /// </remarks>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
             var result = await _userService.DeleteUser(id);
 

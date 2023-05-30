@@ -61,7 +61,7 @@ namespace Services
         public async Task<string> GenerateRefreshToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["JWT:Key"]);
+            var key = Encoding.ASCII.GetBytes(_configuration["JWTKey"]);
             var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["RefreshTokenExpirationMinutes"]));
 
             var tokenDescriptor = new SecurityTokenDescriptor

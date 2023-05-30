@@ -22,10 +22,7 @@ namespace Domain.Entities
         public User? Owner { get; set; }
 
         [Column("distancia_percurso")]
-        public int CourseLength { get; set; }
-
-        [Column("data_inicio_percurso")]
-        public DateTime CourseStartTime { get; set; }
+        public float CourseLength { get; set; }
 
         [Column("data_fim_percurso")]
         public DateTime CourseEndTime { get; set; }

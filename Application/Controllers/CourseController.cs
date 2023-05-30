@@ -25,7 +25,7 @@ namespace Application.Controllers
             return Ok(result);
         }
 
-        [HttpGet("ByUserId/{id:int}")]
+        [HttpGet("ByUserId/{driverId:Guid}")]
         public async Task<IActionResult> GetByUserId(Guid driverId)
         {
             //course.OwnerId = HttpContext.Items["UserId"];
