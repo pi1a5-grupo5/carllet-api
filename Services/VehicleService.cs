@@ -55,7 +55,7 @@ namespace Services
             return vehicle;
         }
 
-        public Task<List<Vehicle>> GetVehicleByOwner(int userId)
+        public Task<List<Vehicle>> GetVehicleByOwner(Guid userId)
         {
             throw new NotImplementedException();
         }

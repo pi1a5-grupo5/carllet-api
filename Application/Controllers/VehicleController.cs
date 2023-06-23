@@ -27,12 +27,17 @@ namespace Application.Controllers
         /// </remarks>
         /// <returns>Lista de veículos</returns>
         /// <response code="200">Retorna a lista de veículos</response>
-        /// <response code="400">Se não houver veículos</response>
+        /// <response code="400">Se a lista de veiculos for nula</response>
         /// <response code="500">Se houver algum erro interno</response>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             var result = await _vehicleService.GetVehicleList();
+
+            if(result == null)
+            {
+                return NotFound();
+            }
 
             return Ok(result);
         }
@@ -46,7 +51,7 @@ namespace Application.Controllers
         /// </remarks>
         /// <returns>Veículo</returns>
         /// <response code="200">Retorna o veículo</response>
-        /// <response code="400">Se não houver veículo</response>
+        /// <response code="204">Se não houver veículo com esse ID</response>
         /// <response code="500">Se houver algum erro interno</response>
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetVehicle(int id)
@@ -65,12 +70,16 @@ namespace Application.Controllers
         /// </remarks>
         /// <returns>Lista de veículos</returns>
         /// <response code="200">Retorna a lista de veículos</response>
-        /// <response code="400">Se não houver veículos</response>
+        /// <response code="400">Se a lista de veículos for nula</response>
         /// <response code="500">Se houver algum erro interno</response>
-        [HttpGet("byOwner/")]
-        public async Task<IActionResult> GetVehicleByOwner(int ownerId)
+        [HttpGet("byOwner/{ownerId}")]
+        public async Task<IActionResult> GetVehicleByOwner(Guid ownerId)
         {
             var result = await _vehicleService.GetVehicleByOwner(ownerId);
+            
+            if(result == null)
+                return NotFound();
+
             return Ok(result);
         }
 

@@ -31,7 +31,7 @@ namespace Application.Controllers
     /// </remarks>
     /// <returns>Lista de usuários</returns>
     /// <response code="200">Retorna a lista de usuários</response>
-    /// <response code="400">Se não houver usuários</response>
+    /// <response code="400">Se a lista de usuário for nula</response>
     /// <response code="500">Se houver algum erro interno</response>
     [HttpGet]
     public async Task<IActionResult> Get()
@@ -44,16 +44,16 @@ namespace Application.Controllers
       return Ok(result);
     }
 
-    /// <summary>
-    ///     Autentica um usuário no sistema
-    /// </summary>
-    /// <returns>Retorna o usuário autenticado</returns>
-    /// <response code="200">Retorna o usuário autenticado</response>
-    /// <response code="400">Se o usuário não for encontrado</response>
-    /// <response code="500">Se houver algum erro interno</response>
+        /// <summary>
+        ///     Autentica um usuário no sistema
+        /// </summary>
+        /// <returns>Retorna o usuário autenticado</returns>
+        /// <response code="200">Retorna o usuário autenticado</response>
+        /// <response code="204">Se não houver usuários</response>
+        /// <response code="500">Se houver algum erro interno</response>
 
 
-    [HttpPost("Login")]
+        [HttpPost("Login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest model)
     {
       var result = await _userService.Login(model.Email, model.Password);
@@ -70,9 +70,9 @@ namespace Application.Controllers
     /// </remarks>
     /// <returns>Retorna o usuário</returns>
     /// <response code="200">Retorna o usuário</response>
-    /// <response code="400">Se o usuário não for encontrado</response>
+    /// <response code="204">Se o usuário não for encontrado</response>
     /// <response code="500">Se houver algum erro interno</response>
-    [HttpGet("{id:int}")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetUser(Guid id)
     {
       var result = await _userService.GetUser(id);
@@ -85,7 +85,6 @@ namespace Application.Controllers
     /// </summary>
     /// <returns>Retorna o usuário criado</returns>
     /// <response code="200">Retorna o usuário criado</response>
-    /// <response code="400">Se o usuário não for encontrado</response>
     /// <response code="500">Se houver algum erro interno</response>
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] NewUserRequest request)
@@ -124,7 +123,7 @@ namespace Application.Controllers
     /// </remarks>
     /// <returns>Retorna o usuário deletado</returns>
     /// <response code="200">Retorna o usuário deletado</response>
-    /// <response code="400">Se o usuário não for encontrado</response>
+    /// <response code="204">Se o usuário não for encontrado</response>
     /// <response code="500">Se houver algum erro interno</response>
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUser(Guid id)
