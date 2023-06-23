@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Requests.Vehicle;
+using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -17,6 +18,17 @@ namespace Application.Controllers
             _vehicleService = vehicleService;
         }
 
+        /// <summary>
+        ///     Retorna todos os veículos do sistema
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição
+        ///     GET /Vehicle
+        /// </remarks>
+        /// <returns>Lista de veículos</returns>
+        /// <response code="200">Retorna a lista de veículos</response>
+        /// <response code="400">Se não houver veículos</response>
+        /// <response code="500">Se houver algum erro interno</response>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -25,6 +37,17 @@ namespace Application.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        ///     Retorna um veículo do sistema
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição
+        ///     GET /Vehicle/1
+        /// </remarks>
+        /// <returns>Veículo</returns>
+        /// <response code="200">Retorna o veículo</response>
+        /// <response code="400">Se não houver veículo</response>
+        /// <response code="500">Se houver algum erro interno</response>
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetVehicle(int id)
         {
@@ -33,6 +56,17 @@ namespace Application.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        ///     Retorna os veículos de um proprietário
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição
+        ///     GET /Vehicle/byOwner/1
+        /// </remarks>
+        /// <returns>Lista de veículos</returns>
+        /// <response code="200">Retorna a lista de veículos</response>
+        /// <response code="400">Se não houver veículos</response>
+        /// <response code="500">Se houver algum erro interno</response>
         [HttpGet("byOwner/")]
         public async Task<IActionResult> GetVehicleByOwner(int ownerId)
         {
@@ -40,14 +74,45 @@ namespace Application.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        ///     Cria um veículo no sistema
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição
+        ///     POST /Vehicle
+        /// </remarks>
+        /// <returns>Veículo criado</returns>
+        /// <response code="200">Retorna o veículo criado</response>
+        /// <response code="400">Se não houver veículo</response>
+        /// <response code="500">Se houver algum erro interno</response>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Vehicle vehicle)
+        public async Task<IActionResult> Post([FromBody] NewVehicleRequest request)
         {
+            Vehicle vehicle = new Vehicle()
+            {
+                Brand = request.Brand,
+                Model = request.Model,
+                FabricationDate = request.FabricationYear,
+                Odometer = request.Odometer,
+                rented = request.Rented
+            };
+
             var result = await _vehicleService.CreateVehicle(vehicle);
 
             return Ok(result);
         }
 
+        /// <summary>
+        ///     Deleta um veículo no sistema
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de requisição
+        ///     DELETE /Vehicle/1
+        /// </remarks>
+        /// <returns>Veículo deletado</returns>
+        /// <response code="200">Retorna o veículo deletado</response>
+        /// <response code="400">Se não houver veículo</response>
+        /// <response code="500">Se houver algum erro interno</response>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehicle(int id)
         {

@@ -1,4 +1,4 @@
-﻿namespace Application.Requests
+﻿namespace Application.Requests.User
 {
     public class LoginRequest
     {
