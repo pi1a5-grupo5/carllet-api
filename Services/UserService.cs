@@ -110,69 +110,20 @@ namespace Services
 
         public async Task<User> Update(User user)
         {
-            var updateUser = _dbContext.User.Where(u => u.Id == user.Id).FirstOrDefault();
-
-            if (updateUser != null)
+            // Create an instance of the entity to be updated
+            var userToUpdate = _dbContext.User.Find(user.Id);
+            if (userToUpdate == null)
             {
-                // Atualize apenas os campos não nulos do novo objeto
-                if (!string.IsNullOrEmpty(user.Name))
-                {
-                    updateUser.Name = user.Name;
-                }
-
-                if (user.Cnh != null)
-                {
-                    updateUser.Cnh = user.Cnh;
-                }
-
-                if (!string.IsNullOrEmpty(user.Email))
-                {
-                    updateUser.Email = user.Email;
-                }
-                    
-                if (!string.IsNullOrEmpty(user.Password))
-                {
-                    updateUser.Password = user.Password;
-                }
-
-                if (user.Cellphone != null)
-                {
-                    updateUser.Cellphone = user.Cellphone;
-                }
-                    
-                if (user.DeviceId != null)
-                {
-                    updateUser.DeviceId = user.DeviceId;
-                }
-
-                if (user.RefreshToken != null)
-                {
-                    updateUser.RefreshToken = user.RefreshToken;
-                }
-
-                if (user.RefreshTokenExpiration != null)
-                {
-                    updateUser.RefreshTokenExpiration = user.RefreshTokenExpiration;
-                }
-
-                if (user.AccessToken != null)
-                {
-                    updateUser.AccessToken = user.AccessToken;
-                }
-
-                if (user.AccessTokenExpiration != null)
-                {
-                    updateUser.AccessTokenExpiration = user.AccessTokenExpiration;
-                }
-
-                // Salve as alterações no banco de dados
-                _dbContext.SaveChanges();
-                return updateUser;
+                  return null;
             }
 
-            return null;
+            // Copy the non-null properties from the incoming entity to the one in the db
+            _dbContext.Entry(userToUpdate).CurrentValues.SetValues(user);
+            await _dbContext.SaveChangesAsync();
 
+            userToUpdate.Password = "";
 
+            return userToUpdate;
         }
     }
 }
