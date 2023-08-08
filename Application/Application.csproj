@@ -10,6 +10,8 @@
   <GenerateDocumentationFile>true</GenerateDocumentationFile>
   <UserSecretsId>1cf0a6da-d22c-4eb9-88a8-2d9197b7ff82</UserSecretsId>
   <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  <DockerfileContext>.</DockerfileContext>
+  <DockerfileFile>..\Dockerfile</DockerfileFile>
 </PropertyGroup>
 
   <ItemGroup>
