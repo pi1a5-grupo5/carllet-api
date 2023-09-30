@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SonarProjectConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/analyzer/2021/1">
+  <AnalysisConfigPath>D:\_lab\carllet-mvp\.sonarqube\conf\SonarQubeAnalysisConfig.xml</AnalysisConfigPath>
+  <ProjectPath>D:\_lab\carllet-mvp\Tests\Tests.csproj</ProjectPath>
+  <FilesToAnalyzePath>D:\_lab\carllet-mvp\.sonarqube\conf\0\FilesToAnalyze.txt</FilesToAnalyzePath>
+  <OutPath>D:\_lab\carllet-mvp\.sonarqube\out\0</OutPath>
+  <ProjectType>Test</ProjectType>
+  <TargetFramework>net7.0</TargetFramework>
+</SonarProjectConfig>

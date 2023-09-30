@@ -1,0 +1,31 @@
+﻿D:\_lab\carllet-mvp\Application\ActionFilter\TokenValidationFilter.cs
+D:\_lab\carllet-mvp\Application\Controllers\CourseController.cs
+D:\_lab\carllet-mvp\Application\Controllers\EarningController.cs
+D:\_lab\carllet-mvp\Application\Controllers\HealthcheckController.cs
+D:\_lab\carllet-mvp\Application\Controllers\UserController.cs
+D:\_lab\carllet-mvp\Application\Controllers\VehicleController.cs
+D:\_lab\carllet-mvp\Application\Program.cs
+D:\_lab\carllet-mvp\Application\Requests\Course\NewCourseRequest.cs
+D:\_lab\carllet-mvp\Application\Requests\User\LoginRequest.cs
+D:\_lab\carllet-mvp\Application\Requests\User\NewUserRequest.cs
+D:\_lab\carllet-mvp\Application\Requests\Vehicle\NewVehicleRequest.cs
+D:\_lab\carllet-mvp\Application\obj\Debug\net7.0\Application.GlobalUsings.g.cs
+D:\_lab\carllet-mvp\Application\obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.cs
+D:\_lab\carllet-mvp\Application\obj\Debug\net7.0\Application.AssemblyInfo.cs
+D:\_lab\carllet-mvp\Application\appsettings.Development.json
+D:\_lab\carllet-mvp\Application\appsettings.json
+D:\_lab\carllet-mvp\Application\Properties\launchSettings.json
+D:\_lab\carllet-mvp\Application\Properties\serviceDependencies.Carllet-mvp - Zip Deploy.json
+D:\_lab\carllet-mvp\Application\Properties\serviceDependencies.CarlletDev - Zip Deploy.json
+D:\_lab\carllet-mvp\Application\Properties\serviceDependencies.json
+D:\_lab\carllet-mvp\Application\Properties\serviceDependencies.PocV2 - Zip Deploy.json
+D:\_lab\carllet-mvp\Application\Properties\ServiceDependencies\Carllet-mvp - Zip Deploy\apis1.arm.json
+D:\_lab\carllet-mvp\Application\Properties\ServiceDependencies\Carllet-mvp - Zip Deploy\profile.arm.json
+D:\_lab\carllet-mvp\Application\Properties\ServiceDependencies\CarlletDev - Zip Deploy\apis1.arm.json
+D:\_lab\carllet-mvp\Application\Properties\ServiceDependencies\CarlletDev - Zip Deploy\profile.arm.json
+D:\_lab\carllet-mvp\Application\Properties\ServiceDependencies\PocV2 - Zip Deploy\apis1.arm.json
+D:\_lab\carllet-mvp\Application\Properties\ServiceDependencies\PocV2 - Zip Deploy\profile.arm.json
+D:\_lab\carllet-mvp\Application\Properties\PublishProfiles\Carllet-mvp - Zip Deploy.pubxml
+D:\_lab\carllet-mvp\Application\Properties\PublishProfiles\CarlletDev - Zip Deploy.pubxml
+D:\_lab\carllet-mvp\Application\Properties\PublishProfiles\PocV2 - Zip Deploy.pubxml
+D:\_lab\carllet-mvp\.dockerignore

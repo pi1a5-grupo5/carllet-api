@@ -1,7 +1,6 @@
-﻿using Domain.Entities;
+﻿using Domain.Entities.Vehicle;
 using Domain.Interfaces;
 using Infra.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace Services
 {

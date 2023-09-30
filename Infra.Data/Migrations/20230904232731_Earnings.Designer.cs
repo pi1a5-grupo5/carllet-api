@@ -12,18 +12,44 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infra.Data.Migrations
 {
     [DbContext(typeof(CarlletDbContext))]
-    [Migration("20230530041952_init_db")]
-    partial class init_db
+    [Migration("20230904232731_Earnings")]
+    partial class Earnings
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Domain.Entities.Budget.Earning", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id_ganho");
+
+                    b.Property<double>("EarningValue")
+                        .HasColumnType("double precision")
+                        .HasColumnName("valor_ganho");
+
+                    b.Property<DateTime>("InsertionDateTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("dt_hr_insercao_ganho");
+
+                    b.Property<Guid?>("OwnerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id_condutor_ganho");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Ganho");
+                });
 
             modelBuilder.Entity("Domain.Entities.Course", b =>
                 {
@@ -36,13 +62,9 @@ namespace Infra.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("data_fim_percurso");
 
-                    b.Property<int>("CourseLength")
-                        .HasColumnType("integer")
+                    b.Property<float>("CourseLength")
+                        .HasColumnType("real")
                         .HasColumnName("distancia_percurso");
-
-                    b.Property<DateTime>("CourseStartTime")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("data_inicio_percurso");
 
                     b.Property<Guid?>("OwnerId")
                         .HasColumnType("uuid")
@@ -115,7 +137,7 @@ namespace Infra.Data.Migrations
                     b.ToTable("usuarios");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Vehicle", b =>
+            modelBuilder.Entity("Domain.Entities.Vehicle.Vehicle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -150,6 +172,16 @@ namespace Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("veiculos");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Budget.Earning", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("Domain.Entities.Course", b =>

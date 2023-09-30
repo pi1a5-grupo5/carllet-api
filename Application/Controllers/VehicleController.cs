@@ -1,8 +1,7 @@
 ﻿using Application.Requests.Vehicle;
-using Domain.Entities;
+using Domain.Entities.Vehicle;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Services;
 
 namespace Application.Controllers
 {
@@ -34,7 +33,7 @@ namespace Application.Controllers
         {
             var result = await _vehicleService.GetVehicleList();
 
-            if(result == null)
+            if (result == null)
             {
                 return NotFound();
             }
@@ -76,8 +75,8 @@ namespace Application.Controllers
         public async Task<IActionResult> GetVehicleByOwner(Guid ownerId)
         {
             var result = await _vehicleService.GetVehicleByOwner(ownerId);
-            
-            if(result == null)
+
+            if (result == null)
                 return NotFound();
 
             return Ok(result);

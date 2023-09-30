@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -7,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infra.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class init_db : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,8 +55,7 @@ namespace Infra.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     id_condutor = table.Column<Guid>(type: "uuid", nullable: true),
-                    distancia_percurso = table.Column<int>(type: "integer", nullable: false),
-                    data_inicio_percurso = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    distancia_percurso = table.Column<float>(type: "real", nullable: false),
                     data_fim_percurso = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: true)
                 },

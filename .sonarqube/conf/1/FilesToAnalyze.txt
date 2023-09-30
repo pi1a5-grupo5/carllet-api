@@ -1,0 +1,14 @@
+﻿D:\_lab\carllet-mvp\Domain\Entities\Budget\Earning.cs
+D:\_lab\carllet-mvp\Domain\Entities\Budget\Expense.cs
+D:\_lab\carllet-mvp\Domain\Entities\Budget\ExpenseType.cs
+D:\_lab\carllet-mvp\Domain\Entities\Budget\Goal.cs
+D:\_lab\carllet-mvp\Domain\Entities\Course.cs
+D:\_lab\carllet-mvp\Domain\Entities\User.cs
+D:\_lab\carllet-mvp\Domain\Entities\Vehicle\Vehicle.cs
+D:\_lab\carllet-mvp\Domain\Entities\Vehicle\VehicleBrand.cs
+D:\_lab\carllet-mvp\Domain\Entities\Vehicle\VehicleType.cs
+D:\_lab\carllet-mvp\Domain\Interfaces\IAuthService.cs
+D:\_lab\carllet-mvp\Domain\Interfaces\ICourseService.cs
+D:\_lab\carllet-mvp\Domain\Interfaces\IEarningService.cs
+D:\_lab\carllet-mvp\Domain\Interfaces\IUserService.cs
+D:\_lab\carllet-mvp\Domain\Interfaces\IVehicleService.cs

@@ -1,8 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using Infra.Data;
-using BCrypt.Net;
-using Microsoft.EntityFrameworkCore;
 
 namespace Services
 {
@@ -31,7 +29,7 @@ namespace Services
             user.Password = "";
 
             return user;
-            
+
         }
 
         public async Task<List<User>> GetUserList()
@@ -64,7 +62,7 @@ namespace Services
         {
             var userExist = _dbContext.User.FirstOrDefault(u => u.Email == user.Email);
 
-            if(userExist != null) 
+            if (userExist != null)
             {
                 return null;
             }
@@ -72,8 +70,8 @@ namespace Services
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
 
             var setUser = _dbContext.User.Add(user);
-            
-            if(setUser == null)
+
+            if (setUser == null)
             {
                 return null;
             }
@@ -98,7 +96,7 @@ namespace Services
 
             bool correctPassword = BCrypt.Net.BCrypt.Verify(password, user.Password);
 
-            if(!correctPassword)
+            if (!correctPassword)
             {
                 return null;
             }
@@ -114,7 +112,7 @@ namespace Services
             var userToUpdate = _dbContext.User.Find(user.Id);
             if (userToUpdate == null)
             {
-                  return null;
+                return null;
             }
 
             // Copy the non-null properties from the incoming entity to the one in the db
