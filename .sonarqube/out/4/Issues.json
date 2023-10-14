@@ -1,0 +1,1348 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "4.4.0.0",
+        "fileVersion": "4.4.0-6.22565.8 (53091686)",
+        "semanticVersion": "4.4.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Brand' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/Vehicle/NewVehicleRequest.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 23,
+                  "endLine": 5,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/Vehicle/NewVehicleRequest.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 23,
+                  "endLine": 5,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Model' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/Vehicle/NewVehicleRequest.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/Vehicle/NewVehicleRequest.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Email' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/LoginRequest.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 23,
+                  "endLine": 5,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/LoginRequest.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 23,
+                  "endLine": 5,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Password' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/LoginRequest.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/LoginRequest.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/NewUserRequest.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 23,
+                  "endLine": 5,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/NewUserRequest.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 23,
+                  "endLine": 5,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Email' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/NewUserRequest.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/NewUserRequest.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Password' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/NewUserRequest.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/NewUserRequest.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'DeviceId' must contain a non-null value when exiting constructor. Consider declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/NewUserRequest.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 23,
+                  "endLine": 8,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/NewUserRequest.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 23,
+                  "endLine": 8,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'TokenValidationFilter'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/ActionFilter/TokenValidationFilter.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 18,
+                  "endLine": 6,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'TokenValidationFilter.OnActionExecuted(ActionExecutedContext)'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/ActionFilter/TokenValidationFilter.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 21,
+                  "endLine": 8,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'TokenValidationFilter.OnActionExecuting(ActionExecutingContext)'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/ActionFilter/TokenValidationFilter.cs",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 21,
+                  "endLine": 29,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'CourseController'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/CourseController.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 18,
+                  "endLine": 10,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'CourseController.CourseController(ICourseService)'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/CourseController.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 16,
+                  "endLine": 14,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'EarningController'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/EarningController.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 18,
+                  "endLine": 12,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'EarningController.EarningController(IEarningService)'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/EarningController.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 16,
+                  "endLine": 16,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'EarningController.GetEarning(Guid)'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/EarningController.cs",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 42,
+                  "endLine": 22,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'EarningController.Post(Earning)'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/EarningController.cs",
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 42,
+                  "endLine": 35,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'HealthcheckController'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/HealthcheckController.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 18,
+                  "endLine": 7,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'HealthcheckController.Get()'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/HealthcheckController.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 30,
+                  "endLine": 10,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'UserController'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/UserController.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 18,
+                  "endLine": 11,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'UserController.UserController(IUserService)'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/UserController.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 16,
+                  "endLine": 16,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'VehicleController'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/VehicleController.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 18,
+                  "endLine": 11,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'VehicleController.VehicleController(IVehicleService)'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/VehicleController.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 16,
+                  "endLine": 15,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewCourseRequest'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/Course/NewCourseRequest.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 18,
+                  "endLine": 3,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewCourseRequest.OwnerId'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/Course/NewCourseRequest.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 22,
+                  "endLine": 5,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewCourseRequest.CourseLength'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/Course/NewCourseRequest.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 22,
+                  "endLine": 6,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewCourseRequest.CourseEndTime'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/Course/NewCourseRequest.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 25,
+                  "endLine": 7,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'LoginRequest'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/LoginRequest.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 18,
+                  "endLine": 3,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'LoginRequest.Email'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/LoginRequest.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 23,
+                  "endLine": 5,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'LoginRequest.Password'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/LoginRequest.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewUserRequest'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/NewUserRequest.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 18,
+                  "endLine": 3,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewUserRequest.Name'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/NewUserRequest.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 23,
+                  "endLine": 5,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewUserRequest.Email'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/NewUserRequest.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewUserRequest.Password'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/NewUserRequest.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewUserRequest.DeviceId'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/User/NewUserRequest.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 23,
+                  "endLine": 8,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewVehicleRequest'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/Vehicle/NewVehicleRequest.cs",
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 18,
+                  "endLine": 3,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewVehicleRequest.Brand'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/Vehicle/NewVehicleRequest.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 23,
+                  "endLine": 5,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewVehicleRequest.Model'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/Vehicle/NewVehicleRequest.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewVehicleRequest.FabricationYear'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/Vehicle/NewVehicleRequest.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 22,
+                  "endLine": 7,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewVehicleRequest.Odometer'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/Vehicle/NewVehicleRequest.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 20,
+                  "endLine": 8,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NewVehicleRequest.Rented'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Requests/Vehicle/NewVehicleRequest.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 21,
+                  "endLine": 9,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/CourseController.cs",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 13,
+                  "endLine": 39,
+                  "endColumn": 60
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/CourseController.cs",
+                "region": {
+                  "startLine": 58,
+                  "startColumn": 13,
+                  "endLine": 58,
+                  "endColumn": 60
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Program.cs",
+                "region": {
+                  "startLine": 54,
+                  "startColumn": 1,
+                  "endLine": 54,
+                  "endColumn": 4
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Program.cs",
+                "region": {
+                  "startLine": 57,
+                  "startColumn": 1,
+                  "endLine": 57,
+                  "endColumn": 4
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Program.cs",
+                "region": {
+                  "startLine": 63,
+                  "startColumn": 1,
+                  "endLine": 63,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Program.cs",
+                "region": {
+                  "startLine": 67,
+                  "startColumn": 1,
+                  "endLine": 67,
+                  "endColumn": 17
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S2068",
+          "level": "warning",
+          "message": "\"password\" detected here, make sure this is not a hard-coded credential.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/appsettings.json",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 16,
+                  "endLine": 11,
+                  "endColumn": 157
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1144",
+          "level": "warning",
+          "message": "Remove the unused private field 'WorkFactor'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Controllers/UserController.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 9,
+                  "endLine": 14,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S3626",
+          "level": "warning",
+          "message": "Remove this redundant jump.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/ActionFilter/TokenValidationFilter.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 17,
+                  "endLine": 23,
+                  "endColumn": 24
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1075",
+          "level": "warning",
+          "message": "Refactor your code not to use hardcoded absolute paths or URIs.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Program.cs",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 34,
+                  "endLine": 31,
+                  "endColumn": 61
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1075",
+          "level": "warning",
+          "message": "Refactor your code not to use hardcoded absolute paths or URIs.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Program.cs",
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 27,
+                  "endLine": 35,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1075",
+          "level": "warning",
+          "message": "Refactor your code not to use hardcoded absolute paths or URIs.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/_lab/carllet-mvp/Application/Program.cs",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 27,
+                  "endLine": 40,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "CS1591": {
+          "id": "CS1591",
+          "shortDescription": "Missing XML comment for publicly visible type or member",
+          "fullDescription": "The /doc compiler option was specified, but one or more constructs did not have comments.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS1591)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8618": {
+          "id": "CS8618",
+          "shortDescription": "Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8618)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "S1075": {
+          "id": "S1075",
+          "shortDescription": "URIs should not be hardcoded",
+          "fullDescription": "Hardcoding a URI makes it difficult to test a program: path literals are not always portable across operating systems, a given absolute path may not exist on a specific test environment, a specified Internet URL may not be available when executing the tests, production environment filesystems usually differ from the development environment, …​etc. For all those reasons, a URI should never be hardcoded. Instead, it should be replaced by customizable parameter.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1075",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1144": {
+          "id": "S1144",
+          "shortDescription": "Unused private types or members should be removed",
+          "fullDescription": "private or internal types or private members that are never executed or referenced are dead code: unnecessary, inoperative code that should be removed. Cleaning out dead code decreases the size of the maintained codebase, making it easier to understand the program and preventing bugs from being introduced.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1144",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S125": {
+          "id": "S125",
+          "shortDescription": "Sections of code should not be commented out",
+          "fullDescription": "Programmers should not comment out code as it bloats programs and reduces readability.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-125",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2068": {
+          "id": "S2068",
+          "shortDescription": "Hard-coded credentials are security-sensitive",
+          "fullDescription": "Because it is easy to extract strings from an application source code or binary, credentials should not be hard-coded. This is particularly true for applications that are distributed or that are open-source.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2068",
+          "properties": {
+            "category": "Blocker Security Hotspot",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S3626": {
+          "id": "S3626",
+          "shortDescription": "Jump statements should not be redundant",
+          "fullDescription": "Jump statements, such as return, yield break, goto, and continue let you change the default flow of program execution, but jump statements that direct the control flow to the original direction are just a waste of keystrokes.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3626",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

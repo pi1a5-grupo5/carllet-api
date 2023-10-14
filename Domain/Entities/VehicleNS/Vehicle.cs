@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Domain.Entities
+namespace Domain.Entities.VehicleNS
 
 {
     [Table("veiculos")]
@@ -10,13 +10,12 @@ namespace Domain.Entities
         [Key]
         [Column("id_veiculo", Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        [Column("marca")]
-        public string Brand { get; set; }
+        public Guid VehicleId { get; set; }
 
         [Column("modelo")]
-        public string Model { get; set; }
+        public int VehicleTypeId { get; set; }
+
+        public VehicleType VehicleType { get; set; }
 
         [Column("ano_fabricacao")]
         public short FabricationDate { get; set; }
@@ -25,9 +24,9 @@ namespace Domain.Entities
         public int Odometer { get; set; }
 
         [Column("is_alugado")]
-        public bool rented { get; set; }
+        public bool Rented { get; set; }
 
-        // public List<Course>? Courses { get; set; }  =  new List<Course>();
+        public List<UserVehicle>? UserVehicles { get; set; }
 
     }
 }

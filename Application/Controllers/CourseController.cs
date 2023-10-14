@@ -2,7 +2,6 @@
 using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Services;
 
 namespace Application.Controllers
 {
@@ -10,13 +9,13 @@ namespace Application.Controllers
     [ApiController]
     public class CourseController : ControllerBase
     {
-            private readonly ICourseService _courseService;
+        private readonly ICourseService _courseService;
 
-            public CourseController(ICourseService courseService)
-            {
-                _courseService = courseService;
-            }
-        
+        public CourseController(ICourseService courseService)
+        {
+            _courseService = courseService;
+        }
+
         /// <summary>
         /// Registra um novo percurso
         /// </summary>
@@ -33,8 +32,7 @@ namespace Application.Controllers
             Course course = new Course()
             {
                 CourseEndTime = request.CourseEndTime,
-                CourseLength = request.CourseLength,
-                OwnerId = request.OwnerId,
+                CourseLength = request.CourseLength
             };
 
             //course.OwnerId = HttpContext.Items["UserId"];

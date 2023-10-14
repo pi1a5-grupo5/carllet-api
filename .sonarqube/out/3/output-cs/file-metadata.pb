@@ -1,0 +1,9 @@
+4
++D:\_lab\carllet-mvp\Services\AuthService.csutf-86
+-D:\_lab\carllet-mvp\Services\CourseService.csutf-87
+.D:\_lab\carllet-mvp\Services\EarningService.csutf-84
++D:\_lab\carllet-mvp\Services\UserService.csutf-87
+.D:\_lab\carllet-mvp\Services\VehicleService.csutf-8S
+HD:\_lab\carllet-mvp\Services\obj\Debug\net7.0\Services.GlobalUsings.g.csutf-8g
+\D:\_lab\carllet-mvp\Services\obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.csutf-8Q
+FD:\_lab\carllet-mvp\Services\obj\Debug\net7.0\Services.AssemblyInfo.csutf-8
