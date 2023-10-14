@@ -32,8 +32,7 @@ namespace Application.Controllers
             Course course = new Course()
             {
                 CourseEndTime = request.CourseEndTime,
-                CourseLength = request.CourseLength,
-                OwnerId = request.OwnerId,
+                CourseLength = request.CourseLength
             };
 
             //course.OwnerId = HttpContext.Items["UserId"];

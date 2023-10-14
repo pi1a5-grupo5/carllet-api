@@ -13,6 +13,13 @@
   <DockerfileContext>.</DockerfileContext>
   <DockerfileFile>..\Dockerfile</DockerfileFile>
 </PropertyGroup>
+	
+<ItemGroup>
+  <Compile Remove="AutoMapper\**" />
+  <Content Remove="AutoMapper\**" />
+  <EmbeddedResource Remove="AutoMapper\**" />
+  <None Remove="AutoMapper\**" />
+</ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
@@ -31,10 +38,6 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infra.Data\Infra.Data.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="AutoMapper\" />
   </ItemGroup>
 
 </Project>

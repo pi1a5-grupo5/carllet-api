@@ -8,7 +8,7 @@ namespace Domain.Entities.Budget.Expenses
 {
     public class MaintenanceExpenseType
     {
-        public int MaintenanceTypeId { get; set; }
+        public int MaintenanceExpenseTypeId { get; set; }
         public string MaintenanceName { get; set; }
     }
 }

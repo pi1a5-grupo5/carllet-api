@@ -10,7 +10,7 @@ namespace Domain.Entities.VehicleNS
         [Key]
         [Column("id_veiculo", Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int VehicleId { get; set; }
+        public Guid VehicleId { get; set; }
 
         [Column("modelo")]
         public int VehicleTypeId { get; set; }

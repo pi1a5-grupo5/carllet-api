@@ -7,6 +7,7 @@ namespace Domain.Interfaces
     {
         Task<string> GenerateAccessToken(User user);
         Task<string> GenerateRefreshToken(User user);
-        Task<int?> ValidateToken(string token);
+        Task<string> GenerateVerificationToken(User user);
+        Guid ValidateToken(string token);
     }
 }

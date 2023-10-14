@@ -7,11 +7,13 @@ namespace Services
     public class UserService : IUserService
     {
         private readonly CarlletDbContext _dbContext;
-        private IAuthService _authService;
-        public UserService(CarlletDbContext dbContext, IAuthService authService)
+        private readonly IAuthService _authService;
+        private readonly IEmailService _emailService;
+        public UserService(CarlletDbContext dbContext, IAuthService authService, IEmailService emailService)
         {
             _dbContext = dbContext;
             _authService = authService;
+            _emailService = emailService;
         }
 
         public async Task<User> DeleteUser(Guid id)
@@ -68,6 +70,7 @@ namespace Services
             }
 
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            user.Verified = false;
 
             var setUser = _dbContext.User.Add(user);
 
@@ -80,10 +83,36 @@ namespace Services
 
             user.AccessToken = await _authService.GenerateAccessToken(user);
             user.RefreshToken = await _authService.GenerateRefreshToken(user);
+            user.VerificationToken = await _authService.GenerateVerificationToken(user);
+
+
+            _emailService.SendConfirmationEmail(user);
 
             user.Password = null;
 
             return user;
+        }
+
+        public async void VerifyEmail(string verificationToken)
+        {
+            var verifiedUser = _dbContext.User.SingleOrDefault(vu => vu.VerificationToken == verificationToken);
+
+            if (verifiedUser == null)
+            {
+                return;
+            }
+
+            if(verifiedUser.VerificationTokenExpiration < DateTime.UtcNow)
+            {
+                return;
+            }
+
+            verifiedUser.Verified= true;
+            verifiedUser.VerificationToken = null;
+
+            _dbContext.Update(verifiedUser);
+
+            _dbContext.SaveChanges();
         }
         public async Task<User> Login(string email, string password)
         {
@@ -122,6 +151,38 @@ namespace Services
             userToUpdate.Password = "";
 
             return userToUpdate;
+        }
+
+        public void ForgotPassword(string email)
+        {
+            var userExist = _dbContext.User.FirstOrDefault(u => u.Email == email);
+
+            if(userExist == null)
+            {
+                return;
+            }
+
+            userExist.ResetPasswordToken = Guid.NewGuid().ToString();
+            userExist.ResetPassword = true;
+            userExist.ResetPasswordTokenExpiration = DateTime.UtcNow.AddMinutes(15.0);
+            _emailService.SendResetPasswordEmail(userExist);
+        }
+
+        public void ResetPassword(User user)
+        {
+            var userExist = _dbContext.User.FirstOrDefault(u => u.ResetPasswordToken == user.ResetPasswordToken);
+
+            if(userExist == null || DateTime.UtcNow > userExist.ResetPasswordTokenExpiration)
+            {
+                return;
+            }
+
+            userExist.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            userExist.ResetPassword = false;
+            userExist.ResetPasswordToken = "";
+            userExist.ResetPasswordTokenExpiration = null;
+
+           _dbContext.Update(userExist);
         }
     }
 }

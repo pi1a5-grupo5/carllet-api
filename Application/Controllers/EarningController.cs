@@ -1,6 +1,6 @@
 ﻿using Application.Requests.Vehicle;
 using Domain.Entities.Budget;
-using Domain.Entities.Vehicle;
+using Domain.Entities.VehicleNS;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Services;

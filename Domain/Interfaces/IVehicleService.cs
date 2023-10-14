@@ -1,6 +1,6 @@
 ﻿
 
-using Domain.Entities.Vehicle;
+using Domain.Entities.VehicleNS;
 
 namespace Domain.Interfaces
 {

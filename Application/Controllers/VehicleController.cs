@@ -1,5 +1,5 @@
 ﻿using Application.Requests.Vehicle;
-using Domain.Entities.Vehicle;
+using Domain.Entities.VehicleNS;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -98,11 +98,8 @@ namespace Application.Controllers
         {
             Vehicle vehicle = new Vehicle()
             {
-                Brand = request.Brand,
-                Model = request.Model,
                 FabricationDate = request.FabricationYear,
                 Odometer = request.Odometer,
-                rented = request.Rented
             };
 
             var result = await _vehicleService.CreateVehicle(vehicle);

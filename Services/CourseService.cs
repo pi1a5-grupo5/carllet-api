@@ -15,13 +15,13 @@ namespace Services
 
         public async Task<List<Course>> GetByUserId(Guid driverId)
         {
-            var courses = _dbContext.Course.Where(u => u.OwnerId == driverId).ToList();
+            var courses = _dbContext.Course.Where(c => c.UserVehicle.UserId == driverId).ToList();
 
             if (courses == null || courses.Count == 0)
             {
                 return null;
             }
-
+                
             return courses;
 
         }
@@ -29,9 +29,9 @@ namespace Services
         public async Task<Course> Register(Course course)
         {
 
-            User user = _dbContext.User.FirstOrDefault(u => u.Id == course.OwnerId);
+            UserVehicle userVehicle = _dbContext.UserVehicles.FirstOrDefault(uv => uv.Id == course.UserVehicleId);
 
-            course.Owner = user;
+            course.UserVehicle = userVehicle;
 
             var setCourse = _dbContext.Course.Add(course);
 

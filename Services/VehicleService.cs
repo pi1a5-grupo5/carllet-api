@@ -1,4 +1,4 @@
-﻿using Domain.Entities.Vehicle;
+﻿using Domain.Entities.VehicleNS;
 using Domain.Interfaces;
 using Infra.Data;
 

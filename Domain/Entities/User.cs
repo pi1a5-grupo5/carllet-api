@@ -1,5 +1,5 @@
 ﻿using Domain.Entities.Budget;
-using Domain.Entities.Vehicle;
+using Domain.Entities.VehicleNS;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -31,6 +31,24 @@ namespace Domain.Entities
 
         [Column("deviceid")]
         public string? DeviceId { get; set; }
+
+        [Column("reset_password")]
+        public Boolean ResetPassword { get; set; }
+
+        [Column("reset_password_token")]
+        public string? ResetPasswordToken { get; set; }
+
+        [Column("reset_password_token_expiration")]
+        public DateTime? ResetPasswordTokenExpiration { get; set; }
+
+        [Column("verified")]
+        public Boolean Verified { get; set; }
+
+        [Column("verification_token")]
+        public string? VerificationToken { get; set; }
+
+        [Column("verificationh_token_expiration")]
+        public DateTime? VerificationTokenExpiration { get; set; }
 
         [Column("refresh_token")]
         public string? RefreshToken { get; set; }

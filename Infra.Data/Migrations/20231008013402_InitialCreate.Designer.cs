@@ -3,6 +3,7 @@ using System;
 using Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infra.Data.Migrations
 {
     [DbContext(typeof(CarlletDbContext))]
-    partial class CarlletDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231008013402_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,18 +212,6 @@ namespace Infra.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("refresh_token_expiration");
 
-                    b.Property<bool>("ResetPassword")
-                        .HasColumnType("boolean")
-                        .HasColumnName("reset_password");
-
-                    b.Property<string>("ResetPasswordToken")
-                        .HasColumnType("text")
-                        .HasColumnName("reset_password_token");
-
-                    b.Property<DateTime?>("ResetPasswordTokenExpiration")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("reset_password_token_expiration");
-
                     b.Property<string>("VerificationToken")
                         .HasColumnType("text")
                         .HasColumnName("verification_token");
@@ -228,10 +219,6 @@ namespace Infra.Data.Migrations
                     b.Property<DateTime?>("VerificationTokenExpiration")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("verificationh_token_expiration");
-
-                    b.Property<bool>("Verified")
-                        .HasColumnType("boolean")
-                        .HasColumnName("verified");
 
                     b.HasKey("Id");
 

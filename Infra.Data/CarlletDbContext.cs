@@ -25,9 +25,6 @@ namespace Infra.Data
         {
             #region UserVehicle relations
             modelBuilder.Entity<UserVehicle>()
-                .HasKey(uv => new { uv.UserId, uv.VehicleId });
-
-            modelBuilder.Entity<UserVehicle>()
                 .HasOne<User>(uv => uv.User)
                 .WithMany(u => u.UserVehicles)
                 .HasForeignKey(uv => uv.UserId);

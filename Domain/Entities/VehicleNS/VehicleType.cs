@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Domain.Entities.VehicleNS
 {
     [Table("modelo")]
-    public class VehicleType
+    public class VehicleType 
     {
         [Key]
         [Column("id_modelo", Order = 1)]
@@ -16,7 +16,7 @@ namespace Domain.Entities.VehicleNS
         public string Name { get; set; }
 
         [Column("id_marca")]
-        public string VehicleBrandId { get; set; }
+        public int VehicleBrandId { get; set; }
 
         public VehicleBrand VehicleBrand { get; set; }
         public List<Vehicle>? Vehicles { get; set; }

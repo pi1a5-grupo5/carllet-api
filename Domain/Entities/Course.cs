@@ -8,11 +8,9 @@ namespace Domain.Entities
     {
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Id")]
         public Guid Id { get; set; }
 
         [ForeignKey("id")]
-        [Column("id_condutor")]
         public Guid UserVehicleId { get; set; }
         public UserVehicle UserVehicle { get; set; }
 

@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Services;
 
 namespace Application.Controllers
 {
@@ -11,11 +12,13 @@ namespace Application.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IEmailService _emailService;
         private const int WorkFactor = 8;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IEmailService emailService)
         {
             _userService = userService;
+            _emailService = emailService;
         }
 
         /// <summary>
@@ -97,6 +100,29 @@ namespace Application.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("verificationToken/{verificationToken}")]
+        public async Task<IActionResult> VerifyEmail(string verificationToken)
+        {
+           _userService.VerifyEmail(verificationToken);
+
+            return Ok();
+        }
+
+        [HttpGet("forgotPassword/{email}")]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            _userService.ForgotPassword(email);
+            return Ok();
+        }
+
+       [HttpPost("ResetPassword/{resetToken}")]
+       public async Task<IActionResult> ResetPassword(User user)
+        {
+            _userService.ResetPassword(user);
+            return Ok();
+        }
+
 
         /// <summary>
         ///     Altera os dados de um usuário

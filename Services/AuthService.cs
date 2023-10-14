@@ -12,7 +12,7 @@ namespace Services
     public class AuthService : IAuthService
     {
         private readonly IConfiguration _configuration;
-        private CarlletDbContext _dbContext;
+        private readonly CarlletDbContext _dbContext;
 
         public AuthService(IConfiguration configuration, CarlletDbContext dbContext)
         {
@@ -86,10 +86,28 @@ namespace Services
             return updateUser.RefreshToken;
         }
 
-        public async Task<int?> ValidateToken(string token)
+        public async Task<string> GenerateVerificationToken(User user)
+        {
+            var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["RefreshTokenExpirationMinutes"]));
+            string verificationToken = Guid.NewGuid().ToString();
+            var updateUser = _dbContext.User.SingleOrDefault(u => u.Id == user.Id);
+
+            if (updateUser == null)
+            {
+                return null;
+            }
+
+            updateUser.VerificationToken = verificationToken;
+            updateUser.VerificationTokenExpiration = expires;
+            _dbContext.SaveChanges();
+
+            return updateUser.VerificationToken;
+        }
+
+        Guid IAuthService.ValidateToken(string token)
         {
             if (token == null)
-                return null;
+                return Guid.Empty;
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"]);
@@ -105,13 +123,13 @@ namespace Services
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+                var userId = Guid.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
 
                 return userId;
             }
             catch
             {
-                return null;
+                return Guid.Empty;
             }
         }
     }
