@@ -13,6 +13,11 @@ namespace Services
             _dbContext = dbContext;
         }
 
+        public Task<Course> Delete(Course course)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<Course>> GetByUserId(Guid driverId)
         {
             var courses = _dbContext.Course.Where(c => c.UserVehicle.UserId == driverId).ToList();
@@ -24,6 +29,11 @@ namespace Services
                 
             return courses;
 
+        }
+
+        public Task<List<Course>> GetByUserId(Guid driver, DateTime StartSearch, DateTime EndSearch)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<Course> Register(Course course)
@@ -45,6 +55,9 @@ namespace Services
             return course;
         }
 
-
+        public Task<Course> Update(Course course)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Application.Requests.Vehicle
+﻿namespace Application.ViewModels.Vehicle
 {
     public class NewVehicleRequest
     {

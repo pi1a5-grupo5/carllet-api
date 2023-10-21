@@ -1,20 +1,27 @@
-﻿using Application.Requests.Vehicle;
+﻿using Application.ViewModels.Vehicle;
+using AutoMapper;
+using Domain.Entities;
 using Domain.Entities.VehicleNS;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Services;
 
 namespace Application.Controllers
 {
 
     [Route("api/[controller]")]
     [ApiController]
-    public class VehicleController : ControllerBase
+    public class VehicleController : HomeController
     {
         private readonly IVehicleService _vehicleService;
+        private readonly IUserVehicleService _userVehicleService;
+        private readonly IMapper _mapper;
 
-        public VehicleController(IVehicleService vehicleService)
+        public VehicleController(IVehicleService vehicleService, IMapper mapper, IUserVehicleService userVehicleService)
         {
             _vehicleService = vehicleService;
+            _userVehicleService = userVehicleService;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -28,18 +35,19 @@ namespace Application.Controllers
         /// <response code="200">Retorna a lista de veículos</response>
         /// <response code="400">Se a lista de veiculos for nula</response>
         /// <response code="500">Se houver algum erro interno</response>
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var result = await _vehicleService.GetVehicleList();
+        //[HttpGet]
+        //public async Task<IActionResult> Get()
+        //{
+        //    var result = await _vehicleService.GetVehicleList();
 
-            if (result == null)
-            {
-                return NotFound();
-            }
 
-            return Ok(result);
-        }
+        //    if (result == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(result);
+        //}
 
         /// <summary>
         ///     Retorna um veículo do sistema
@@ -96,14 +104,11 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] NewVehicleRequest request)
         {
-            Vehicle vehicle = new Vehicle()
-            {
-                FabricationDate = request.FabricationYear,
-                Odometer = request.Odometer,
-            };
+            var vehicle = _mapper.Map<Vehicle>(request);
 
-            var result = await _vehicleService.CreateVehicle(vehicle);
-
+            var createdVehicle = await _vehicleService.CreateVehicle(vehicle);
+            var createdUserVehicle = await _userVehicleService.CreateRelation(vehicle.VehicleId, UserId);
+            var result = _mapper.Map<VehicleResponse>(createdVehicle);
             return Ok(result);
         }
 

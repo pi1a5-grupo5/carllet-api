@@ -1,4 +1,4 @@
-﻿namespace Application.Requests.User
+﻿namespace Application.ViewModels.User
 {
     public class LoginRequest
     {

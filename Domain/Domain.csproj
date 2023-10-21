@@ -7,13 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Model\**" />
     <Compile Remove="ViewModel\**" />
+    <EmbeddedResource Remove="Model\**" />
     <EmbeddedResource Remove="ViewModel\**" />
+    <None Remove="Model\**" />
     <None Remove="ViewModel\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Model\" />
   </ItemGroup>
 
 </Project>

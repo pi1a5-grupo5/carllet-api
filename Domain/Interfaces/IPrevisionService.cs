@@ -10,7 +10,8 @@ namespace Domain.Interfaces
     public interface IPrevisionService
     {
         Task<Prevision> CreatePrevision(Prevision prevision);
-        Task<Prevision> DeletePrevision(Prevision prevision);
+        Task<Prevision> DeletePrevision(Guid previsionId);
+        Task<Prevision> GetPrevision(Guid previsionID);
         Task<List<Prevision>> GetAllPrevisionsByUser(Guid userId);
     }
 }

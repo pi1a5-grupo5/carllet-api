@@ -1,4 +1,5 @@
-﻿using Domain.Entities.VehicleNS;
+﻿using Domain.Entities;
+using Domain.Entities.VehicleNS;
 using Domain.Interfaces;
 using Infra.Data;
 
@@ -8,7 +9,8 @@ namespace Services
     {
         private readonly CarlletDbContext _dbContext;
 
-        public VehicleService(CarlletDbContext dbContext)
+
+        public VehicleService(CarlletDbContext dbContext, IUserVehicleService userVehicleService)
         {
             _dbContext = dbContext;
         }
@@ -23,6 +25,8 @@ namespace Services
             }
 
             _dbContext.SaveChanges();
+
+
 
             return vehicle;
         }

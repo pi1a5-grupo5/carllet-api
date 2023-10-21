@@ -1,4 +1,4 @@
-﻿namespace Application.Requests.Course
+﻿namespace Application.ViewModels.Course
 {
     public class NewCourseRequest
     {

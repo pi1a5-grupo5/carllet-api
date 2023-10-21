@@ -1,4 +1,4 @@
-﻿using Application.Requests.Course;
+﻿using Application.ViewModels.Course;
 using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +7,7 @@ namespace Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CourseController : ControllerBase
+    public class CourseController : HomeController
     {
         private readonly ICourseService _courseService;
 
