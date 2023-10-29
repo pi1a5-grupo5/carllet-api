@@ -13,9 +13,9 @@ namespace Application.ViewModels.User
         public string Email { get; set; }
         public string? Cellphone { get; set; }
         public string? DeviceId { get; set; }
-        [Column("access_token")]
         public string? AccessToken { get; set; } = null;
-        [Column("access_token_expiration")]
         public DateTime? AccessTokenExpiration { get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpiration { get; set; }
     }
 }

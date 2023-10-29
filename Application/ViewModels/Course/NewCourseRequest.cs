@@ -2,7 +2,7 @@
 {
     public class NewCourseRequest
     {
-        public Guid? OwnerId { get; set; }
+        public Guid? UserVehicleId { get; set; }
         public float CourseLength { get; set; }
         public DateTime CourseEndTime { get; set; }
     }

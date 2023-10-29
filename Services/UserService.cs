@@ -166,23 +166,31 @@ namespace Services
             userExist.ResetPassword = true;
             userExist.ResetPasswordTokenExpiration = DateTime.UtcNow.AddMinutes(15.0);
             _emailService.SendResetPasswordEmail(userExist);
+
+            _dbContext.SaveChanges();
         }
 
-        public void ResetPassword(User user)
+        public async Task<User> ResetPassword(string resetToken, string newPassword,string newPasswordConfirmation )
         {
-            var userExist = _dbContext.User.FirstOrDefault(u => u.ResetPasswordToken == user.ResetPasswordToken);
+            var userExist =  _dbContext.User.FirstOrDefault(u => u.ResetPasswordToken == resetToken);
 
             if(userExist == null || DateTime.UtcNow > userExist.ResetPasswordTokenExpiration)
             {
-                return;
+                return null;
             }
 
-            userExist.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            if(newPassword != newPasswordConfirmation)
+            {
+                return null;
+            }
+            userExist.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
             userExist.ResetPassword = false;
             userExist.ResetPasswordToken = "";
             userExist.ResetPasswordTokenExpiration = null;
 
            _dbContext.Update(userExist);
+            _dbContext.SaveChanges();
+            return userExist;
         }
     }
 }

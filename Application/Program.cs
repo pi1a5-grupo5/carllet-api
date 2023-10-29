@@ -15,6 +15,7 @@ builder.Services.AddScoped<IVehicleService, VehicleService>();
 builder.Services.AddScoped<IUserVehicleService, UserVehicleService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IEarningService, EarningService>();
+builder.Services.AddScoped<IEarningService, EarningService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

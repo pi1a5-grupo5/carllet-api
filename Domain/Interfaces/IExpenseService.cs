@@ -11,10 +11,10 @@ namespace Domain.Interfaces
     public interface IExpenseService
     {
         Task<Expense> RegisterExpense(Expense expense);
-        Task<Expense> DeleteExpense(Expense expense);
+        Task<Expense> DeleteExpense(Guid ExpenseId);
         Task<Expense> GetExpense(Guid ExpenseId);
-        Task<List<Earning>> GetExpenseByUser(Guid driver);
-        Task<List<Earning>> GetExpenseByUser(Guid driver, DateTime StartSearch, DateTime EndSearch);
+        Task<List<Expense>> GetExpenseByUser(Guid driver);
+        Task<List<Expense>> GetExpenseByUser(Guid driver, DateOnly StartSearch, DateOnly EndSearch);
         Task<Expense> UpdateExpense(Expense expense);
     }
 }

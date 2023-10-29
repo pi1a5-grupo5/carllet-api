@@ -9,8 +9,14 @@ namespace Domain.Entities
     [Table("Condutores_Veiculos")]
     public class UserVehicle
     {
+        public UserVehicle(Guid vehicleId, Guid userId)
+        {
+            VehicleId = vehicleId;
+            UserId = userId;
+        }
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
+        public Guid UserVehicleId { get; set; }
 
         [Column("id_veiculo")]
         public Guid VehicleId { get; set; }

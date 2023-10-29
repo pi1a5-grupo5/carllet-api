@@ -41,4 +41,9 @@
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ViewModels\Earning\" />
+    <Folder Include="ViewModels\Expense\" />
+  </ItemGroup>
+
 </Project>

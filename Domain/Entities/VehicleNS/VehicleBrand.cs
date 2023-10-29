@@ -18,6 +18,6 @@ namespace Domain.Entities.VehicleNS
 
         public string Name { get; set; }
 
-        public List<VehicleType> VehicleTypes { get; set; }
+        public List<VehicleType>? VehicleTypes { get; set; }
     }
 }

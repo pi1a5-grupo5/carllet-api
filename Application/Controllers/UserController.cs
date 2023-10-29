@@ -49,13 +49,12 @@ namespace Application.Controllers
         /// <response code="200">Retorna o usuário autenticado</response>
         /// <response code="204">Se não houver usuários</response>
         /// <response code="500">Se houver algum erro interno</response>
-
-
         [HttpPost("Login")]
-        public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest model)
+        public async Task<ActionResult<UserResponse>> Login([FromBody] LoginRequest model)
         {
-            var result = await _userService.Login(model.Email, model.Password);
-
+            var loggedUser = await _userService.Login(model.Email, model.Password);
+            var result = _mapper.Map<UserResponse>(loggedUser);
+              
             return Ok(result);
         }
 
@@ -73,7 +72,8 @@ namespace Application.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(Guid id)
         {
-            var result = await _userService.GetUser(id);
+            var user = await _userService.GetUser(id);
+            var result = _mapper.Map<UserResponse>(user);
 
             return Ok(result);
         }
@@ -109,10 +109,11 @@ namespace Application.Controllers
         }
 
        [HttpPost("ResetPassword/{resetToken}")]
-       public async Task<IActionResult> ResetPassword(User user)
+       public async Task<IActionResult> ResetPassword(string resetToken, ResetPasswordRequest request)
         {
-            _userService.ResetPassword(user);
-            return Ok();
+            var resettedPasswordUser = await _userService.ResetPassword(resetToken, request.NewPassword, request.NewPasswordConfirmation);
+            var result = _mapper.Map<UserResponse>(resettedPasswordUser);
+            return Ok(result);
         }
 
 

@@ -3,6 +3,7 @@ using Domain.Entities.VehicleNS;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using System;
 
 namespace Application.Controllers
 {
@@ -18,9 +19,9 @@ namespace Application.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetEarning(Guid Id)
+        public async Task<IActionResult> GetEarningById(Guid Id)
         {
-            var result = await _earningService.GetEarningByUser(Id);
+            var result = await _earningService.GetEarningById(Id);
 
             if (result == null)
             {

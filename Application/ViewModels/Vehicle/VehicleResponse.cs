@@ -8,7 +8,7 @@ namespace Application.ViewModels.Vehicle
     {
         public Guid UserVehicleId { get; set; }
         public Guid VehicleId { get; set; }
-        public VehicleType VehicleType { get; set; }
+        public int VehicleTypeId { get; set; }
         public short FabricationDate { get; set; }
         public int Odometer { get; set; }
         public bool Rented { get; set; }

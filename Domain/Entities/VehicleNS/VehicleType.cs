@@ -18,7 +18,7 @@ namespace Domain.Entities.VehicleNS
         [Column("id_marca")]
         public int VehicleBrandId { get; set; }
 
-        public VehicleBrand VehicleBrand { get; set; }
+        public VehicleBrand? VehicleBrand { get; set; }
         public List<Vehicle>? Vehicles { get; set; }
     }
 }

@@ -17,6 +17,18 @@ namespace Services
         {
             throw new NotImplementedException();
         }
+        public async Task<Course> GetById(Guid CourseId)
+        {
+            var course = _dbContext.Course.Find(CourseId);
+
+            if (course == null)
+            {
+                return null;
+            }
+
+            return course;
+
+        }
 
         public async Task<List<Course>> GetByUserId(Guid driverId)
         {
@@ -39,7 +51,7 @@ namespace Services
         public async Task<Course> Register(Course course)
         {
 
-            UserVehicle userVehicle = _dbContext.UserVehicles.FirstOrDefault(uv => uv.Id == course.UserVehicleId);
+            UserVehicle userVehicle = _dbContext.UserVehicles.FirstOrDefault(uv => uv.UserVehicleId == course.UserVehicleId);
 
             course.UserVehicle = userVehicle;
 

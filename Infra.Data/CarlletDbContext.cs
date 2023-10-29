@@ -10,6 +10,8 @@ namespace Infra.Data
     {
         public DbSet<User> User { get; set; }
         public DbSet<Vehicle> Vehicle { get; set; }
+        public DbSet<VehicleType> VehicleType { get; set; }
+        public DbSet<VehicleBrand> VehicleBrand { get; set; }
         public DbSet<UserVehicle> UserVehicles { get; set; }
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<MaintenanceExpense> MaintenanceExpenses {get; set;}

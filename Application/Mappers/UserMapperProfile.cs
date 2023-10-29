@@ -10,6 +10,7 @@ namespace Application.Mappers
         {
             CreateMap<NewUserRequest, User>();
             CreateMap<LoginRequest, User>();
+            CreateMap<ResetPasswordRequest, User>();
             CreateMap<User, LoginResponse>();
             CreateMap<User, UserResponse>();
              

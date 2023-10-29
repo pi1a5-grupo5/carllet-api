@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Application.ActionFilter
@@ -22,6 +23,7 @@ namespace Application.ActionFilter
                 context.Result = new UnauthorizedObjectResult("Token inválido");
                 return;
             }
+            var c = context.Controller as HomeController;
 
 
         }

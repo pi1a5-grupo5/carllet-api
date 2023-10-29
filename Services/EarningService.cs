@@ -18,6 +18,12 @@ namespace Services
             throw new NotImplementedException();
         }
 
+        public async Task<Earning> GetEarningById(Guid id)
+        {
+            var earning = _dbContext.Earning.FirstOrDefault(e => e.Id == id);
+            return earning;
+        }
+
         public async Task<List<Earning>> GetEarningByUser(Guid driver, DateTime StartSearch, DateTime EndSearch)
         {
             var earnings = _dbContext.Earning.Where(u => u.OwnerId == driver 
@@ -58,6 +64,20 @@ namespace Services
             }
 
             return earning;
+        }
+
+        public async Task<Earning> UpdateEarning(Earning earning)
+        {
+            var earningToUpdate = _dbContext.Earning.Find(earning.Id);
+
+            if (earningToUpdate == null)
+            {
+                return null;
+            }
+
+            _dbContext.Entry(earningToUpdate).CurrentValues.SetValues(earning);
+            await _dbContext.SaveChangesAsync();
+            return earningToUpdate;
         }
     }
 }

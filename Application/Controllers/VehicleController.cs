@@ -1,4 +1,5 @@
-﻿using Application.ViewModels.Vehicle;
+﻿using Application.ViewModels;
+using Application.ViewModels.Vehicle;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Entities.VehicleNS;
@@ -60,10 +61,11 @@ namespace Application.Controllers
         /// <response code="200">Retorna o veículo</response>
         /// <response code="204">Se não houver veículo com esse ID</response>
         /// <response code="500">Se houver algum erro interno</response>
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetVehicle(int id)
+        [HttpGet("{VehicleId:Guid}")]
+        public async Task<IActionResult> GetVehicle(Guid VehicleId)
         {
-            var result = await _vehicleService.GetVehicleById(id);
+            var vehicle = await _vehicleService.GetVehicleById(VehicleId);
+            var result = _mapper.Map<VehicleResponse>(vehicle);
 
             return Ok(result);
         }
@@ -82,7 +84,8 @@ namespace Application.Controllers
         [HttpGet("byOwner/{ownerId}")]
         public async Task<IActionResult> GetVehicleByOwner(Guid ownerId)
         {
-            var result = await _vehicleService.GetVehicleByOwner(ownerId);
+            var vehicles = await _vehicleService.GetVehicleByOwner(ownerId);
+            var result = _mapper.Map<List<VehicleResponse>>(vehicles);
 
             if (result == null)
                 return NotFound();
@@ -107,8 +110,19 @@ namespace Application.Controllers
             var vehicle = _mapper.Map<Vehicle>(request);
 
             var createdVehicle = await _vehicleService.CreateVehicle(vehicle);
-            var createdUserVehicle = await _userVehicleService.CreateRelation(vehicle.VehicleId, UserId);
-            var result = _mapper.Map<VehicleResponse>(createdVehicle);
+            var result = _mapper.Map<Vehicle, VehicleResponse>(createdVehicle);
+            var createdUserVehicle = await _userVehicleService.CreateRelation(request.UserId, vehicle.VehicleId);
+            result = _mapper.Map<UserVehicle, VehicleResponse>(createdUserVehicle, result);
+
+            return Ok(result);
+        }
+
+        [HttpPost("relate")]
+        public async Task<IActionResult> RelateUserVehicle([FromBody] Guid userId, Guid vehicleId)
+        {
+            var createdUserVehicle = await _userVehicleService.CreateRelation(vehicleId, userId);
+            var result = _mapper.Map<VehicleResponse>(createdUserVehicle);
+
             return Ok(result);
         }
 
@@ -123,13 +137,42 @@ namespace Application.Controllers
         /// <response code="200">Retorna o veículo deletado</response>
         /// <response code="400">Se não houver veículo</response>
         /// <response code="500">Se houver algum erro interno</response>
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVehicle(int id)
+        [HttpDelete("{VehicleId}")]
+        public async Task<IActionResult> DeleteVehicle(Guid VehicleId)
         {
-            var result = await _vehicleService.DeleteVehicle(id);
+            var vehicle = await _vehicleService.DeleteVehicle(VehicleId);
+            var result = _mapper.Map<VehicleResponse>(vehicle);
 
             return Ok(result);
         }
 
+        [HttpPost("brand")]
+        public async Task<IActionResult> RegisterVehicleBrand([FromBody] VehicleBrand brand)
+        {
+            var vehicleBrand = await _vehicleService.CreateVehicleBrand(brand);
+            var result = _mapper.Map<VehicleBrandResponse>(vehicleBrand);
+            return Ok(result);
+        }
+
+        [HttpPost("type")]
+        public async Task<IActionResult> RegisterVehicleType([FromBody] VehicleType type)
+        {
+            var result = await _vehicleService.CreateVehicleType(type);
+            return Ok(result);
+        }
+
+        [HttpGet("brand")]
+        public async Task<IActionResult> GetVehicleBrandsList()
+        {
+            var result = await _vehicleService.GetVehicleBrandList();
+            return Ok(result);
+        }
+
+        [HttpGet("type")]
+        public async Task<IActionResult> GetVehicleTypesList()
+        {
+            var result = await _vehicleService.GetVehicleTypesList();
+            return Ok(result);
+        }
     }
 }
