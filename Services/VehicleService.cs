@@ -2,6 +2,7 @@
 using Domain.Entities.VehicleNS;
 using Domain.Interfaces;
 using Infra.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services
 {
@@ -10,14 +11,14 @@ namespace Services
         private readonly CarlletDbContext _dbContext;
 
 
-        public VehicleService(CarlletDbContext dbContext, IUserVehicleService userVehicleService)
+        public VehicleService(CarlletDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
         public async Task<Vehicle> CreateVehicle(Vehicle vehicle)
         {
-            var setVehicle = _dbContext.Vehicle.Add(vehicle);
+            var setVehicle = _dbContext.Vehicles.Add(vehicle);
 
             if (setVehicle == null)
             {
@@ -30,14 +31,14 @@ namespace Services
 
         public async Task<Vehicle> DeleteVehicle(Guid VehicleId)
         {
-            var vehicle = _dbContext.Vehicle.Find(VehicleId);
+            var vehicle = _dbContext.Vehicles.Find(VehicleId);
 
             if (vehicle == null)
             {
                 return null;
             }
 
-            _dbContext.Vehicle.Remove(vehicle);
+            _dbContext.Vehicles.Remove(vehicle);
             _dbContext.SaveChanges();
 
             return vehicle;
@@ -45,7 +46,7 @@ namespace Services
 
         public async Task<Vehicle> GetVehicleById(Guid VehicleId)
         {
-            var vehicle = _dbContext.Vehicle.Find(VehicleId);
+            var vehicle = _dbContext.Vehicles.Find(VehicleId);
 
             if (vehicle == null)
             {
@@ -85,7 +86,7 @@ namespace Services
 
         public async Task<List<Vehicle>> GetVehicleList()
         {
-            var vehicles = _dbContext.Vehicle.ToList();
+            var vehicles = _dbContext.Vehicles.ToList();
             if (vehicles.Count == 0)
             {
                 return null;
@@ -110,7 +111,7 @@ namespace Services
 
         public async Task<List<VehicleBrand>> GetVehicleBrandList()
         {
-            var vehiclesBrands = _dbContext.VehicleBrand.ToList();
+            var vehiclesBrands = _dbContext.VehicleBrands.ToList();
             if (vehiclesBrands.Count == 0)
             {
                 return null;
@@ -121,7 +122,7 @@ namespace Services
 
         public async Task<List<VehicleType>> GetVehicleTypesList()
         {
-            var vehiclesTypes = _dbContext.VehicleType.ToList();
+            var vehiclesTypes = _dbContext.VehicleTypes.ToList();
             if (vehiclesTypes.Count == 0)
             {
                 return null;
@@ -129,5 +130,6 @@ namespace Services
 
             return vehiclesTypes;
         }
+
     }
 }

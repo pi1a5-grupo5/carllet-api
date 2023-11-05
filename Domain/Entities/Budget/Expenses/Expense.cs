@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities.Budget.Expenses
 {
-    public abstract class Expense
+    public class Expense
     {
         public Guid ExpenseId { get; set; }
         public Guid UserVehicleId { get; set; }

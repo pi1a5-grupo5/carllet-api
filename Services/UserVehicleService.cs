@@ -25,5 +25,11 @@ namespace Services
 
             return newRelation;
         }
+
+        public async Task<List<UserVehicle>> GetUserVehicleByUserId(Guid userId)
+        {
+            var UserVehicles = _dbContext.UserVehicles.Where(uv => uv.UserId == userId).ToList();
+            return UserVehicles;
+        }
     }
 }

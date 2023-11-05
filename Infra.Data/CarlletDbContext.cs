@@ -3,23 +3,28 @@ using Domain.Entities.Budget;
 using Domain.Entities.Budget.Expenses;
 using Domain.Entities.VehicleNS;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infra.Data
 {
     public class CarlletDbContext : DbContext
     {
-        public DbSet<User> User { get; set; }
-        public DbSet<Vehicle> Vehicle { get; set; }
-        public DbSet<VehicleType> VehicleType { get; set; }
-        public DbSet<VehicleBrand> VehicleBrand { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Prevision> Prevision { get; set; }
+        public DbSet<Goal> Goals { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<VehicleType> VehicleTypes { get; set; }
+        public DbSet<VehicleBrand> VehicleBrands { get; set; }
         public DbSet<UserVehicle> UserVehicles { get; set; }
         public DbSet<Expense> Expenses { get; set; }
-        public DbSet<MaintenanceExpense> MaintenanceExpenses {get; set;}
-        public DbSet<FuelExpense> FuelExpenses { get; set;}
+        public DbSet<FuelExpense> FuelExpenses { get; set; }
+        public DbSet<MaintenanceExpense> MaintenanceExpenses { get; set; }
+        public DbSet<OtherExpense> OtherExpenses { get; set; }
+        public DbSet<OtherExpenseType> OtherExpenseTypes { get; set; }
         public DbSet<MaintenanceExpenseType> MaintenanceExpenseTypes { get; set; }
         public DbSet<FuelExpenseType> FuelExpenseTypes { get; set; }
-        public DbSet<Course> Course { get; set; }
-        public DbSet<Earning> Earning { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Earning> Earnings { get; set; }
         public CarlletDbContext(DbContextOptions<CarlletDbContext> options) : base(options)
         { }
 
@@ -47,7 +52,6 @@ namespace Infra.Data
                  .HasOne<UserVehicle>(e => e.UserVehicle)
                  .WithMany(uv => uv.Expenses)
                  .HasForeignKey(e => e.UserVehicleId);
-
             #endregion
 
             #region User and Budget relations

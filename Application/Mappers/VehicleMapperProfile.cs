@@ -12,6 +12,7 @@ namespace Application.Mappers
             CreateMap<NewVehicleRequest, Vehicle>();
             CreateMap<Vehicle, VehicleResponse>();
             CreateMap<UserVehicle, VehicleResponse>();
+            CreateMap<UserVehicle, UserVehicleResponse>();
             CreateMap<VehicleType, VehicleResponse>();
             CreateMap<VehicleBrand, VehicleResponse>();
         }

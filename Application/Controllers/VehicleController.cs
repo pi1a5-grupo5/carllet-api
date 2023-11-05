@@ -70,6 +70,20 @@ namespace Application.Controllers
             return Ok(result);
         }
 
+        [HttpGet("ByUser/{UserId:Guid}")]
+        public async Task<IActionResult> GetUserVehicleList(Guid UserId)
+        {
+            var UserVehicles = await _userVehicleService.GetUserVehicleByUserId(UserId);
+            var result = _mapper.Map<List<UserVehicleResponse>>(UserVehicles);
+
+            if(result.Count == 0)
+            {
+                return NoContent();
+            }
+
+            return Ok(result);
+        }
+
         /// <summary>
         ///     Retorna os veículos de um proprietário
         /// </summary>
@@ -85,7 +99,7 @@ namespace Application.Controllers
         public async Task<IActionResult> GetVehicleByOwner(Guid ownerId)
         {
             var vehicles = await _vehicleService.GetVehicleByOwner(ownerId);
-            var result = _mapper.Map<List<VehicleResponse>>(vehicles);
+            var result = _mapper.Map<IEnumerable<VehicleResponse>>(vehicles);
 
             if (result == null)
                 return NotFound();

@@ -19,7 +19,7 @@ namespace Services
         }
         public async Task<Course> GetById(Guid CourseId)
         {
-            var course = _dbContext.Course.Find(CourseId);
+            var course = _dbContext.Courses.Find(CourseId);
 
             if (course == null)
             {
@@ -32,7 +32,7 @@ namespace Services
 
         public async Task<List<Course>> GetByUserId(Guid driverId)
         {
-            var courses = _dbContext.Course.Where(c => c.UserVehicle.UserId == driverId).ToList();
+            var courses = _dbContext.Courses.Where(c => c.UserVehicle.UserId == driverId).ToList();
 
             if (courses == null || courses.Count == 0)
             {
@@ -55,7 +55,7 @@ namespace Services
 
             course.UserVehicle = userVehicle;
 
-            var setCourse = _dbContext.Course.Add(course);
+            var setCourse = _dbContext.Courses.Add(course);
 
             if (setCourse == null) // || vehicle == null)
             {

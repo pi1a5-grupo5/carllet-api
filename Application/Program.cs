@@ -1,3 +1,4 @@
+using Domain.Entities.Budget.Expenses;
 using Domain.Interfaces;
 using Infra.Data;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,9 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IEarningService, EarningService>();
 builder.Services.AddScoped<IEarningService, EarningService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IExpenseService<FuelExpense>, FuelExpenseService>();
+builder.Services.AddScoped<IExpenseService<MaintenanceExpense>, MaintenanceExpenseService>();
+builder.Services.AddScoped<IExpenseService<OtherExpense>, OtherExpenseService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

@@ -1,6 +1,6 @@
 ﻿namespace Application.ViewModels.Course
 {
-    public class NewCourseRequest
+    public class CourseDTO
     {
         public Guid? UserVehicleId { get; set; }
         public float CourseLength { get; set; }

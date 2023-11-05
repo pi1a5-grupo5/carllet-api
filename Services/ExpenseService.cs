@@ -3,15 +3,10 @@ using Domain.Entities.Budget;
 using Domain.Entities.Budget.Expenses;
 using Domain.Interfaces;
 using Infra.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services
 {
-    public class ExpenseService : IExpenseService
+    public class ExpenseService : IExpenseService<Expense>
     {
         private readonly CarlletDbContext _dbContext;
 
@@ -40,7 +35,36 @@ namespace Services
             return expense;
         }
 
-        public async Task<List<Expense>> GetExpenseByUser(Guid userVehicleId)
+        public async Task<List<Expense>> GetExpensesList()
+        {
+            var expenses = _dbContext.Expenses.ToList();
+            return expenses;
+        }
+
+        public async Task<List<Expense>> GetExpenseByUserId(Guid driver)
+        {
+            var expenses = _dbContext.UserVehicles
+            .Where(uv => uv.UserId == driver)
+            .SelectMany(uv => uv.Expenses)
+            .ToList();
+            return expenses;
+        }
+
+        public async Task<List<Expense>> GetExpenseByUserID(Guid driver, DateOnly StartSearch, DateOnly EndSearch)
+        {
+            var expenses = _dbContext.UserVehicles
+                .Where(uv => uv.UserId == driver)
+                .SelectMany(uv => uv.Expenses)
+                .Where(e => e.ExpenseDate <= StartSearch && e.ExpenseDate >= EndSearch)
+                .ToList();
+
+            if(expenses == null || expenses.Count == 0){
+                return null;
+            }
+            return expenses;
+        }
+
+        public async Task<List<Expense>> GetExpenseByUserVehicleId(Guid userVehicleId)
         {
             var expenses = _dbContext.Expenses.Where(e => e.UserVehicleId == userVehicleId).ToList();
             if (expenses == null)
@@ -50,7 +74,7 @@ namespace Services
             return expenses;
         }
 
-        public async Task<List<Expense>> GetExpenseByUser(Guid UserVehicleId, DateOnly StartSearch, DateOnly EndSearch)
+        public async Task<List<Expense>> GetExpenseByUserVehicleId(Guid UserVehicleId, DateOnly StartSearch, DateOnly EndSearch)
         {
             var expenses = _dbContext.Expenses.Where(u => u.UserVehicleId == UserVehicleId
                 && u.ExpenseDate <= StartSearch
@@ -66,11 +90,16 @@ namespace Services
         public async Task<Expense> RegisterExpense(Expense expense)
         {
             _dbContext.Expenses.Add(expense);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
             return expense;
         }
 
         public Task<Expense> UpdateExpense(Expense expense)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddExpenseType<U>(U expense) where U : ExpenseType
         {
             throw new NotImplementedException();
         }

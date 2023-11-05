@@ -1,5 +1,5 @@
-﻿
-using Domain.Entities;
+﻿using Domain.Entities;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Domain.Interfaces
 {
@@ -8,6 +8,6 @@ namespace Domain.Interfaces
         Task<string> GenerateAccessToken(User user);
         Task<string> GenerateRefreshToken(User user);
         Task<string> GenerateVerificationToken(User user);
-        Guid ValidateToken(string token);
+        bool ValidateToken(string token, out JwtSecurityToken jwt);
     }
 }

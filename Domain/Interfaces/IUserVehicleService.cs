@@ -10,5 +10,6 @@ namespace Domain.Interfaces
     public interface IUserVehicleService
     {
         Task<UserVehicle> CreateRelation(Guid userId, Guid vehicleId);
+        Task<List<UserVehicle>> GetUserVehicleByUserId(Guid userId);
     }
 }

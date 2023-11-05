@@ -1,4 +1,6 @@
-﻿using Domain.Entities.Budget;
+﻿using Application.ViewModels.Expense;
+using AutoMapper;
+using Domain.Entities.Budget;
 using Domain.Entities.Budget.Expenses;
 using Domain.Entities.VehicleNS;
 using Domain.Interfaces;
@@ -10,29 +12,32 @@ namespace Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExpenseController : HomeController
+    public class FuelExpenseController : HomeController
     {
-        private readonly IExpenseService<Expense> _expenseService;
+        private readonly IExpenseService<FuelExpense> _expenseService;
+        private readonly IMapper _mapper;
 
-        public ExpenseController(IExpenseService<Expense> expenseService)
+        public FuelExpenseController(IExpenseService<FuelExpense> expenseService, IMapper mapper)
         {
             _expenseService = expenseService;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterExpense([FromBody] Expense expense)
+        public async Task<IActionResult> RegisterFuelExpense([FromBody] FuelExpenseDTO expense)
         {
-            var result = await _expenseService.RegisterExpense(expense);
-            if (result == null)
+            var expenseReq = _mapper.Map<FuelExpense>(expense);
+            var expenseRes = await _expenseService.RegisterExpense(expenseReq);
+            if (expenseRes == null)
             {
                 return BadRequest();
             }
-
+            var result = _mapper.Map<FuelExpenseDTO>(expense);
             return Ok(result);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteExpense([FromBody] Guid expenseId)
+        public async Task<IActionResult> DeleteFuelExpense([FromBody] Guid expenseId)
         {
             var result = await _expenseService.DeleteExpense(expenseId);
             if (result == null)
@@ -58,7 +63,7 @@ namespace Application.Controllers
         [HttpGet("ByUser/{UserVehicleId:Guid}")]
         public async Task<IActionResult> GetExpenseByUser(Guid UserVehicleId)
         {
-            var result = await _expenseService.GetExpenseByUserId(UserVehicleId);
+            var result = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
             if (result == null)
             {
                 return BadRequest();
@@ -69,7 +74,7 @@ namespace Application.Controllers
         [HttpGet("ByUser/{UserVehicleId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
         public async Task<IActionResult> GetExpenseByUser(Guid UserVehicleId, DateOnly StartSearch, DateOnly EndSearch)
         {
-            var result = await _expenseService.GetExpenseByUserId(UserVehicleId);
+            var result = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
             if (result == null)
             {
                 return BadRequest();
