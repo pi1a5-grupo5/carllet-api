@@ -103,5 +103,10 @@ namespace Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<List<U>> GetExpenseTypes<U>() where U : ExpenseType
+        {
+            throw new NotImplementedException();
+        }
     }
 }

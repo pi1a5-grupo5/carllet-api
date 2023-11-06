@@ -18,23 +18,23 @@ namespace Application.ActionFilter
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            //var accessToken = context.HttpContext.Request.Headers["Authorization"].ToString();
+            var accessToken = context.HttpContext.Request.Headers["Authorization"].ToString();
 
 
-            //if (string.IsNullOrEmpty(accessToken))
-            //{
-            //    context.Result = new BadRequestObjectResult("Token inválido ou ausente");
-            //    return;
-            //}
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                context.Result = new BadRequestObjectResult("Token inválido ou ausente");
+                return;
+            }
 
-            //bool isTokenValid = _authService.ValidateToken(accessToken, out JwtSecurityToken jwt);
+            bool isTokenValid = _authService.ValidateToken(accessToken, out JwtSecurityToken jwt);
 
-            //if (!isTokenValid)
-            //{
-            //    context.Result = new UnauthorizedObjectResult("Token inválido");
-            //    return;
-            //}
-            //var c = context.Controller as HomeController;
+            if (!isTokenValid)
+            {
+                context.Result = new UnauthorizedObjectResult("Token inválido");
+                return;
+            }
+            var c = context.Controller as HomeController;
 
 
         }

@@ -3,7 +3,7 @@
     "region" : "us-east-2",
     "profile" : "visualStudioUser",
     "configuration" : "Release",
-    "image-tag"     : "application:latest",
+    "image-tag"     : "cdk-hnb659fds-container-assets-584306437979-us-east-2:latest",
     "docker-build-working-dir" : "",
     "cluster"                  : "carllet-dev",
     "launch-type"              : "FARGATE",
@@ -27,5 +27,5 @@
     "deployment-maximum-percent"         : 200,
     "elb-target-group"                   : "arn:aws:elasticloadbalancing:us-east-2:584306437979:targetgroup/Application/535d3eb4f7bb0fa0",
     "elb-container-port"                 : 80,
-    "vstoolkit-deployment-mode"          : "DeployService"
+    "vstoolkit-deployment-mode"          : "PushOnly"
 }

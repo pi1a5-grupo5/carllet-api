@@ -79,8 +79,41 @@ namespace Application.Controllers
             {
                 return BadRequest();
             }
-                return Ok(result);
-            }
+            return Ok(result);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateFuelExpense([FromBody] FuelExpenseDTO expense)
+        {
+            var expenseReq = _mapper.Map<FuelExpense>(expense);
+            var expenseRes = await _expenseService.UpdateExpense(expenseReq);
+            if (expenseRes == null)
+            {
+                return BadRequest();
+            }
+            var result = _mapper.Map<FuelExpenseDTO>(expense);
+            return Ok(result);
+        }
+
+        [HttpGet("Types")]
+        public async Task<IActionResult> GetExpenseTypes()
+        {
+            var result = await _expenseService.GetExpenseTypes<FuelExpenseType>();
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
+        }
+
+        [HttpPost("Types")]
+        public async Task<IActionResult> AddExpenseType([FromBody] FuelExpenseType expenseType)
+        {
+            _expenseService.AddExpenseType(expenseType);
+            return Ok();
+        }
+    }
+
+
 }
- 
+
