@@ -123,8 +123,9 @@ namespace Application.Controllers
         /// <returns>Retorna o usuário criado</returns>
         /// <response code="200">Retorna o usuário criado</response>
         [HttpPut("{id:Guid}")]
-        public async Task<IActionResult> Put([FromBody] User user)
+        public async Task<IActionResult> Put([FromBody] UpdateUserRequest updateUser)
         {
+            var user = _mapper.Map<User>(updateUser);
             var UpdatedUser = await _userService.Update(user);
             var result = _mapper.Map<UserResponse>(UpdatedUser);
 

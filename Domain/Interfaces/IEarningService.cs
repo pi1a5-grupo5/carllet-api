@@ -10,5 +10,6 @@ namespace Domain.Interfaces
         Task<Earning> UpdateEarning(Earning earning);
         Task<Earning> DeleteEarning(Guid Id);
         Task<Earning> GetEarningById(Guid id);
-    }
+        Task<Dictionary<DateTime, double>> GetEarningsByUserByDays(Guid driver, int days);
+            }
 }

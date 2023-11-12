@@ -25,8 +25,13 @@ namespace Services
                 return null;
             }
 
-            _dbContext.SaveChanges();
-            return vehicle;
+            await _dbContext.SaveChangesAsync();
+            var returnVehicle = _dbContext.Vehicles.Where(v => v.VehicleId == vehicle.VehicleId)
+            .Include(v => v.VehicleType)
+            .ThenInclude(vt => vt.VehicleBrand)
+            .FirstOrDefault();
+
+            return returnVehicle;
         }
 
         public async Task<Vehicle> DeleteVehicle(Guid VehicleId)
@@ -44,9 +49,13 @@ namespace Services
             return vehicle;
         }
 
-        public async Task<Vehicle> GetVehicleById(Guid VehicleId)
+        public async Task<UserVehicle> GetVehicleById(Guid VehicleId)
         {
-            var vehicle = _dbContext.Vehicles.Find(VehicleId);
+            var vehicle = _dbContext.UserVehicles.Where(uv => uv.Vehicle.VehicleId == VehicleId)
+                .Include(uv => uv.Vehicle)
+                .ThenInclude(v => v.VehicleType)
+                .ThenInclude(vt => vt.VehicleBrand)
+                .FirstOrDefault();
 
             if (vehicle == null)
             {
@@ -56,33 +65,22 @@ namespace Services
             return vehicle;
         }
 
-        public async Task<List<Vehicle>> GetVehicleByOwner(Guid userId)
+        public async Task<List<UserVehicle>> GetVehicleByOwner(Guid userId)
         {
-            var vehicles = _dbContext.UserVehicles.Where(uv => uv.UserId == userId)
-                .Select(uv => uv.Vehicle)
-                .ToList();
+            var vehicles = _dbContext.UserVehicles
+                .Where(uv => uv.UserId == userId)
+                .Include(uv => uv.Vehicle)
+                .ThenInclude(v => v.VehicleType)
+                .ThenInclude(vt => vt.VehicleBrand)
+                .ToList();    
 
-            if(vehicles == null)
+            if (vehicles == null)
             {
                 return null;
             }
 
             return vehicles;
         }
-
-        //public async Task<List<Vehicle>> GetVehicleByOwner(int userId)
-        //{
-
-        //    var user = _dbContext.User.Include(u => u.Courses).FirstOrDefault(u => u.Id == userId);
-
-        //    if (user == null)
-        //    {
-        //        return null;
-        //    }
-        //    List<Vehicle> vehicles  = user.Courses.Select(c => c.Vehicle).ToList();
-
-        //    return vehicles;
-        //}
 
         public async Task<List<Vehicle>> GetVehicleList()
         {
@@ -101,10 +99,9 @@ namespace Services
             _dbContext.SaveChanges();
             return brand;
         }
-
         public async Task<VehicleType> CreateVehicleType(VehicleType type)
         {
-            _dbContext.Add(type); 
+            _dbContext.Add(type);
             _dbContext.SaveChanges();
             return type;
         }
@@ -131,5 +128,15 @@ namespace Services
             return vehiclesTypes;
         }
 
+        public async Task<List<VehicleType>> GetVehicleTypesByBrand(int BrandId)
+        {
+            var vehiclesTypes = _dbContext.VehicleTypes.Where(vt => vt.VehicleBrandId == BrandId).ToList();
+            if (vehiclesTypes.Count == 0)
+            {
+                return null;
+            }
+
+            return vehiclesTypes;
+        }
     }
 }

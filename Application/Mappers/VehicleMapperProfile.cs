@@ -10,11 +10,13 @@ namespace Application.Mappers
         public VehicleMapperProfile()
         {
             CreateMap<NewVehicleRequest, Vehicle>();
-            CreateMap<Vehicle, VehicleResponse>();
             CreateMap<UserVehicle, VehicleResponse>();
-            CreateMap<UserVehicle, UserVehicleResponse>();
+            CreateMap<Vehicle, VehicleResponse>();
             CreateMap<VehicleType, VehicleResponse>();
             CreateMap<VehicleBrand, VehicleResponse>();
+            CreateMap<VehicleTypeRequest, VehicleType>();
+            CreateMap<VehicleBrandRequest, VehicleBrand>();
+
         }
     }
 }

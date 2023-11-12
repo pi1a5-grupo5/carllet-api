@@ -1,6 +1,7 @@
 ﻿using Application.ViewModels.Earning;
 using AutoMapper;
 using Domain.Entities.Budget;
+using Domain.Entities.Budget.Expenses;
 using Domain.Entities.VehicleNS;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,13 @@ namespace Application.Controllers
     public class EarningController : HomeController
     {
         private readonly IEarningService _earningService;
+        private readonly IExpenseService<Expense> _expenseService;
         private readonly IMapper _mapper;
 
-        public EarningController(IEarningService earningService, IMapper mapper)
+        public EarningController(IEarningService earningService, IExpenseService<Expense> expenseService, IMapper mapper)
         {
             _earningService = earningService;
+            _expenseService = expenseService;
             _mapper = mapper;
         }
 
@@ -34,6 +37,31 @@ namespace Application.Controllers
             var result = _mapper.Map<EarningResponse>(earnings);
             return Ok(result);
         }
+
+        //[HttpGet("AndExpensesLastDays/{Id:guid}")]
+        //public async Task<IActionResult> GetEarningsAndExpensesOffLastSevenDays(Guid Id)
+        //{
+        //    int days = 7;
+        //    var earningsByDay = await _earningService.GetEarningsByUserByDays(Id, days);
+        //    var expensesByDay = await _expenseService.GetExpensesByUserByDay(Id, days);
+
+        //    var allDates = 
+
+        //    var summaryByDay = allDates.ToDictionary(
+        //        date => date,
+        //        date => (
+        //            Earnings: earningsByDay.TryGetValue(date, out double earningValue) ? earningValue : 0,
+        //            Expenses: expensesByDay.TryGetValue(date, out decimal expenseValue) ? expenseValue : 0
+        //        )
+        //    );
+
+        //    if (summaryByDay.Count == 0)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    return Ok(summaryByDay);
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] EarningRequest earningReq)

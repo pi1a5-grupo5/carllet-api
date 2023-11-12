@@ -45,7 +45,7 @@ namespace Services
             throw new NotImplementedException();
         }
 
-        public Task<List<OtherExpense>> GetExpenseByUserID(Guid driver, DateOnly StartSearch, DateOnly EndSearch)
+        public Task<List<OtherExpense>> GetExpenseByUserID(Guid driver, DateTime StartSearch, DateTime EndSearch)
         {
             throw new NotImplementedException();
         }
@@ -60,7 +60,7 @@ namespace Services
             return expenses;
         }
 
-        public async Task<List<OtherExpense>> GetExpenseByUserVehicleId(Guid UserVehicleId, DateOnly StartSearch, DateOnly EndSearch)
+        public async Task<List<OtherExpense>> GetExpenseByUserVehicleId(Guid UserVehicleId, DateTime StartSearch, DateTime EndSearch)
         {
             var expenses = _dbContext.OtherExpenses.Where(u => u.UserVehicleId == UserVehicleId
                 && u.ExpenseDate <= StartSearch
@@ -110,6 +110,11 @@ namespace Services
             }
 
             return null;
+        }
+
+        public Task<Dictionary<DateTime, decimal>> GetExpensesByUserByDay(Guid userId, int days)
+        {
+            throw new NotImplementedException();
         }
     }
 }

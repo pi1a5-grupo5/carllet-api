@@ -91,7 +91,7 @@ namespace Application.Controllers
             {
                 return BadRequest();
             }
-            var result = _mapper.Map<FuelExpenseDTO>(expense);
+            var result = _mapper.Map<FuelExpenseResponse>(expense);
             return Ok(result);
         }
 

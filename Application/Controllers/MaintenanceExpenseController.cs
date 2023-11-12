@@ -24,7 +24,7 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterFuelExpense([FromBody] MaintenanceExpense expense)
+        public async Task<IActionResult> RegisterExpense([FromBody] MaintenanceExpense expense)
         {
             var expenseReq = _mapper.Map<MaintenanceExpense>(expense);
             var result = await _expenseService.RegisterExpense(expenseReq);
@@ -37,7 +37,7 @@ namespace Application.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteFuelExpense([FromBody] Guid expenseId)
+        public async Task<IActionResult> DeleteExpense([FromBody] Guid expenseId)
         {
             var result = await _expenseService.DeleteExpense(expenseId);
             if (result == null)
@@ -83,7 +83,7 @@ namespace Application.Controllers
         }
 
          [HttpPut]
-        public async Task<IActionResult> UpdateExpense([FromBody] MaintenanceExpense expense)
+        public async Task<IActionResult> UpdateExpense([FromBody] MaintenanceExpenseRequest expense)
         {
             var expenseReq = _mapper.Map<MaintenanceExpense>(expense);
             var expenseRes = await _expenseService.UpdateExpense(expenseReq);
@@ -91,7 +91,7 @@ namespace Application.Controllers
             {
                 return BadRequest();
             }
-            var result = _mapper.Map<FuelExpenseDTO>(expense);
+            var result = _mapper.Map<FuelExpenseResponse>(expense);
             return Ok(result);
         }
 

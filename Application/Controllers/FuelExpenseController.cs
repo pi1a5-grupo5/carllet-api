@@ -24,26 +24,27 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterFuelExpense([FromBody] FuelExpenseDTO expense)
+        public async Task<IActionResult> RegisterFuelExpense([FromBody] FuelExpenseRequest request)
         {
-            var expenseReq = _mapper.Map<FuelExpense>(expense);
-            var expenseRes = await _expenseService.RegisterExpense(expenseReq);
-            if (expenseRes == null)
+            var expense = _mapper.Map<FuelExpense>(request);
+            var createdExpense = await _expenseService.RegisterExpense(expense);
+            if (createdExpense == null)
             {
                 return BadRequest();
             }
-            var result = _mapper.Map<FuelExpenseDTO>(expense);
+            var result = _mapper.Map<FuelExpenseResponse>(createdExpense);
             return Ok(result);
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteFuelExpense([FromBody] Guid expenseId)
         {
-            var result = await _expenseService.DeleteExpense(expenseId);
-            if (result == null)
+            var expense = await _expenseService.DeleteExpense(expenseId);
+            if (expense == null)
             {
                 return BadRequest();
             }
+            var result = _mapper.Map<FuelExpenseResponse>(expense);
 
             return Ok(result);
         }
@@ -51,39 +52,45 @@ namespace Application.Controllers
         [HttpGet("{ExpenseId:Guid}")]
         public async Task<IActionResult> GetExpenseById(Guid ExpenseId)
         {
-            var result = await _expenseService.GetExpense(ExpenseId);
-            if (result == null)
+            var expense = await _expenseService.GetExpense(ExpenseId);
+            if (expense == null)
             {
                 return BadRequest();
 
             }
+            var result = _mapper.Map<FuelExpenseResponse>(expense);
+
             return Ok(result);
         }
 
         [HttpGet("ByUser/{UserVehicleId:Guid}")]
         public async Task<IActionResult> GetExpenseByUser(Guid UserVehicleId)
         {
-            var result = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
-            if (result == null)
+            var expense = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
+            if (expense == null)
             {
                 return BadRequest();
             }
+            var result = _mapper.Map<FuelExpenseResponse>(expense);
+
             return Ok(result);
         }
 
         [HttpGet("ByUser/{UserVehicleId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
-        public async Task<IActionResult> GetExpenseByUser(Guid UserVehicleId, DateOnly StartSearch, DateOnly EndSearch)
+        public async Task<IActionResult> GetExpenseByUser(Guid UserVehicleId, DateTime StartSearch, DateTime EndSearch)
         {
-            var result = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
-            if (result == null)
+            var expense = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId, StartSearch, EndSearch);
+            if (expense == null)
             {
                 return BadRequest();
             }
+            var result = _mapper.Map<FuelExpenseResponse>(expense);
+
             return Ok(result);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateFuelExpense([FromBody] FuelExpenseDTO expense)
+        public async Task<IActionResult> UpdateFuelExpense([FromBody] FuelExpenseRequest expense)
         {
             var expenseReq = _mapper.Map<FuelExpense>(expense);
             var expenseRes = await _expenseService.UpdateExpense(expenseReq);
@@ -91,18 +98,19 @@ namespace Application.Controllers
             {
                 return BadRequest();
             }
-            var result = _mapper.Map<FuelExpenseDTO>(expense);
+            var result = _mapper.Map<FuelExpenseResponse>(expense);
             return Ok(result);
         }
 
         [HttpGet("Types")]
         public async Task<IActionResult> GetExpenseTypes()
         {
-            var result = await _expenseService.GetExpenseTypes<FuelExpenseType>();
-            if (result == null)
+            var expense = await _expenseService.GetExpenseTypes<FuelExpenseType>();
+            if (expense == null)
             {
                 return BadRequest();
             }
+            var result = _mapper.Map<ExpenseTypeResponse>(expense);
             return Ok(result);
         }
 

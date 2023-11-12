@@ -50,7 +50,7 @@ namespace Services
             return expenses;
         }
 
-        public async Task<List<Expense>> GetExpenseByUserID(Guid driver, DateOnly StartSearch, DateOnly EndSearch)
+        public async Task<List<Expense>> GetExpenseByUserID(Guid driver, DateTime StartSearch, DateTime EndSearch)
         {
             var expenses = _dbContext.UserVehicles
                 .Where(uv => uv.UserId == driver)
@@ -58,7 +58,8 @@ namespace Services
                 .Where(e => e.ExpenseDate <= StartSearch && e.ExpenseDate >= EndSearch)
                 .ToList();
 
-            if(expenses == null || expenses.Count == 0){
+            if (expenses == null || expenses.Count == 0)
+            {
                 return null;
             }
             return expenses;
@@ -74,7 +75,7 @@ namespace Services
             return expenses;
         }
 
-        public async Task<List<Expense>> GetExpenseByUserVehicleId(Guid UserVehicleId, DateOnly StartSearch, DateOnly EndSearch)
+        public async Task<List<Expense>> GetExpenseByUserVehicleId(Guid UserVehicleId, DateTime StartSearch, DateTime EndSearch)
         {
             var expenses = _dbContext.Expenses.Where(u => u.UserVehicleId == UserVehicleId
                 && u.ExpenseDate <= StartSearch
@@ -107,6 +108,20 @@ namespace Services
         public Task<List<U>> GetExpenseTypes<U>() where U : ExpenseType
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Dictionary<DateTime, decimal>> GetExpensesByUserByDay(Guid userId, int days)
+        {
+            var date = DateTime.Now.AddDays(-days);
+            var expenses = _dbContext.Expenses
+                .Where(e => e.UserVehicle.UserId == userId && e.ExpenseDate >= date)
+                .ToList();
+
+            var groupedExpenses = expenses
+                .GroupBy(e => e.ExpenseDate.Date)
+                .ToDictionary(g => g.Key, g => g.Sum(e => e.Value));
+
+            return groupedExpenses;
         }
     }
 }

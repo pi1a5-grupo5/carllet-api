@@ -1,4 +1,6 @@
-﻿using Domain.Entities.Budget;
+﻿using Application.ViewModels.Expense;
+using AutoMapper;
+using Domain.Entities.Budget;
 using Domain.Entities.Budget.Expenses;
 using Domain.Entities.VehicleNS;
 using Domain.Interfaces;
@@ -13,22 +15,11 @@ namespace Application.Controllers
     public class ExpenseController : HomeController
     {
         private readonly IExpenseService<Expense> _expenseService;
+        private readonly IMapper _mapper;
 
-        public ExpenseController(IExpenseService<Expense> expenseService)
+        public ExpenseController(IExpenseService<Expense> expenseService, IMapper mapper)
         {
             _expenseService = expenseService;
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RegisterExpense([FromBody] Expense expense)
-        {
-            var result = await _expenseService.RegisterExpense(expense);
-            if (result == null)
-            {
-                return BadRequest();
-            }
-
-            return Ok(result);
         }
 
         [HttpDelete]

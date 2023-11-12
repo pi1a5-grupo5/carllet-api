@@ -15,11 +15,12 @@ namespace Domain.Interfaces
         Task<List<T>> GetExpensesList();
         Task<T> GetExpense(Guid ExpenseId);
         Task<List<T>> GetExpenseByUserId(Guid driver);
-        Task<List<T>> GetExpenseByUserID(Guid driver, DateOnly StartSearch, DateOnly EndSearch);
+        Task<List<T>> GetExpenseByUserID(Guid driver, DateTime StartSearch, DateTime EndSearch);
         Task<List<T>> GetExpenseByUserVehicleId(Guid UserVehicleId);
-        Task<List<T>> GetExpenseByUserVehicleId(Guid UserVehicleId, DateOnly StartSearch, DateOnly EndSearch);
+        Task<List<T>> GetExpenseByUserVehicleId(Guid UserVehicleId, DateTime StartSearch, DateTime EndSearch);
         Task<T> UpdateExpense(T expense);
         void AddExpenseType<U>(U expense) where U : ExpenseType;
         Task<List<U>> GetExpenseTypes<U>() where U : ExpenseType;
+        Task<Dictionary<DateTime, decimal>> GetExpensesByUserByDay(Guid userId, int days);
     }
 }

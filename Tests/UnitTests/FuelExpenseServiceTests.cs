@@ -10,7 +10,7 @@ namespace Tests.UnitTests
 {
     public class ExpenseControllerTests
     {
-        private readonly IExpenseService<Expense> _expenseService;
+        private readonly IExpenseService<FuelExpense> _expenseService;
         private readonly CarlletDbContext _dbContext;
 
         public ExpenseControllerTests()
@@ -20,13 +20,13 @@ namespace Tests.UnitTests
                  .EnableSensitiveDataLogging()
                  .LogTo(Console.WriteLine, LogLevel.Information).Options;
              _dbContext = new CarlletDbContext(options);
-            _expenseService = new ExpenseService(_dbContext);
+            _expenseService = new FuelExpenseService(_dbContext);
         }
 
         [Fact]
         public async Task CreateFuelExpense_ValidFuelExpense_ReturnFuelExpenseCreatedAsync()
         {
-            var fuelExpense = new FuelExpense { UserVehicleId = new Guid("be801137-fb11-41b6-b2f3-dfe88d59bd39"), Value = 50, ExpenseDate = new DateOnly(), FuelTypeId = 1, Liters = 50 };
+            var fuelExpense = new FuelExpense { UserVehicleId = new Guid("be801137-fb11-41b6-b2f3-dfe88d59bd39"), Value = 50, ExpenseDate = new DateTime(), FuelTypeId = 1, Liters = 50 };
             Expense result = await _expenseService.RegisterExpense(fuelExpense);
 
             Assert.NotNull(result);
@@ -34,17 +34,16 @@ namespace Tests.UnitTests
         }
 
         [Fact]
-        public async Task CreateMaintenanceExpense_ValidMaintenanceExpense_ReturnMaintenanceExpenseCreatedAsync()
+        public async Task CreateFuelExpense_InvalidFuelExpense_ReturnNull()
         {
-            var maintenanceExpense = new MaintenanceExpense { UserVehicleId = new Guid("be801137-fb11-41b6-b2f3-dfe88d59bd39"), Value = 50, ExpenseDate = new DateOnly(), MaintenanceExpenseTypeId = 1, Details="Troca de oleo" };
-            Expense result = await _expenseService.RegisterExpense(maintenanceExpense);
+            var fuelExpense = new FuelExpense { UserVehicleId = new Guid("be801137-fb11-41b6-b2f3-dfe88d59bd00"), Value = 50, ExpenseDate = new DateTime(), FuelTypeId = 1, Liters = 50 };
+            Expense result = await _expenseService.RegisterExpense(fuelExpense);
 
-            Assert.NotNull(result);
-            Assert.Equal(result.Value, maintenanceExpense.Value);
+            Assert.Null(result);
         }
 
         [Fact]
-        public async Task GetAllExpenses_ReturnListOffAllExpensesAsync()
+        public async Task GetAllFuelExpenses_ReturnListOffAllExpenses()
         {
             var result = _expenseService.GetExpensesList();
             Assert.NotNull(result);

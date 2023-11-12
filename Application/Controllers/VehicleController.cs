@@ -64,129 +64,175 @@ namespace Application.Controllers
         [HttpGet("{VehicleId:Guid}")]
         public async Task<IActionResult> GetVehicle(Guid VehicleId)
         {
-            var vehicle = await _vehicleService.GetVehicleById(VehicleId);
-            var result = _mapper.Map<VehicleResponse>(vehicle);
+            var userVehicle = await _vehicleService.GetVehicleById(VehicleId);
 
-            return Ok(result);
-        }
-
-        [HttpGet("ByUser/{UserId:Guid}")]
-        public async Task<IActionResult> GetUserVehicleList(Guid UserId)
-        {
-            var UserVehicles = await _userVehicleService.GetUserVehicleByUserId(UserId);
-            var result = _mapper.Map<List<UserVehicleResponse>>(UserVehicles);
-
-            if(result.Count == 0)
-            {
-                return NoContent();
-            }
-
-            return Ok(result);
-        }
-
-        /// <summary>
-        ///     Retorna os veículos de um proprietário
-        /// </summary>
-        /// <remarks>
-        /// Exemplo de requisição
-        ///     GET /Vehicle/byOwner/1
-        /// </remarks>
-        /// <returns>Lista de veículos</returns>
-        /// <response code="200">Retorna a lista de veículos</response>
-        /// <response code="400">Se a lista de veículos for nula</response>
-        /// <response code="500">Se houver algum erro interno</response>
-        [HttpGet("byOwner/{ownerId}")]
-        public async Task<IActionResult> GetVehicleByOwner(Guid ownerId)
-        {
-            var vehicles = await _vehicleService.GetVehicleByOwner(ownerId);
-            var result = _mapper.Map<IEnumerable<VehicleResponse>>(vehicles);
-
-            if (result == null)
+            if (userVehicle == null)
                 return NotFound();
 
+            var result = new VehicleResponse
+            {
+                VehicleId = userVehicle.Vehicle.VehicleId.ToString(),
+                VehicleTypeName = userVehicle.Vehicle.VehicleType.Name,
+                VehicleBrandName = userVehicle.Vehicle.VehicleType.VehicleBrand.Name,
+                FabricationDate = userVehicle.Vehicle.FabricationDate,
+                Odometer = userVehicle.Vehicle.Odometer,
+                Rented = userVehicle.Vehicle.Rented,
+                UserVehicleId = userVehicle.UserVehicleId.ToString(),
+            };
+
             return Ok(result);
         }
+            
 
-        /// <summary>
-        ///     Cria um veículo no sistema
-        /// </summary>
-        /// <remarks>
-        /// Exemplo de requisição
-        ///     POST /Vehicle
-        /// </remarks>
-        /// <returns>Veículo criado</returns>
-        /// <response code="200">Retorna o veículo criado</response>
-        /// <response code="400">Se não houver veículo</response>
-        /// <response code="500">Se houver algum erro interno</response>
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] NewVehicleRequest request)
+    [HttpGet("ByUser/{UserId:Guid}")]
+    public async Task<IActionResult> GetUserVehicleList(Guid UserId)
+    {
+        var UserVehicles = await _userVehicleService.GetUserVehicleByUserId(UserId);
+        var result = _mapper.Map<List<UserVehicleResponse>>(UserVehicles);
+
+        if (result.Count == 0)
         {
-            var vehicle = _mapper.Map<Vehicle>(request);
-
-            var createdVehicle = await _vehicleService.CreateVehicle(vehicle);
-            var result = _mapper.Map<Vehicle, VehicleResponse>(createdVehicle);
-            var createdUserVehicle = await _userVehicleService.CreateRelation(request.UserId, vehicle.VehicleId);
-            result = _mapper.Map<UserVehicle, VehicleResponse>(createdUserVehicle, result);
-
-            return Ok(result);
+            return NoContent();
         }
 
-        [HttpPost("relate")]
-        public async Task<IActionResult> RelateUserVehicle([FromBody] Guid userId, Guid vehicleId)
-        {
-            var createdUserVehicle = await _userVehicleService.CreateRelation(vehicleId, userId);
-            var result = _mapper.Map<VehicleResponse>(createdUserVehicle);
-
-            return Ok(result);
-        }
-
-        /// <summary>
-        ///     Deleta um veículo no sistema
-        /// </summary>
-        /// <remarks>
-        /// Exemplo de requisição
-        ///     DELETE /Vehicle/1
-        /// </remarks>
-        /// <returns>Veículo deletado</returns>
-        /// <response code="200">Retorna o veículo deletado</response>
-        /// <response code="400">Se não houver veículo</response>
-        /// <response code="500">Se houver algum erro interno</response>
-        [HttpDelete("{VehicleId}")]
-        public async Task<IActionResult> DeleteVehicle(Guid VehicleId)
-        {
-            var vehicle = await _vehicleService.DeleteVehicle(VehicleId);
-            var result = _mapper.Map<VehicleResponse>(vehicle);
-
-            return Ok(result);
-        }
-
-        [HttpPost("brand")]
-        public async Task<IActionResult> RegisterVehicleBrand([FromBody] VehicleBrand brand)
-        {
-            var vehicleBrand = await _vehicleService.CreateVehicleBrand(brand);
-            var result = _mapper.Map<VehicleBrandResponse>(vehicleBrand);
-            return Ok(result);
-        }
-
-        [HttpPost("type")]
-        public async Task<IActionResult> RegisterVehicleType([FromBody] VehicleType type)
-        {
-            var result = await _vehicleService.CreateVehicleType(type);
-            return Ok(result);
-        }
-
-        [HttpGet("brand")]
-        public async Task<IActionResult> GetVehicleBrandsList()
-        {
-            var result = await _vehicleService.GetVehicleBrandList();
-            return Ok(result);
-        }
-
-        [HttpGet("type")]
-        public async Task<IActionResult> GetVehicleTypesList()
-        {
-            var result = await _vehicleService.GetVehicleTypesList();
-            return Ok(result);
-        }
+        return Ok(result);
     }
+
+    /// <summary>
+    ///     Retorna os veículos de um proprietário
+    /// </summary>
+    /// <remarks>
+    /// Exemplo de requisição
+    ///     GET /Vehicle/byOwner/1
+    ///     
+    /// 
+    /// </remarks>
+    /// <returns>Lista de veículos</returns>
+    /// <response code="200">Retorna a lista de veículos</response>
+    /// <response code="400">Se a lista de veículos for nula</response>
+    /// <response code="500">Se houver algum erro interno</response>
+    [HttpGet("byOwner/{ownerId}")]
+    public async Task<IActionResult> GetVehicleByOwner(Guid ownerId)
+    {
+        var userVehicles = await _vehicleService.GetVehicleByOwner(ownerId);
+        var result = new List<VehicleResponse>();
+
+        if (userVehicles == null)
+            return NotFound();
+
+        foreach (var userVehicle in userVehicles)
+        {
+            var vehicleByOwner = new VehicleResponse
+            {
+                VehicleId = userVehicle.Vehicle.VehicleId.ToString(),
+                VehicleTypeName = userVehicle.Vehicle.VehicleType.Name,
+                VehicleBrandName = userVehicle.Vehicle.VehicleType.VehicleBrand.Name,
+                FabricationDate = userVehicle.Vehicle.FabricationDate,
+                Odometer = userVehicle.Vehicle.Odometer,
+                Rented = userVehicle.Vehicle.Rented,
+                UserVehicleId = userVehicle.UserVehicleId.ToString(),
+            };
+
+            result.Add(vehicleByOwner);
+        }
+
+        return Ok(result);
+    }
+    ///     Cria um veículo no sistema
+    /// </summary>
+    /// <remarks>
+    /// Exemplo de requisição
+    ///     POST /Vehicle
+    /// </remarks>
+    /// <returns>Veículo criado</returns>
+    /// <response code="200">Retorna o veículo criado</response>
+    /// <response code="400">Se não houver veículo</response>
+    /// <response code="500">Se houver algum erro interno</response>
+    [HttpPost]
+    public async Task<IActionResult> Post([FromBody] NewVehicleRequest request)
+    {
+        var vehicle = _mapper.Map<Vehicle>(request);
+        var createdVehicle = await _vehicleService.CreateVehicle(vehicle);
+        var createdUserVehicle = await _userVehicleService.CreateRelation(request.UserId, vehicle.VehicleId);
+            var result = new VehicleResponse
+            {
+                VehicleId = createdVehicle.VehicleId.ToString(),
+                VehicleTypeName = createdVehicle.VehicleType.Name,
+                VehicleBrandName = createdVehicle.VehicleType.VehicleBrand.Name,
+                FabricationDate = createdVehicle.FabricationDate,
+                Odometer = createdVehicle.Odometer,
+                Rented = createdVehicle.Rented,
+                UserVehicleId = createdUserVehicle.UserVehicleId.ToString(),
+            };
+
+            return Ok(result);
+    }
+
+    [HttpPost("relate")]
+    public async Task<IActionResult> RelateUserVehicle([FromBody] Guid userId, Guid vehicleId)
+    {
+        var createdUserVehicle = await _userVehicleService.CreateRelation(vehicleId, userId);
+        var result = _mapper.Map<VehicleResponse>(createdUserVehicle);
+
+        return Ok(result);
+    }
+
+    /// <summary>
+    ///     Deleta um veículo no sistema
+    /// </summary>
+    /// <remarks>
+    /// Exemplo de requisição
+    ///     DELETE /Vehicle/1
+    /// </remarks>
+    /// <returns>Veículo deletado</returns>
+    /// <response code="200">Retorna o veículo deletado</response>
+    /// <response code="400">Se não houver veículo</response>
+    /// <response code="500">Se houver algum erro interno</response>
+    [HttpDelete("{VehicleId}")]
+    public async Task<IActionResult> DeleteVehicle(Guid VehicleId)
+    {
+        var vehicle = await _vehicleService.DeleteVehicle(VehicleId);
+        var result = _mapper.Map<VehicleResponse>(vehicle);
+
+        return Ok(result);
+    }
+
+    [HttpPost("brand")]
+    public async Task<IActionResult> RegisterVehicleBrand([FromBody] VehicleBrandRequest request)
+    {
+            var brand = _mapper.Map<VehicleBrand>(request);
+        var vehicleBrand = await _vehicleService.CreateVehicleBrand(brand);
+        var result = _mapper.Map<VehicleBrandResponse>(vehicleBrand);
+        return Ok(result);
+    }
+
+    [HttpPost("type")]
+    public async Task<IActionResult> RegisterVehicleType([FromBody] VehicleTypeRequest request)
+    {
+            var type = _mapper.Map<VehicleType>(request);
+        var result = await _vehicleService.CreateVehicleType(type);
+        return Ok(result);
+    }
+
+    [HttpGet("brand")]
+    public async Task<IActionResult> GetVehicleBrandsList()
+    {
+        var result = await _vehicleService.GetVehicleBrandList();
+        return Ok(result);
+    }
+
+    [HttpGet("type")]
+    public async Task<IActionResult> GetVehicleTypesList()
+    {
+        var result = await _vehicleService.GetVehicleTypesList();
+        return Ok(result);
+    }
+
+    [HttpGet("typeByBrand/{brandId:int}")]
+    public async Task<IActionResult> GetVehicleTypesByBrand(int brandId)
+    {
+        var result = await _vehicleService.GetVehicleTypesByBrand(brandId);
+        return Ok(result);
+    }
+}
 }

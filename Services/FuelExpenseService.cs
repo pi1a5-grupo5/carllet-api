@@ -54,7 +54,7 @@ namespace Services
             return fuelExpenses;
         }
 
-        public async Task<List<FuelExpense>> GetExpenseByUserID(Guid driver, DateOnly StartSearch, DateOnly EndSearch)
+        public async Task<List<FuelExpense>> GetExpenseByUserID(Guid driver, DateTime StartSearch, DateTime EndSearch)
         {
             var fuelExpenses = _dbContext.UserVehicles
             .Where(uv => uv.UserId == driver)
@@ -81,7 +81,7 @@ namespace Services
             return expenses;
         }
 
-        public async Task<List<FuelExpense>> GetExpenseByUserVehicleId(Guid UserVehicleId, DateOnly StartSearch, DateOnly EndSearch)
+        public async Task<List<FuelExpense>> GetExpenseByUserVehicleId(Guid UserVehicleId, DateTime StartSearch, DateTime EndSearch)
         {
             var expenses = _dbContext.FuelExpenses.Where(u => u.UserVehicleId == UserVehicleId
                 && u.ExpenseDate <= StartSearch
@@ -120,7 +120,6 @@ namespace Services
             {
                 _dbContext.FuelExpenseTypes.Add(expense as FuelExpenseType);
             }
-
         }
 
         public async Task<List<U>> GetExpenseTypes<U>() where U : ExpenseType
@@ -132,6 +131,11 @@ namespace Services
             }
 
             return null;
+        }
+
+        public Task<Dictionary<DateTime, decimal>> GetExpensesByUserByDay(Guid userId, int days)
+        {
+            throw new NotImplementedException();
         }
     }
 }

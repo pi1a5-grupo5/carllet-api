@@ -8,7 +8,6 @@ WORKDIR /src
 COPY ["Application/Application.csproj", "Application/"]
 COPY ["Domain/Domain.csproj", "Domain/"]
 COPY ["Services/Services.csproj", "Services/"]
-COPY ["Tests/Tests.csproj", "Tests/"]
 COPY ["Infra.Data/Infra.Data.csproj", "Infra.Data/"]
 RUN dotnet restore "Application/Application.csproj"
 COPY . .

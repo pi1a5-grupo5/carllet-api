@@ -26,7 +26,10 @@ namespace Infra.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<Earning> Earnings { get; set; }
         public CarlletDbContext(DbContextOptions<CarlletDbContext> options) : base(options)
-        { }
+        {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

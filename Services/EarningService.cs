@@ -2,6 +2,7 @@
 using Domain.Entities.Budget;
 using Domain.Interfaces;
 using Infra.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services
 {
@@ -26,8 +27,8 @@ namespace Services
 
         public async Task<List<Earning>> GetEarningByUser(Guid driver, DateTime StartSearch, DateTime EndSearch)
         {
-            var earnings = _dbContext.Earnings.Where(u => u.OwnerId == driver 
-            && u.InsertionDateTime <= StartSearch 
+            var earnings = _dbContext.Earnings.Where(u => u.OwnerId == driver
+            && u.InsertionDateTime <= StartSearch
             && u.InsertionDateTime >= EndSearch).ToList();
 
             if (earnings == null || earnings.Count == 0)
@@ -50,6 +51,20 @@ namespace Services
             return earnings;
         }
 
+        public async Task<Dictionary<DateTime, double>> GetEarningsByUserByDays(Guid driver, int days)
+        {
+            var date = DateTime.Now.AddDays(-days);
+            var earnings = _dbContext.Earnings
+                .Where(u => u.OwnerId == driver)
+                .ToList();
+
+            var groupedEarnings = earnings
+                .GroupBy(e => e.InsertionDateTime.Date)
+                .ToDictionary(g => g.Key, g => g.Sum(e => e.EarningValue));
+
+            return groupedEarnings;
+        }
+
         public async Task<Earning> RegisterEarning(Earning earning)
         {
             User user = _dbContext.Users.FirstOrDefault(u => u.Id == earning.OwnerId);
@@ -57,6 +72,7 @@ namespace Services
             earning.Owner = user;
 
             var setEarning = _dbContext.Earnings.Add(earning);
+            _dbContext.SaveChanges();
 
             if (setEarning == null)
             {
@@ -79,5 +95,7 @@ namespace Services
             await _dbContext.SaveChangesAsync();
             return earningToUpdate;
         }
+
+
     }
 }

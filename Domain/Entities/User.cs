@@ -29,8 +29,20 @@ namespace Domain.Entities
         [Column("telefone")]
         public string? Cellphone { get; set; }
 
+        [Column("possui_plano")]
+        public bool HavePlan { get; set; }
+
         [Column("deviceid")]
         public string? DeviceId { get; set; }
+
+        [Column("dias_trabalhados")]
+        public int? DaysWorked { get; set; }
+
+        [Column("exclusivo")]
+        public bool Exclusive { get; set; }
+
+        [Column("meta")]
+        public double ? Goal{ get; set; }
 
         [Column("reset_password")]
         public Boolean ResetPassword { get; set; }
