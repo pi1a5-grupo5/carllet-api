@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Attributes
+namespace Tests.UnitTests
 {
-    internal class AllowAnonymousAttribute
+    internal class AuthServiceTests
     {
     }
 }

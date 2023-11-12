@@ -13,9 +13,26 @@ namespace Services
             _dbContext = dbContext;
         }
 
+        public Task<Course> Delete(Course course)
+        {
+            throw new NotImplementedException();
+        }
+        public async Task<Course> GetById(Guid CourseId)
+        {
+            var course = _dbContext.Courses.Find(CourseId);
+
+            if (course == null)
+            {
+                return null;
+            }
+
+            return course;
+
+        }
+
         public async Task<List<Course>> GetByUserId(Guid driverId)
         {
-            var courses = _dbContext.Course.Where(c => c.UserVehicle.UserId == driverId).ToList();
+            var courses = _dbContext.Courses.Where(c => c.UserVehicle.UserId == driverId).ToList();
 
             if (courses == null || courses.Count == 0)
             {
@@ -26,14 +43,19 @@ namespace Services
 
         }
 
+        public Task<List<Course>> GetByUserId(Guid driver, DateTime StartSearch, DateTime EndSearch)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Course> Register(Course course)
         {
 
-            UserVehicle userVehicle = _dbContext.UserVehicles.FirstOrDefault(uv => uv.Id == course.UserVehicleId);
+            UserVehicle userVehicle = _dbContext.UserVehicles.FirstOrDefault(uv => uv.UserVehicleId == course.UserVehicleId);
 
             course.UserVehicle = userVehicle;
 
-            var setCourse = _dbContext.Course.Add(course);
+            var setCourse = _dbContext.Courses.Add(course);
 
             if (setCourse == null) // || vehicle == null)
             {
@@ -45,6 +67,9 @@ namespace Services
             return course;
         }
 
-
+        public Task<Course> Update(Course course)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -18,14 +18,14 @@ namespace Services
 
         public async Task<User> DeleteUser(Guid id)
         {
-            var user = _dbContext.User.Where(u => u.Id == id).FirstOrDefault();
+            var user = _dbContext.Users.Where(u => u.Id == id).FirstOrDefault();
 
             if (user == null)
             {
                 return null;
             }
 
-            _dbContext.User.Remove(user);
+            _dbContext.Users.Remove(user);
             _dbContext.SaveChanges();
 
             user.Password = "";
@@ -36,7 +36,7 @@ namespace Services
 
         public async Task<List<User>> GetUserList()
         {
-            var users = _dbContext.User.ToList();
+            var users = _dbContext.Users.ToList();
 
 
             if (users.Count == 0)
@@ -49,7 +49,7 @@ namespace Services
 
         public async Task<User> GetUser(Guid id)
         {
-            var user = _dbContext.User.Find(id);
+            var user = _dbContext.Users.Find(id);
 
             if (user == null)
             {
@@ -62,7 +62,7 @@ namespace Services
 
         public async Task<User> Register(User user)
         {
-            var userExist = _dbContext.User.FirstOrDefault(u => u.Email == user.Email);
+            var userExist = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
 
             if (userExist != null)
             {
@@ -72,7 +72,7 @@ namespace Services
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             user.Verified = false;
 
-            var setUser = _dbContext.User.Add(user);
+            var setUser = _dbContext.Users.Add(user);
 
             if (setUser == null)
             {
@@ -95,7 +95,7 @@ namespace Services
 
         public async void VerifyEmail(string verificationToken)
         {
-            var verifiedUser = _dbContext.User.SingleOrDefault(vu => vu.VerificationToken == verificationToken);
+            var verifiedUser = _dbContext.Users.SingleOrDefault(vu => vu.VerificationToken == verificationToken);
 
             if (verifiedUser == null)
             {
@@ -116,7 +116,7 @@ namespace Services
         }
         public async Task<User> Login(string email, string password)
         {
-            var user = _dbContext.User.FirstOrDefault(u => u.Email == email);
+            var user = _dbContext.Users.FirstOrDefault(u => u.Email == email);
 
             if (user == null)
             {
@@ -138,7 +138,7 @@ namespace Services
         public async Task<User> Update(User user)
         {
             // Create an instance of the entity to be updated
-            var userToUpdate = _dbContext.User.Find(user.Id);
+            var userToUpdate = _dbContext.Users.Find(user.Id);
             if (userToUpdate == null)
             {
                 return null;
@@ -155,7 +155,7 @@ namespace Services
 
         public void ForgotPassword(string email)
         {
-            var userExist = _dbContext.User.FirstOrDefault(u => u.Email == email);
+            var userExist = _dbContext.Users.FirstOrDefault(u => u.Email == email);
 
             if(userExist == null)
             {
@@ -166,23 +166,31 @@ namespace Services
             userExist.ResetPassword = true;
             userExist.ResetPasswordTokenExpiration = DateTime.UtcNow.AddMinutes(15.0);
             _emailService.SendResetPasswordEmail(userExist);
+
+            _dbContext.SaveChanges();
         }
 
-        public void ResetPassword(User user)
+        public async Task<User> ResetPassword(string resetToken, string newPassword,string newPasswordConfirmation )
         {
-            var userExist = _dbContext.User.FirstOrDefault(u => u.ResetPasswordToken == user.ResetPasswordToken);
+            var userExist =  _dbContext.Users.FirstOrDefault(u => u.ResetPasswordToken == resetToken);
 
             if(userExist == null || DateTime.UtcNow > userExist.ResetPasswordTokenExpiration)
             {
-                return;
+                return null;
             }
 
-            userExist.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            if(newPassword != newPasswordConfirmation)
+            {
+                return null;
+            }
+            userExist.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
             userExist.ResetPassword = false;
             userExist.ResetPasswordToken = "";
             userExist.ResetPasswordTokenExpiration = null;
 
            _dbContext.Update(userExist);
+            _dbContext.SaveChanges();
+            return userExist;
         }
     }
 }

@@ -58,6 +58,9 @@ namespace Infra.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("ExpenseDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<Guid>("UserVehicleId")
                         .HasColumnType("uuid");
 
@@ -107,6 +110,23 @@ namespace Infra.Data.Migrations
                     b.HasKey("MaintenanceExpenseTypeId");
 
                     b.ToTable("MaintenanceExpenseTypes");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Budget.Expenses.OtherExpenseType", b =>
+                {
+                    b.Property<int>("MaintenanceExpenseTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MaintenanceExpenseTypeId"));
+
+                    b.Property<string>("MaintenanceName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("MaintenanceExpenseTypeId");
+
+                    b.ToTable("OtherExpenseTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.Budget.Prevision", b =>
@@ -159,6 +179,25 @@ namespace Infra.Data.Migrations
                     b.ToTable("Percurso");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Goal", b =>
+                {
+                    b.Property<Guid>("GoalId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("GoalValue")
+                        .HasColumnType("double precision");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("GoalId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Goals");
+                });
+
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -182,6 +221,10 @@ namespace Infra.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("numero_cnh");
 
+                    b.Property<int?>("DaysWorked")
+                        .HasColumnType("integer")
+                        .HasColumnName("dias_trabalhados");
+
                     b.Property<string>("DeviceId")
                         .HasColumnType("text")
                         .HasColumnName("deviceid");
@@ -190,6 +233,18 @@ namespace Infra.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("email");
+
+                    b.Property<bool>("Exclusive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("exclusivo");
+
+                    b.Property<double?>("Goal")
+                        .HasColumnType("double precision")
+                        .HasColumnName("meta");
+
+                    b.Property<bool>("HavePlan")
+                        .HasColumnType("boolean")
+                        .HasColumnName("possui_plano");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -240,7 +295,7 @@ namespace Infra.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.UserVehicle", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UserVehicleId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
@@ -252,7 +307,7 @@ namespace Infra.Data.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id_veiculo");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserVehicleId");
 
                     b.HasIndex("UserId");
 
@@ -375,6 +430,28 @@ namespace Infra.Data.Migrations
                     b.HasDiscriminator().HasValue("MaintenanceExpense");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Budget.Expenses.OtherExpense", b =>
+                {
+                    b.HasBaseType("Domain.Entities.Budget.Expenses.Expense");
+
+                    b.Property<string>("Details")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("OtherExpenseTypeId")
+                        .HasColumnType("integer");
+
+                    b.HasIndex("OtherExpenseTypeId");
+
+                    b.ToTable("Expenses", t =>
+                        {
+                            t.Property("Details")
+                                .HasColumnName("OtherExpense_Details");
+                        });
+
+                    b.HasDiscriminator().HasValue("OtherExpense");
+                });
+
             modelBuilder.Entity("Domain.Entities.Budget.Earning", b =>
                 {
                     b.HasOne("Domain.Entities.User", "Owner")
@@ -413,6 +490,17 @@ namespace Infra.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("UserVehicle");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Goal", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.UserVehicle", b =>
@@ -482,6 +570,17 @@ namespace Infra.Data.Migrations
                     b.Navigation("MaintenanceExpenseType");
 
                     b.Navigation("OriginatingExpense");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Budget.Expenses.OtherExpense", b =>
+                {
+                    b.HasOne("Domain.Entities.Budget.Expenses.OtherExpenseType", "OtherExpenseType")
+                        .WithMany()
+                        .HasForeignKey("OtherExpenseTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OtherExpenseType");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>

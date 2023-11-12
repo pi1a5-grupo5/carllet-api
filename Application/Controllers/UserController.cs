@@ -1,4 +1,5 @@
-﻿using Application.Requests.User;
+﻿using Application.ViewModels.User;
+using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,16 +10,14 @@ namespace Application.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : HomeController
     {
         private readonly IUserService _userService;
-        private readonly IEmailService _emailService;
-        private const int WorkFactor = 8;
-
-        public UserController(IUserService userService, IEmailService emailService)
+        private readonly IMapper _mapper;
+        public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
-            _emailService = emailService;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -32,16 +31,16 @@ namespace Application.Controllers
         /// <response code="200">Retorna a lista de usuários</response>
         /// <response code="400">Se a lista de usuário for nula</response>
         /// <response code="500">Se houver algum erro interno</response>
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {
-            var result = await _userService.GetUserList();
+        //[HttpGet]
+        //public async Task<IActionResult> Get()
+        //{
+        //    var result = await _userService.GetUserList();
 
-            if (result == null)
-                return BadRequest(new { message = "Não há usuários cadastrados" });
+        //    if (result == null)
+        //        return BadRequest(new { message = "Não há usuários cadastrados" });
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
 
         /// <summary>
         ///     Autentica um usuário no sistema
@@ -50,13 +49,12 @@ namespace Application.Controllers
         /// <response code="200">Retorna o usuário autenticado</response>
         /// <response code="204">Se não houver usuários</response>
         /// <response code="500">Se houver algum erro interno</response>
-
-
         [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest model)
+        public async Task<ActionResult<UserResponse>> Login([FromBody] LoginRequest model)
         {
-            var result = await _userService.Login(model.Email, model.Password);
-
+            var loggedUser = await _userService.Login(model.Email, model.Password);
+            var result = _mapper.Map<UserResponse>(loggedUser);
+              
             return Ok(result);
         }
 
@@ -74,7 +72,8 @@ namespace Application.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(Guid id)
         {
-            var result = await _userService.GetUser(id);
+            var user = await _userService.GetUser(id);
+            var result = _mapper.Map<UserResponse>(user);
 
             return Ok(result);
         }
@@ -86,17 +85,11 @@ namespace Application.Controllers
         /// <response code="200">Retorna o usuário criado</response>
         /// <response code="500">Se houver algum erro interno</response>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] NewUserRequest request)
+        public async Task<ActionResult<LoginResponse>> Post([FromBody] NewUserRequest request)
         {
-            User user = new User()
-            {
-                Name = request.Name,
-                Email = request.Email,
-                Password = request.Password,
-                DeviceId = request.DeviceId
-            };
-
-            var result = await _userService.Register(user);
+            var user = _mapper.Map<User>(request);
+            var registeredUser = await _userService.Register(user);
+            var result = _mapper.Map<UserResponse>(registeredUser);
 
             return Ok(result);
         }
@@ -105,7 +98,6 @@ namespace Application.Controllers
         public async Task<IActionResult> VerifyEmail(string verificationToken)
         {
            _userService.VerifyEmail(verificationToken);
-
             return Ok();
         }
 
@@ -117,10 +109,11 @@ namespace Application.Controllers
         }
 
        [HttpPost("ResetPassword/{resetToken}")]
-       public async Task<IActionResult> ResetPassword(User user)
+       public async Task<IActionResult> ResetPassword(string resetToken, ResetPasswordRequest request)
         {
-            _userService.ResetPassword(user);
-            return Ok();
+            var resettedPasswordUser = await _userService.ResetPassword(resetToken, request.NewPassword, request.NewPasswordConfirmation);
+            var result = _mapper.Map<UserResponse>(resettedPasswordUser);
+            return Ok(result);
         }
 
 
@@ -130,9 +123,11 @@ namespace Application.Controllers
         /// <returns>Retorna o usuário criado</returns>
         /// <response code="200">Retorna o usuário criado</response>
         [HttpPut("{id:Guid}")]
-        public async Task<IActionResult> Put([FromBody] User user)
+        public async Task<IActionResult> Put([FromBody] UpdateUserRequest updateUser)
         {
-            var result = await _userService.Update(user);
+            var user = _mapper.Map<User>(updateUser);
+            var UpdatedUser = await _userService.Update(user);
+            var result = _mapper.Map<UserResponse>(UpdatedUser);
 
             return Ok(result);
         }
@@ -155,7 +150,8 @@ namespace Application.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
-            var result = await _userService.DeleteUser(id);
+            var deletedUser = await _userService.DeleteUser(id);
+            var result = _mapper.Map<UserResponse>(deletedUser);
 
             return Ok(result);
         }
