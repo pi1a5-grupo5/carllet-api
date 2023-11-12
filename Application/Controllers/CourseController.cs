@@ -1,22 +1,24 @@
-﻿using Application.Requests.Course;
+﻿using Application.ViewModels.Course;
+using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Services;
 
 namespace Application.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CourseController : ControllerBase
+    public class CourseController : HomeController
     {
-            private readonly ICourseService _courseService;
+        private readonly ICourseService _courseService;
+        private readonly IMapper _mapper;
 
-            public CourseController(ICourseService courseService)
-            {
-                _courseService = courseService;
-            }
-        
+        public CourseController(ICourseService courseService, IMapper mapper)
+        {
+            _courseService = courseService;
+            _mapper = mapper;
+        }
+
         /// <summary>
         /// Registra um novo percurso
         /// </summary>
@@ -28,17 +30,16 @@ namespace Application.Controllers
         /// <response code="500">Se houver algum erro interno</response>
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] NewCourseRequest request)
+        public async Task<IActionResult> Post([FromBody] CourseDTO request)
         {
-            Course course = new Course()
+            var courseReq = _mapper.Map<Course>(request);
+            var courseRes = await _courseService.Register(courseReq);
+            if (courseRes == null)
             {
-                CourseEndTime = request.CourseEndTime,
-                CourseLength = request.CourseLength,
-                OwnerId = request.OwnerId,
-            };
+                return BadRequest();
+            }
 
-            //course.OwnerId = HttpContext.Items["UserId"];
-            var result = await _courseService.Register(course);
+            var result = _mapper.Map<CourseDTO>(courseRes);
 
             return Ok(result);
         }
@@ -56,8 +57,19 @@ namespace Application.Controllers
         [HttpGet("ByUserId/{driverId:Guid}")]
         public async Task<IActionResult> GetByUserId(Guid driverId)
         {
-            //course.OwnerId = HttpContext.Items["UserId"];
-            var result = await _courseService.GetByUserId(driverId);
+            var courseRes = await _courseService.GetByUserId(driverId);
+
+            if (courseRes == null)
+            {
+                return BadRequest();
+            }
+
+            if(courseRes.Count== 0)
+            {
+                return NoContent();
+            }
+
+            var result = _mapper.Map<List<CourseDTO>>(courseRes);
 
             return Ok(result);
         }

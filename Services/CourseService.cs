@@ -1,12 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using Infra.Data;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services
 {
@@ -19,41 +13,63 @@ namespace Services
             _dbContext = dbContext;
         }
 
+        public Task<Course> Delete(Course course)
+        {
+            throw new NotImplementedException();
+        }
+        public async Task<Course> GetById(Guid CourseId)
+        {
+            var course = _dbContext.Courses.Find(CourseId);
+
+            if (course == null)
+            {
+                return null;
+            }
+
+            return course;
+
+        }
+
         public async Task<List<Course>> GetByUserId(Guid driverId)
         {
-            var courses =_dbContext.Course.Where(u => u.OwnerId == driverId).ToList();
+            var courses = _dbContext.Courses.Where(c => c.UserVehicle.UserId == driverId).ToList();
 
             if (courses == null || courses.Count == 0)
             {
                 return null;
             }
-
+                
             return courses;
 
+        }
+
+        public Task<List<Course>> GetByUserId(Guid driver, DateTime StartSearch, DateTime EndSearch)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<Course> Register(Course course)
         {
 
-            User user = _dbContext.User.FirstOrDefault(u => u.Id == course.OwnerId);
-            // Vehicle vehicle = _dbContext.Vehicle.FirstOrDefault(v => v.Id == course.VehicleId);
+            UserVehicle userVehicle = _dbContext.UserVehicles.FirstOrDefault(uv => uv.UserVehicleId == course.UserVehicleId);
 
-            course.Owner = user;
-            // course.Vehicle = vehicle;
+            course.UserVehicle = userVehicle;
 
-            var setCourse = _dbContext.Course.Add(course);
+            var setCourse = _dbContext.Courses.Add(course);
 
             if (setCourse == null) // || vehicle == null)
             {
                 return null;
             }
 
-            // vehicle.Odometer += course.CourseLength;
             _dbContext.SaveChanges();
 
             return course;
         }
 
-
+        public Task<Course> Update(Course course)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

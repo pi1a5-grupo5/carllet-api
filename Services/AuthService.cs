@@ -1,23 +1,18 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using Infra.Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Services
 {
     public class AuthService : IAuthService
     {
         private readonly IConfiguration _configuration;
-        private CarlletDbContext _dbContext;
+        private readonly CarlletDbContext _dbContext;
 
         public AuthService(IConfiguration configuration, CarlletDbContext dbContext)
         {
@@ -44,7 +39,7 @@ namespace Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var accessToken = tokenHandler.WriteToken(token);
 
-            var updateUser = _dbContext.User.SingleOrDefault(u => u.Id == user.Id);
+            var updateUser = _dbContext.Users.SingleOrDefault(u => u.Id == user.Id);
 
             if (updateUser == null)
             {
@@ -77,7 +72,7 @@ namespace Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var refreshToken = tokenHandler.WriteToken(token);
 
-            var updateUser = _dbContext.User.SingleOrDefault(u => u.Id == user.Id);
+            var updateUser = _dbContext.Users.SingleOrDefault(u => u.Id == user.Id);
 
             if (updateUser == null)
             {
@@ -91,11 +86,26 @@ namespace Services
             return updateUser.RefreshToken;
         }
 
-        public async Task<int?> ValidateToken(string token)
+        public async Task<string> GenerateVerificationToken(User user)
         {
-            if (token == null)
-                return null;
+            var expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_configuration["RefreshTokenExpirationMinutes"]));
+            string verificationToken = Guid.NewGuid().ToString();
+            var updateUser = _dbContext.Users.SingleOrDefault(u => u.Id == user.Id);
 
+            if (updateUser == null)
+            {
+                return null;
+            }
+
+            updateUser.VerificationToken = verificationToken;
+            updateUser.VerificationTokenExpiration = expires;
+            _dbContext.SaveChanges();
+
+            return updateUser.VerificationToken;
+        }
+
+        public bool ValidateToken(string token, out JwtSecurityToken jwt)
+        {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:SecretKey"]);
             try
@@ -109,14 +119,15 @@ namespace Services
                     ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
 
-                var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+                jwt = (JwtSecurityToken)validatedToken;
 
-                return userId;
+                return true;
             }
-            catch
+            catch (SecurityTokenValidationException ex)
             {
-                return null;
+                //TODO CloudWatch Log
+                jwt = null;
+                return false;
             }
         }
     }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
@@ -13,13 +8,11 @@ namespace Domain.Entities
     {
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("Id")]
         public Guid Id { get; set; }
 
         [ForeignKey("id")]
-        [Column("id_condutor")]
-        public Guid? OwnerId { get; set; }
-        public User? Owner { get; set; }
+        public Guid UserVehicleId { get; set; }
+        public UserVehicle UserVehicle { get; set; }
 
         [Column("distancia_percurso")]
         public float CourseLength { get; set; }

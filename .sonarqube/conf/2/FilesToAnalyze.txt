@@ -1,0 +1,6 @@
+﻿D:\_lab\carllet-mvp\Infra.Data\CarlletDbContext.cs
+D:\_lab\carllet-mvp\Infra.Data\Migrations\20230810014509_InitialCreate.cs
+D:\_lab\carllet-mvp\Infra.Data\Migrations\20230810014509_InitialCreate.Designer.cs
+D:\_lab\carllet-mvp\Infra.Data\Migrations\20230904232731_Earnings.cs
+D:\_lab\carllet-mvp\Infra.Data\Migrations\20230904232731_Earnings.Designer.cs
+D:\_lab\carllet-mvp\Infra.Data\Migrations\CarlletDbContextModelSnapshot.cs

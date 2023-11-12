@@ -1,8 +1,7 @@
+using Domain.Entities.Budget.Expenses;
 using Domain.Interfaces;
 using Infra.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Services;
 using System.Reflection;
@@ -10,10 +9,22 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<IUserVehicleService, UserVehicleService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IEarningService, EarningService>();
+builder.Services.AddScoped<IEarningService, EarningService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IExpenseService<Expense>, ExpenseService>();
+builder.Services.AddScoped<IExpenseService<FuelExpense>, FuelExpenseService>();
+builder.Services.AddScoped<IExpenseService<MaintenanceExpense>, MaintenanceExpenseService>();
+builder.Services.AddScoped<IExpenseService<OtherExpense>, OtherExpenseService>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 builder.Services.AddControllers();
