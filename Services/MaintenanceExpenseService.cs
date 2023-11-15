@@ -104,15 +104,16 @@ namespace Services
             if (expense is MaintenanceExpenseType)
             {
                 _dbContext.MaintenanceExpenses.Add(expense as MaintenanceExpense);
+                _dbContext.SaveChanges();
             }
         }
 
         public async Task<List<U>> GetExpenseTypes<U>() where U : ExpenseType
         {
-            if (typeof(U) == typeof(FuelExpenseType))
+            if (typeof(U) == typeof(MaintenanceExpenseType))
             {
-                var fuelExpenseTypes = _dbContext.FuelExpenseTypes.ToList();
-                return fuelExpenseTypes as List<U>;
+                var maintenanceExpenseTypes = _dbContext.MaintenanceExpenseTypes.ToList();
+                return maintenanceExpenseTypes as List<U>;
             }
 
             return null;

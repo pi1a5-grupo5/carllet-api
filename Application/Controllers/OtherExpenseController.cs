@@ -99,7 +99,7 @@ namespace Application.Controllers
         [HttpGet("Types")]
         public async Task<IActionResult> GetExpenseTypes()
         {
-            var result = await _expenseService.GetExpenseTypes<MaintenanceExpenseType>();
+            var result = await _expenseService.GetExpenseTypes<OtherExpenseType>();
             if (result == null)
             {
                 return BadRequest();
@@ -108,7 +108,7 @@ namespace Application.Controllers
         }
 
         [HttpPost("Types")]
-        public async Task<IActionResult> AddExpenseType([FromBody] MaintenanceExpenseType expenseType)
+        public async Task<IActionResult> AddExpenseType([FromBody] OtherExpenseType expenseType)
         {
             _expenseService.AddExpenseType(expenseType);
             return Ok();

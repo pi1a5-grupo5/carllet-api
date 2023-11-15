@@ -94,19 +94,21 @@ namespace Services
         }
 
         public void AddExpenseType<U>(U expense) where U : ExpenseType        {
-            if (expense is OtherExpense)
+            if (expense is OtherExpenseType)
             {
-                _dbContext.OtherExpenses.Add(expense as OtherExpense);
+                _dbContext.OtherExpenseTypes.Add(expense as OtherExpenseType);
+                _dbContext.SaveChanges();
+
             }
         }
 
 
         public async Task<List<U>> GetExpenseTypes<U>() where U : ExpenseType
         {
-            if (typeof(U) == typeof(FuelExpenseType))
+            if (typeof(U) == typeof(OtherExpenseType))
             {
-                var fuelExpenseTypes = _dbContext.FuelExpenseTypes.ToList();
-                return fuelExpenseTypes as List<U>;
+                var otherExpenseTypes = _dbContext.OtherExpenseTypes.ToList();
+                return otherExpenseTypes as List<U>;
             }
 
             return null;

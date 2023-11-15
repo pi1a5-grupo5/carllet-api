@@ -28,8 +28,8 @@ namespace Services
         public async Task<List<Earning>> GetEarningByUser(Guid driver, DateTime StartSearch, DateTime EndSearch)
         {
             var earnings = _dbContext.Earnings.Where(u => u.OwnerId == driver
-            && u.InsertionDateTime <= StartSearch
-            && u.InsertionDateTime >= EndSearch).ToList();
+            && u.InsertionDateTime >= StartSearch
+            && u.InsertionDateTime <= EndSearch).ToList();
 
             if (earnings == null || earnings.Count == 0)
             {
