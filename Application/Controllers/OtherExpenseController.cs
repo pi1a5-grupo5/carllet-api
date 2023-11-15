@@ -43,7 +43,7 @@ namespace Application.Controllers
            var result = await _expenseService.DeleteExpense(expenseId);
            if (result == null)
            {
-               return BadRequest();
+               return NotFound();
            }
 
            return Ok(result);
@@ -55,7 +55,7 @@ namespace Application.Controllers
            var result = await _expenseService.GetExpense(ExpenseId);
            if (result == null)
            {
-               return BadRequest();
+               return NotFound();
 
            }
            return Ok(result);
@@ -67,7 +67,7 @@ namespace Application.Controllers
            var result = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
            if (result == null)
            {
-               return BadRequest();
+               return NotFound();
            }
            return Ok(result);
        }
@@ -78,7 +78,7 @@ namespace Application.Controllers
            var result = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
            if (result == null)
            {
-               return BadRequest();
+               return NotFound();
            }
                return Ok(result);
            }
@@ -90,7 +90,7 @@ namespace Application.Controllers
             var expenseRes = await _expenseService.UpdateExpense(expenseReq);
             if (expenseRes == null)
             {
-                return BadRequest();
+                return NotFound();
             }
             var result = _mapper.Map<OtherExpenseResponse>(expense);
             return Ok(result);
@@ -99,11 +99,13 @@ namespace Application.Controllers
         [HttpGet("Types")]
         public async Task<IActionResult> GetExpenseTypes()
         {
-            var result = await _expenseService.GetExpenseTypes<OtherExpenseType>();
-            if (result == null)
+            var expense = await _expenseService.GetExpenseTypes<OtherExpenseType>();
+            if (expense == null)
             {
-                return BadRequest();
+                return NotFound();
             }
+            var result = _mapper.Map<ExpenseTypeResponse>(expense);
+
             return Ok(result);
         }
 

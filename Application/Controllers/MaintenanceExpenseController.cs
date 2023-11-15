@@ -98,11 +98,13 @@ namespace Application.Controllers
         [HttpGet("Types")]
         public async Task<IActionResult> GetExpenseTypes()
         {
-            var result = await _expenseService.GetExpenseTypes<MaintenanceExpenseType>();
-            if (result == null)
+            var expense = await _expenseService.GetExpenseTypes<MaintenanceExpenseType>();
+            if (expense == null)
             {
-                return BadRequest();
+                return NotFound();
             }
+            var result = _mapper.Map<ExpenseTypeResponse>(expense);
+
             return Ok(result);
         }
 
