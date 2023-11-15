@@ -38,30 +38,30 @@ namespace Application.Controllers
             return Ok(result);
         }
 
-        //[HttpGet("AndExpensesLastDays/{Id:guid}")]
-        //public async Task<IActionResult> GetEarningsAndExpensesOffLastSevenDays(Guid Id)
-        //{
-        //    int days = 7;
-        //    var earningsByDay = await _earningService.GetEarningsByUserByDays(Id, days);
-        //    var expensesByDay = await _expenseService.GetExpensesByUserByDay(Id, days);
+        [HttpGet("AndExpensesLastDays/{Id:guid}")]
+        public async Task<IActionResult> GetEarningsAndExpensesOffLastSevenDays(Guid Id)
+        {
+            int days = 7;
+            var earningsByDay = await _earningService.GetEarningsByUserByDays(Id, days);
+            var expensesByDay = await _expenseService.GetExpensesByUserByDay(Id, days);
+            var earningsAndExpenses = new Dictionary<DateTime, BudgetResume>();
+            decimal earningValue, expenseValue;
+            Console.WriteLine(earningsByDay.ToString());
 
-        //    var allDates = 
+            for (DateTime date = DateTime.Now.Date.AddDays(-days); date <= DateTime.Now; date = date.AddDays(1))
+            {
+                earningsByDay.TryGetValue(date, out earningValue);
+                expensesByDay.TryGetValue(date, out expenseValue);
 
-        //    var summaryByDay = allDates.ToDictionary(
-        //        date => date,
-        //        date => (
-        //            Earnings: earningsByDay.TryGetValue(date, out double earningValue) ? earningValue : 0,
-        //            Expenses: expensesByDay.TryGetValue(date, out decimal expenseValue) ? expenseValue : 0
-        //        )
-        //    );
+                earningsAndExpenses.Add(date, new BudgetResume
+                {
+                    TotalEarnings = earningValue,
+                    TotalExpenses = expenseValue,
+                });
+            }
 
-        //    if (summaryByDay.Count == 0)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    return Ok(summaryByDay);
-        //}
+            return Ok(earningsAndExpenses);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] EarningRequest earningReq)
@@ -84,6 +84,30 @@ namespace Application.Controllers
         {
             var earning = await _earningService.DeleteEarning(earningId);
             var result = _mapper.Map<EarningResponse>(earning);
+            return Ok(result);
+        }
+
+        [HttpGet("ByUser/{UserId:Guid}")]
+        public async Task<IActionResult> GetEarningsByUser(Guid UserId)
+        {
+            var earnings = await _earningService.GetEarningByUser(UserId);
+            if(earnings == null)
+            {
+                return NotFound();
+            }
+            var result = _mapper.Map<List<EarningResponse>>(earnings);
+            return Ok(result);
+        }
+
+        [HttpGet("ByUser/{UserId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
+        public async Task<IActionResult> GetEarningsByUser(Guid UserId, DateTime StartSearch, DateTime EndSearch)
+        {
+            var earnings = await _earningService.GetEarningByUser(UserId, StartSearch, EndSearch);
+            if (earnings == null)
+            {
+                return NotFound();
+            }
+            var result = _mapper.Map<List<EarningResponse>>(earnings);
             return Ok(result);
         }
 

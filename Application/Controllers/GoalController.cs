@@ -1,4 +1,5 @@
-﻿using Application.ViewModels.User;
+﻿using Application.ViewModels;
+using Application.ViewModels.User;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -23,7 +24,7 @@ namespace Application.Controllers
         {
             var goal = _mapper.Map<Goal>(req);
             var createdGoal = await _goalService.Create(goal);
-            if (createdGoal != null)
+            if (createdGoal == null)
             {
                 return BadRequest();
             }
@@ -71,7 +72,15 @@ namespace Application.Controllers
 
             var result = _mapper.Map<GoalResponse>(goal);
             return Ok(result);
+        }
 
+        [HttpGet("ByUser/{UserId:Guid}")]
+        public async Task<ActionResult<List<GoalResponse>>> GetGoalByUser(Guid UserId)
+        {
+            var goal = await _goalService.GetGoalByUser(UserId);
+            var result = _mapper.Map<GoalResponse>(goal);
+
+            return Ok(result);
         }
     }
 }

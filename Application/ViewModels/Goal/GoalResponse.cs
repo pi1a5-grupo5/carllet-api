@@ -1,6 +1,6 @@
 ﻿using Domain.Entities;
 
-namespace Application.Controllers
+namespace Application.ViewModels
 {
     public class GoalResponse
     {

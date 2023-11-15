@@ -13,7 +13,6 @@ namespace Application.Mappers
             CreateMap<ResetPasswordRequest, User>();
             CreateMap<User, LoginResponse>();
             CreateMap<User, UserResponse>();
-             
         }
     }
 }

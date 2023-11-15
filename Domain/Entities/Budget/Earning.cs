@@ -28,7 +28,7 @@ namespace Domain.Entities.Budget
         public DateTime InsertionDateTime { get; set; }
 
         [Column("valor_ganho")]
-        public double EarningValue { get; set; }
+        public decimal EarningValue { get; set; }
 
     }
 }

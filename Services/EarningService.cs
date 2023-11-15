@@ -51,7 +51,7 @@ namespace Services
             return earnings;
         }
 
-        public async Task<Dictionary<DateTime, double>> GetEarningsByUserByDays(Guid driver, int days)
+        public async Task<Dictionary<DateTime, decimal>> GetEarningsByUserByDays(Guid driver, int days)
         {
             var date = DateTime.Now.AddDays(-days);
             var earnings = _dbContext.Earnings

@@ -18,6 +18,7 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IEarningService, EarningService>();
 builder.Services.AddScoped<IEarningService, EarningService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IGoalService, GoalService>();
 builder.Services.AddScoped<IExpenseService<Expense>, ExpenseService>();
 builder.Services.AddScoped<IExpenseService<FuelExpense>, FuelExpenseService>();
 builder.Services.AddScoped<IExpenseService<MaintenanceExpense>, MaintenanceExpenseService>();

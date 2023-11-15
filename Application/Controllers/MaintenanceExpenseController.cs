@@ -24,10 +24,10 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterExpense([FromBody] MaintenanceExpense expense)
+        public async Task<IActionResult> RegisterExpense([FromBody] MaintenanceExpenseRequest request)
         {
-            var expenseReq = _mapper.Map<MaintenanceExpense>(expense);
-            var result = await _expenseService.RegisterExpense(expenseReq);
+            var expense = _mapper.Map<MaintenanceExpense>(request);
+            var result = await _expenseService.RegisterExpense(expense);
             if (result == null)
             {
                 return BadRequest();
@@ -71,7 +71,7 @@ namespace Application.Controllers
             return Ok(result);
         }
 
-        [HttpGet("FuelByUser/{UserVehicleId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
+        [HttpGet("ByUser/{UserVehicleId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
         public async Task<IActionResult> GetExpenseByUser(Guid UserVehicleId, DateOnly StartSearch, DateOnly EndSearch)
         {
             var result = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
@@ -91,7 +91,7 @@ namespace Application.Controllers
             {
                 return BadRequest();
             }
-            var result = _mapper.Map<FuelExpenseResponse>(expense);
+            var result = _mapper.Map<MaintenanceExpenseResponse>(expense);
             return Ok(result);
         }
 

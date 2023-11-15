@@ -15,8 +15,13 @@ public class GoalService : IGoalService
 
     public async Task<Goal> Create(Goal goal)
     {
-         _dbContext.Goals.Add(goal);
-         _dbContext.SaveChanges();
+        var createdGoal = _dbContext.Goals.Add(goal);
+        if (createdGoal == null)
+        {
+            return null;
+        }
+        _dbContext.SaveChanges();
+
         return goal;
     }
 
@@ -38,17 +43,27 @@ public class GoalService : IGoalService
         return _dbContext.Goals.Find(GoalId);
     }
 
-public async Task<Goal> Update(Guid GoalId, Goal goal)
-{
-    var existingGoal = await _dbContext.Goals.FindAsync(GoalId);
-    if (existingGoal == null)
+    public async Task<Goal> GetGoalByUser(Guid userId)
     {
-        throw new Exception("Goal not found");
+        var goal = _dbContext.Goals.Find(userId);
+        if (goal == null)
+        {
+            return null;
+        }
+        return goal;
     }
 
-    _dbContext.Entry(existingGoal).CurrentValues.SetValues(goal);
-    await _dbContext.SaveChangesAsync();
+    public async Task<Goal> Update(Guid GoalId, Goal goal)
+    {
+        var existingGoal = await _dbContext.Goals.FindAsync(GoalId);
+        if (existingGoal == null)
+        {
+            throw new Exception("Goal not found");
+        }
 
-    return existingGoal;
-}
+        _dbContext.Entry(existingGoal).CurrentValues.SetValues(goal);
+        await _dbContext.SaveChangesAsync();
+
+        return existingGoal;
+    }
 }

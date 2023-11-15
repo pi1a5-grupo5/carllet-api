@@ -8,4 +8,5 @@ public interface IGoalService
     Task<Goal> GetGoal(Guid GoalId);
     Task<Goal> Update(Guid GoalId, Goal goal);
     Task<Goal> Delete(Guid GoalId);
+    Task<Goal> GetGoalByUser(Guid userId);
 }
