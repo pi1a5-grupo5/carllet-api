@@ -16,9 +16,15 @@ namespace Application.Mappers
             CreateMap<MaintenanceExpense, MaintenanceExpenseResponse>();
             CreateMap<OtherExpense, OtherExpenseResponse>();
 
-            CreateMap<FuelExpenseType, ExpenseResponse>();
-            CreateMap<MaintenanceExpenseType, ExpenseResponse>();
-            CreateMap<OtherExpenseType, ExpenseResponse>();
+            CreateMap<FuelExpenseType, ExpenseTypeResponse>()
+                .ForMember(dest => dest.TypeName, opt => opt.MapFrom(src => src.FuelExpenseName))
+                .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.FuelExpenseTypeId));
+            CreateMap<MaintenanceExpenseType, ExpenseTypeResponse>()
+                                .ForMember(dest => dest.TypeName, opt => opt.MapFrom(src => src.MaintenanceName))
+                .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.MaintenanceExpenseTypeId));
+            CreateMap<OtherExpenseType, ExpenseTypeResponse>()
+                                .ForMember(dest => dest.TypeName, opt => opt.MapFrom(src => src.OtherExpenseName))
+                .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.OtherExpenseTypeId));
 
 
         }

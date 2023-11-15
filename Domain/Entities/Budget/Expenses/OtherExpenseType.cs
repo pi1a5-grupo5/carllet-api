@@ -7,6 +7,6 @@ public class OtherExpenseType: ExpenseType
 {     
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int MaintenanceExpenseTypeId { get; set; }
-    public string MaintenanceName { get; set; }
+    public int OtherExpenseTypeId { get; set; }
+    public string OtherExpenseName { get; set; }
 }
