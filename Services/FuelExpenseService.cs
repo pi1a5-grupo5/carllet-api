@@ -1,6 +1,7 @@
 using Domain.Entities.Budget.Expenses;
 using Domain.Interfaces;
 using Infra.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services
 {
@@ -15,7 +16,7 @@ namespace Services
 
         public async Task<FuelExpense> DeleteExpense(Guid ExpenseId)
         {
-            var expense = _dbContext.FuelExpenses.FirstOrDefault(e => e.ExpenseId == ExpenseId);
+            var expense = _dbContext.FuelExpenses.Where(e => e.ExpenseId == ExpenseId).FirstOrDefault();
 
             if (expense == null)
             {
@@ -29,7 +30,7 @@ namespace Services
 
         public async Task<FuelExpense> GetExpense(Guid ExpenseId)
         {
-            var expense = _dbContext.FuelExpenses.FirstOrDefault(e => e.ExpenseId == ExpenseId);
+            var expense = _dbContext.FuelExpenses.Where(e => e.ExpenseId == ExpenseId).Include(fe => fe.FuelExpenseType).FirstOrDefault();
             return expense;
         }
 
@@ -44,6 +45,7 @@ namespace Services
             var fuelExpenses = _dbContext.UserVehicles
             .Where(uv => uv.UserId == driver)
             .SelectMany(uv => uv.Expenses.OfType<FuelExpense>())
+            .Include(fe => fe.FuelExpenseType)
             .ToList();
 
             if (fuelExpenses == null || fuelExpenses.Count == 0)
@@ -61,6 +63,7 @@ namespace Services
             .SelectMany(uv => uv.Expenses.OfType<FuelExpense>())
             .Where(e => e.ExpenseDate <= StartSearch
                 && e.ExpenseDate >= EndSearch)
+            .Include(fe => fe.FuelExpenseType)
             .ToList();
 
             if (fuelExpenses == null || fuelExpenses.Count == 0)
@@ -73,7 +76,7 @@ namespace Services
 
         public async Task<List<FuelExpense>> GetExpenseByUserVehicleId(Guid userVehicleId)
         {
-            var expenses = _dbContext.FuelExpenses.Where(e => e.UserVehicleId == userVehicleId).ToList();
+            var expenses = _dbContext.FuelExpenses.Where(e => e.UserVehicleId == userVehicleId).Include(fe => fe.FuelExpenseType).ToList();
             if (expenses == null)
             {
                 return null;
@@ -85,7 +88,7 @@ namespace Services
         {
             var expenses = _dbContext.FuelExpenses.Where(u => u.UserVehicleId == UserVehicleId
                 && u.ExpenseDate <= StartSearch
-                && u.ExpenseDate >= EndSearch).ToList();
+                && u.ExpenseDate >= EndSearch).Include(fe => fe.FuelExpenseType).ToList();
 
             if (expenses == null || expenses.Count == 0)
             {
@@ -119,6 +122,7 @@ namespace Services
             if (expense is FuelExpenseType)
             {
                 _dbContext.FuelExpenseTypes.Add(expense as FuelExpenseType);
+                _dbContext.SaveChanges();
             }
         }
 
