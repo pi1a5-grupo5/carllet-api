@@ -103,7 +103,7 @@ namespace Application.Controllers
             {
                 return NotFound();
             }
-            var result = _mapper.Map<ExpenseTypeResponse>(expense);
+            var result = _mapper.Map<List<ExpenseTypeResponse>>(expense);
 
             return Ok(result);
         }

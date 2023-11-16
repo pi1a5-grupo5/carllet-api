@@ -16,7 +16,17 @@ namespace Services
         }
         public async Task<Earning> DeleteEarning(Guid Id)
         {
-            throw new NotImplementedException();
+            var earning = _dbContext.Earnings.Where(u => u.Id == Id).FirstOrDefault();
+
+            if (earning == null)
+            {
+                return null;
+            }
+
+            var deletedEarning = _dbContext.Earnings.Remove(earning);
+            _dbContext.SaveChanges();
+
+            return earning; 
         }
 
         public async Task<Earning> GetEarningById(Guid id)

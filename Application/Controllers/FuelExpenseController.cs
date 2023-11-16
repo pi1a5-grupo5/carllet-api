@@ -71,7 +71,7 @@ namespace Application.Controllers
             {
                 return BadRequest();
             }
-            var result = _mapper.Map<FuelExpenseResponse>(expense);
+            var result = _mapper.Map<List<FuelExpenseResponse>>(expense);
 
             return Ok(result);
         }
@@ -84,7 +84,7 @@ namespace Application.Controllers
             {
                 return BadRequest();
             }
-            var result = _mapper.Map<FuelExpenseResponse>(expense);
+            var result = _mapper.Map<List<FuelExpenseResponse>>(expense);
 
             return Ok(result);
         }
@@ -110,7 +110,7 @@ namespace Application.Controllers
             {
                 return BadRequest();
             }
-            var result = _mapper.Map<ExpenseTypeResponse>(expense);
+            var result = _mapper.Map<List<ExpenseTypeResponse>>(expense);
             return Ok(result);
         }
 
