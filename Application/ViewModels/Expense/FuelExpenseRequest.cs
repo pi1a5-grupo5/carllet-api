@@ -3,6 +3,6 @@
     public class FuelExpenseRequest : ExpenseRequest
     {
         public decimal Liters { get; set; }
-        public int FuelTypeId { get; set; }
+        public int FuelExpenseTypeId { get; set; }
     }
 }

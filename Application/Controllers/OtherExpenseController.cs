@@ -26,73 +26,166 @@ namespace Application.Controllers
        [HttpPost]
        public async Task<IActionResult> RegisterExpense([FromBody] OtherExpenseRequest request)
        {
-           var expense = _mapper.Map<OtherExpense>(request);
-           var createdExpense = await _expenseService.RegisterExpense(expense);
-           if (createdExpense == null)
-           {
-               return BadRequest();
-           }
-
-            var result = _mapper.Map<OtherExpenseResponse>(createdExpense);
-           return Ok(result);
+           var expenseReq = _mapper.Map<OtherExpense>(request);
+           var expense = await _expenseService.RegisterExpense(expenseReq);
+            var result = new OtherExpenseResponse
+            {
+                ExpenseId = expense.ExpenseId,
+                UserVehicleId = expense.UserVehicleId,
+                ExpenseDate = expense.ExpenseDate,
+                Value = expense.Value,
+                OtherTypeId = expense.OtherExpenseTypeId,
+                OtherTypeName = expense.OtherExpenseType.OtherExpenseName
+               
+            };
+            return Ok(result);
        }
 
-       [HttpDelete("Fuel")]
-       public async Task<IActionResult> DeleteExpense([FromBody] Guid expenseId)
+       [HttpDelete("{expenseId:Guid}")]
+       public async Task<IActionResult> DeleteExpense(Guid expenseId)
        {
-           var result = await _expenseService.DeleteExpense(expenseId);
-           if (result == null)
-           {
-               return NotFound();
-           }
+           var expense = await _expenseService.DeleteExpense(expenseId);
+            var result = new OtherExpenseResponse
+            {
+                ExpenseId = expense.ExpenseId,
+                UserVehicleId = expense.UserVehicleId,
+                ExpenseDate = expense.ExpenseDate,
+                Value = expense.Value,
+                OtherTypeId = expense.OtherExpenseTypeId,
+                OtherTypeName = expense.OtherExpenseType.OtherExpenseName
 
-           return Ok(result);
+            };
+            return Ok(result);
        }
 
-       [HttpGet("Fuel/{ExpenseId:Guid}")]
-       public async Task<IActionResult> GetExpenseById(Guid ExpenseId)
+       [HttpGet("/{expenseId:Guid}")]
+       public async Task<IActionResult> GetExpenseById(Guid expenseId)
        {
-           var result = await _expenseService.GetExpense(ExpenseId);
-           if (result == null)
-           {
-               return NotFound();
+           var expense = await _expenseService.GetExpense(expenseId);
+            var result = new OtherExpenseResponse
+            {
+                ExpenseId = expense.ExpenseId,
+                UserVehicleId = expense.UserVehicleId,
+                ExpenseDate = expense.ExpenseDate,
+                Value = expense.Value,
+                OtherTypeId = expense.OtherExpenseTypeId,
+                OtherTypeName = expense.OtherExpenseType.OtherExpenseName
 
-           }
-           return Ok(result);
-       }
+            };
+            return Ok(result);
+        }
 
-       [HttpGet("FuelByUser/{UserVehicleId:Guid}")]
-       public async Task<IActionResult> GetExpenseByUser(Guid UserVehicleId)
+       [HttpGet("ByUser/{UserId:Guid}")]
+       public async Task<IActionResult> GetExpenseByUser(Guid UserId)
        {
-           var result = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
-           if (result == null)
-           {
-               return NotFound();
-           }
-           return Ok(result);
-       }
+           var expenses = await _expenseService.GetExpenseByUserId(UserId);
+            var result = new List<OtherExpenseResponse>();
 
-       [HttpGet("FuelByUser/{UserVehicleId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
-       public async Task<IActionResult> GetExpenseByUser(Guid UserVehicleId, DateOnly StartSearch, DateOnly EndSearch)
-       {
-           var result = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
-           if (result == null)
-           {
-               return NotFound();
-           }
-               return Ok(result);
-           }
+            foreach (var expense in expenses)
+            {
+                var expenseByUser = new OtherExpenseResponse
+                {
+                    ExpenseId = expense.ExpenseId,
+                    UserVehicleId = expense.UserVehicleId,
+                    ExpenseDate = expense.ExpenseDate,
+                    Value = expense.Value,
+                    OtherTypeId = expense.OtherExpenseTypeId,
+                    OtherTypeName = expense.OtherExpenseType.OtherExpenseName
+
+                };
+                result.Add(expenseByUser);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("ByUser/{UserId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
+        public async Task<IActionResult> GetExpenseByUser(Guid UserId, DateOnly StartSearch, DateOnly EndSearch)
+        {
+            var expenses = await _expenseService.GetExpenseByUserId(UserId);
+            var result = new List<OtherExpenseResponse>();
+
+            foreach (var expense in expenses)
+            {
+                var expenseByUser = new OtherExpenseResponse
+                {
+                    ExpenseId = expense.ExpenseId,
+                    UserVehicleId = expense.UserVehicleId,
+                    ExpenseDate = expense.ExpenseDate,
+                    Value = expense.Value,
+                    OtherTypeId = expense.OtherExpenseTypeId,
+                    OtherTypeName = expense.OtherExpenseType.OtherExpenseName
+
+                };
+                result.Add(expenseByUser);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("ByUserVehicle/{UserVehicleId:Guid}")]
+        public async Task<IActionResult> GetExpenseByUserVehicle(Guid UserVehicleId)
+        {
+            var expenses = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
+            var result = new List<OtherExpenseResponse>();
+
+            foreach (var expense in expenses)
+            {
+                var expenseByUser = new OtherExpenseResponse
+                {
+                    ExpenseId = expense.ExpenseId,
+                    UserVehicleId = expense.UserVehicleId,
+                    ExpenseDate = expense.ExpenseDate,
+                    Value = expense.Value,
+                    OtherTypeId = expense.OtherExpenseTypeId,
+                    OtherTypeName = expense.OtherExpenseType.OtherExpenseName
+
+                };
+                result.Add(expenseByUser);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("ByUserVehicle/{UserVehicleId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
+        public async Task<IActionResult> GetExpenseByUserVehicle(Guid UserVehicleId, DateOnly StartSearch, DateOnly EndSearch)
+        {
+            var expenses = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
+            var result = new List<OtherExpenseResponse>();
+
+            foreach (var expense in expenses)
+            {
+                var expenseByUser = new OtherExpenseResponse
+                {
+                    ExpenseId = expense.ExpenseId,
+                    UserVehicleId = expense.UserVehicleId,
+                    ExpenseDate = expense.ExpenseDate,
+                    Value = expense.Value,
+                    OtherTypeId = expense.OtherExpenseTypeId,
+                    OtherTypeName = expense.OtherExpenseType.OtherExpenseName
+
+                };
+                result.Add(expenseByUser);
+            }
+
+            return Ok(result);
+        }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateExpense([FromBody] OtherExpenseRequest expense)
+        public async Task<IActionResult> UpdateExpense([FromBody] OtherExpenseRequest request)
         {
-            var expenseReq = _mapper.Map<OtherExpense>(expense);
-            var expenseRes = await _expenseService.UpdateExpense(expenseReq);
-            if (expenseRes == null)
+            var expenseReq = _mapper.Map<OtherExpense>(request);
+            var expense = await _expenseService.UpdateExpense(expenseReq);
+            var result = new OtherExpenseResponse
             {
-                return NotFound();
-            }
-            var result = _mapper.Map<OtherExpenseResponse>(expense);
+                ExpenseId = expense.ExpenseId,
+                UserVehicleId = expense.UserVehicleId,
+                ExpenseDate = expense.ExpenseDate,
+                Value = expense.Value,
+                OtherTypeId = expense.OtherExpenseTypeId,
+                OtherTypeName = expense.OtherExpenseType.OtherExpenseName
+
+            };
             return Ok(result);
         }
 
@@ -104,7 +197,7 @@ namespace Application.Controllers
             {
                 return NotFound();
             }
-            var result = _mapper.Map<ExpenseTypeResponse>(expense);
+            var result = _mapper.Map<List<ExpenseTypeResponse>>(expense);
 
             return Ok(result);
         }

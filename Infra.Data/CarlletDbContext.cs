@@ -55,6 +55,11 @@ namespace Infra.Data
                  .HasOne<UserVehicle>(e => e.UserVehicle)
                  .WithMany(uv => uv.Expenses)
                  .HasForeignKey(e => e.UserVehicleId);
+
+            modelBuilder.Entity<FuelExpense>()
+                .HasOne<FuelExpenseType>(fe => fe.FuelExpenseType);
+                
+                
             #endregion
 
             #region User and Budget relations

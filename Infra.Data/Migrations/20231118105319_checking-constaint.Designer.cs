@@ -3,6 +3,7 @@ using System;
 using Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infra.Data.Migrations
 {
     [DbContext(typeof(CarlletDbContext))]
-    partial class CarlletDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231118105319_checking-constaint")]
+    partial class checkingconstaint
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -417,7 +420,7 @@ namespace Infra.Data.Migrations
                     b.Property<int>("MaintenanceExpenseTypeId")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("OriginatingExpenseId")
+                    b.Property<Guid>("OriginatingExpenseId")
                         .HasColumnType("uuid");
 
                     b.HasIndex("MaintenanceExpenseTypeId");
@@ -562,7 +565,9 @@ namespace Infra.Data.Migrations
 
                     b.HasOne("Domain.Entities.Budget.Expenses.MaintenanceExpense", "OriginatingExpense")
                         .WithMany()
-                        .HasForeignKey("OriginatingExpenseId");
+                        .HasForeignKey("OriginatingExpenseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("MaintenanceExpenseType");
 

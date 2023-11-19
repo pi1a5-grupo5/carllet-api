@@ -16,7 +16,7 @@ namespace Services
 
         public async Task<FuelExpense> DeleteExpense(Guid ExpenseId)
         {
-            var expense = _dbContext.FuelExpenses.Where(e => e.ExpenseId == ExpenseId).FirstOrDefault();
+            var expense = _dbContext.FuelExpenses.Where(e => e.ExpenseId == ExpenseId).Include(e => e.FuelExpenseType).FirstOrDefault();
 
             if (expense == null)
             {
@@ -56,7 +56,7 @@ namespace Services
             return fuelExpenses;
         }
 
-        public async Task<List<FuelExpense>> GetExpenseByUserID(Guid driver, DateTime StartSearch, DateTime EndSearch)
+        public async Task<List<FuelExpense>> GetExpenseByUserId(Guid driver, DateTime StartSearch, DateTime EndSearch)
         {
             var fuelExpenses = _dbContext.UserVehicles
             .Where(uv => uv.UserId == driver)
@@ -101,6 +101,8 @@ namespace Services
         {
             _dbContext.FuelExpenses.Add(expense);
             await _dbContext.SaveChangesAsync();
+
+            expense = await GetExpense(expense.ExpenseId);
             return expense;
         }
 

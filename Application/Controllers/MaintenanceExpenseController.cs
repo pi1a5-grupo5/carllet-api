@@ -26,72 +26,171 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterExpense([FromBody] MaintenanceExpenseRequest request)
         {
-            var expense = _mapper.Map<MaintenanceExpense>(request);
-            var result = await _expenseService.RegisterExpense(expense);
-            if (result == null)
+            var expenseReq = _mapper.Map<MaintenanceExpense>(request);
+            var expense = await _expenseService.RegisterExpense(expenseReq);
+            var result = new MaintenanceExpenseResponse
             {
-                return BadRequest();
-            }
+                ExpenseId = expense.ExpenseId,
+                UserVehicleId = expense.UserVehicleId,
+                ExpenseDate = expense.ExpenseDate,
+                Value = expense.Value,
+                MaintenanceTypeId = expense.MaintenanceExpenseTypeId,
+                MaintenanceTypeName = expense.MaintenanceExpenseType.MaintenanceName,
+                Details = expense.Details,
 
+            };
             return Ok(result);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteExpense([FromBody] Guid expenseId)
+        [HttpDelete("{expenseId:Guid}")]
+        public async Task<IActionResult> DeleteExpense(Guid expenseId)
         {
-            var result = await _expenseService.DeleteExpense(expenseId);
-            if (result == null)
+            var expense = await _expenseService.DeleteExpense(expenseId);
+            var result = new MaintenanceExpenseResponse
             {
-                return BadRequest();
-            }
+                ExpenseId = expense.ExpenseId,
+                UserVehicleId = expense.UserVehicleId,
+                ExpenseDate = expense.ExpenseDate,
+                Value = expense.Value,
+                MaintenanceTypeId = expense.MaintenanceExpenseTypeId,
+                MaintenanceTypeName = expense.MaintenanceExpenseType.MaintenanceName,
+                Details = expense.Details,
 
+            };
             return Ok(result);
+ 
         }
 
-        [HttpGet("{ExpenseId:Guid}")]
+        [HttpGet("{expenseId:Guid}")]
         public async Task<IActionResult> GetExpenseById(Guid ExpenseId)
         {
-            var result = await _expenseService.GetExpense(ExpenseId);
-            if (result == null)
+            var expense = await _expenseService.GetExpense(ExpenseId);
+            var result = new MaintenanceExpenseResponse
             {
-                return BadRequest();
+                ExpenseId = expense.ExpenseId,
+                UserVehicleId = expense.UserVehicleId,
+                ExpenseDate = expense.ExpenseDate,
+                Value = expense.Value,
+                MaintenanceTypeId = expense.MaintenanceExpenseTypeId,
+                MaintenanceTypeName = expense.MaintenanceExpenseType.MaintenanceName,
+                Details = expense.Details
 
-            }
+            };
             return Ok(result);
         }
 
-        [HttpGet("ByUser/{UserVehicleId:Guid}")]
-        public async Task<IActionResult> GetExpenseByUser(Guid UserVehicleId)
+        [HttpGet("ByUser/{UserId:Guid}")]
+        public async Task<IActionResult> GetExpenseByUser(Guid UserId)
         {
-            var result = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
-            if (result == null)
+            var expenses = await _expenseService.GetExpenseByUserId(UserId);
+            var result = new List<MaintenanceExpenseResponse>();
+
+            foreach (var expense in expenses)
             {
-                return BadRequest();
+                var expenseByUser = new MaintenanceExpenseResponse
+                {
+                    ExpenseId = expense.ExpenseId,
+                    UserVehicleId = expense.UserVehicleId,
+                    ExpenseDate = expense.ExpenseDate,
+                    Value = expense.Value,
+                    MaintenanceTypeId = expense.MaintenanceExpenseTypeId,
+                    MaintenanceTypeName = expense.MaintenanceExpenseType.MaintenanceName,
+                    Details = expense.Details
+                };
+                result.Add(expenseByUser);
             }
+
             return Ok(result);
         }
 
-        [HttpGet("ByUser/{UserVehicleId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
-        public async Task<IActionResult> GetExpenseByUser(Guid UserVehicleId, DateOnly StartSearch, DateOnly EndSearch)
+        [HttpGet("ByUser/{UserId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
+        public async Task<IActionResult> GetExpenseByUser(Guid UserId, DateOnly StartSearch, DateOnly EndSearch)
         {
-            var result = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
-            if (result == null)
+            var expenses = await _expenseService.GetExpenseByUserId(UserId);
+            var result = new List<MaintenanceExpenseResponse>();
+
+            foreach (var expense in expenses)
             {
-                return BadRequest();
+                var expenseByUser = new MaintenanceExpenseResponse
+                {
+                    ExpenseId = expense.ExpenseId,
+                    UserVehicleId = expense.UserVehicleId,
+                    ExpenseDate = expense.ExpenseDate,
+                    Value = expense.Value,
+                    MaintenanceTypeId = expense.MaintenanceExpenseTypeId,
+                    MaintenanceTypeName = expense.MaintenanceExpenseType.MaintenanceName,
+                    Details = expense.Details
+                };
+                result.Add(expenseByUser);
             }
+
+            return Ok(result);
+        }
+
+        [HttpGet("ByUserVehicle/{UserVehicleId:Guid}")]
+        public async Task<IActionResult> GetExpenseByUserVehicle(Guid UserVehicleId)
+        {
+            var expenses = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
+            var result = new List<MaintenanceExpenseResponse>();
+
+            foreach (var expense in expenses)
+            {
+                var expenseByUser = new MaintenanceExpenseResponse
+                {
+                    ExpenseId = expense.ExpenseId,
+                    UserVehicleId = expense.UserVehicleId,
+                    ExpenseDate = expense.ExpenseDate,
+                    Value = expense.Value,
+                    MaintenanceTypeId = expense.MaintenanceExpenseTypeId,
+                    MaintenanceTypeName = expense.MaintenanceExpenseType.MaintenanceName,
+                    Details = expense.Details
+                };
+                result.Add(expenseByUser);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("ByUserVehicle/{UserVehicleId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
+        public async Task<IActionResult> GetExpenseByUserVehicle(Guid UserVehicleId, DateOnly StartSearch, DateOnly EndSearch)
+        {
+            var expenses = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
+            var result = new List<MaintenanceExpenseResponse>();
+
+            foreach (var expense in expenses)
+            {
+                var expenseByUser = new MaintenanceExpenseResponse
+                {
+                    ExpenseId = expense.ExpenseId,
+                    UserVehicleId = expense.UserVehicleId,
+                    ExpenseDate = expense.ExpenseDate,
+                    Value = expense.Value,
+                    MaintenanceTypeId = expense.MaintenanceExpenseTypeId,
+                    MaintenanceTypeName = expense.MaintenanceExpenseType.MaintenanceName,
+                    Details = expense.Details
+                };
+                result.Add(expenseByUser);
+            }
+
             return Ok(result);
         }
 
          [HttpPut]
-        public async Task<IActionResult> UpdateExpense([FromBody] MaintenanceExpenseRequest expense)
+        public async Task<IActionResult> UpdateExpense([FromBody] MaintenanceExpenseRequest request)
         {
-            var expenseReq = _mapper.Map<MaintenanceExpense>(expense);
-            var expenseRes = await _expenseService.UpdateExpense(expenseReq);
-            if (expenseRes == null)
+            var expenseReq = _mapper.Map<MaintenanceExpense>(request);
+            var expense = await _expenseService.UpdateExpense(expenseReq);
+            var result = new MaintenanceExpenseResponse
             {
-                return BadRequest();
-            }
-            var result = _mapper.Map<MaintenanceExpenseResponse>(expense);
+                ExpenseId = expense.ExpenseId,
+                UserVehicleId = expense.UserVehicleId,
+                ExpenseDate = expense.ExpenseDate,
+                Value = expense.Value,
+                MaintenanceTypeId = expense.MaintenanceExpenseTypeId,
+                MaintenanceTypeName = expense.MaintenanceExpenseType.MaintenanceName,
+                Details = expense.Details
+
+            };
             return Ok(result);
         }
 

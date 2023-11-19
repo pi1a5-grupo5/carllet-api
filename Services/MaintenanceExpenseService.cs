@@ -3,6 +3,7 @@ using Domain.Entities.Budget;
 using Domain.Entities.Budget.Expenses;
 using Domain.Interfaces;
 using Infra.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services
 {
@@ -17,7 +18,8 @@ namespace Services
 
         public async Task<MaintenanceExpense> DeleteExpense(Guid ExpenseId)
         {
-            var expense = _dbContext.MaintenanceExpenses.FirstOrDefault(e => e.ExpenseId == ExpenseId);
+            var expense = _dbContext.MaintenanceExpenses.Where(e => e.ExpenseId == ExpenseId).Include(e => e.MaintenanceExpenseType)
+                .FirstOrDefault();
 
             if (expense == null)
             {
@@ -31,7 +33,9 @@ namespace Services
 
         public async Task<MaintenanceExpense> GetExpense(Guid ExpenseId)
         {
-            var expense = _dbContext.MaintenanceExpenses.FirstOrDefault(e => e.ExpenseId == ExpenseId);
+            var expense = _dbContext.MaintenanceExpenses.Where(e => e.ExpenseId == ExpenseId)
+                .Include(me => me.MaintenanceExpenseType)
+                .FirstOrDefault();
             return expense;
         }
 
@@ -46,19 +50,21 @@ namespace Services
                 var expenses = _dbContext.UserVehicles
         .Where(uv => uv.UserId == driver)
         .SelectMany(uv => uv.Expenses.OfType<MaintenanceExpense>())
+        .Include(me => me.MaintenanceExpenseType)
         .ToList();
 
             return expenses;
         }
 
-        public Task<List<MaintenanceExpense>> GetExpenseByUserID(Guid driver, DateTime StartSearch, DateTime EndSearch)
+        public Task<List<MaintenanceExpense>> GetExpenseByUserId(Guid driver, DateTime StartSearch, DateTime EndSearch)
         {
             throw new NotImplementedException();
         }
 
         public async Task<List<MaintenanceExpense>> GetExpenseByUserVehicleId(Guid userVehicleId)
         {
-            var expenses = _dbContext.MaintenanceExpenses.Where(e => e.UserVehicleId == userVehicleId).ToList();
+            var expenses = _dbContext.MaintenanceExpenses.Where(e => e.UserVehicleId == userVehicleId)
+                .Include(me => me.MaintenanceExpenseType).ToList();
             if (expenses == null)
             {
                 return null;
@@ -70,7 +76,7 @@ namespace Services
         {
             var expenses = _dbContext.MaintenanceExpenses.Where(u => u.UserVehicleId == UserVehicleId
                 && u.ExpenseDate <= StartSearch
-                && u.ExpenseDate >= EndSearch).ToList();
+                && u.ExpenseDate >= EndSearch).Include(me => me.MaintenanceExpenseType).ToList();
 
             if (expenses == null || expenses.Count == 0)
             {
@@ -103,7 +109,7 @@ namespace Services
         {
             if (expense is MaintenanceExpenseType)
             {
-                _dbContext.MaintenanceExpenses.Add(expense as MaintenanceExpense);
+                _dbContext.MaintenanceExpenseTypes.Add(expense as MaintenanceExpenseType);
                 _dbContext.SaveChanges();
             }
         }

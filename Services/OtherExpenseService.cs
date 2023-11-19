@@ -3,6 +3,7 @@ using Domain.Entities.Budget;
 using Domain.Entities.Budget.Expenses;
 using Domain.Interfaces;
 using Infra.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services
 {
@@ -17,7 +18,7 @@ namespace Services
 
         public async Task<OtherExpense> DeleteExpense(Guid ExpenseId)
         {
-            var expense = _dbContext.OtherExpenses.FirstOrDefault(e => e.ExpenseId == ExpenseId);
+            var expense = _dbContext.OtherExpenses.Where(e => e.ExpenseId == ExpenseId).Include(e => e.OtherExpenseType).FirstOrDefault();
 
             if (expense == null)
             {
@@ -31,7 +32,7 @@ namespace Services
 
         public async Task<OtherExpense> GetExpense(Guid ExpenseId)
         {
-            var expense = _dbContext.OtherExpenses.FirstOrDefault(e => e.ExpenseId == ExpenseId);
+            var expense = _dbContext.OtherExpenses.Where(e => e.ExpenseId == ExpenseId).Include(oe => oe.OtherExpenseType).FirstOrDefault();
             return expense;
         }
 
@@ -40,12 +41,18 @@ namespace Services
             var expenses = _dbContext.OtherExpenses.ToList();
             return expenses;
         }
-        public Task<List<OtherExpense>> GetExpenseByUserId(Guid driver)
+        public async Task<List<OtherExpense>> GetExpenseByUserId(Guid driver)
         {
-            throw new NotImplementedException();
+            var expenses = _dbContext.UserVehicles
+            .Where(uv => uv.UserId == driver)
+            .SelectMany(uv => uv.Expenses.OfType<OtherExpense>())
+            .Include(oe => oe.OtherExpenseType)
+            .ToList();
+
+            return expenses;
         }
 
-        public Task<List<OtherExpense>> GetExpenseByUserID(Guid driver, DateTime StartSearch, DateTime EndSearch)
+        public Task<List<OtherExpense>> GetExpenseByUserId(Guid driver, DateTime StartSearch, DateTime EndSearch)
         {
             throw new NotImplementedException();
         }
@@ -77,6 +84,8 @@ namespace Services
         {
             _dbContext.OtherExpenses.Add(expense);
             await _dbContext.SaveChangesAsync();
+
+            expense = await GetExpense(expense.ExpenseId);
             return expense;
         }
 

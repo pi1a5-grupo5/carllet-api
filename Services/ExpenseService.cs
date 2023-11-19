@@ -3,6 +3,7 @@ using Domain.Entities.Budget;
 using Domain.Entities.Budget.Expenses;
 using Domain.Interfaces;
 using Infra.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services
 {
@@ -31,26 +32,39 @@ namespace Services
 
         public async Task<Expense> GetExpense(Guid ExpenseId)
         {
-            var expense = _dbContext.Expenses.FirstOrDefault(e => e.ExpenseId == ExpenseId);
+            var expense = _dbContext.Expenses
+               .Include(fe => ((FuelExpense)fe).FuelExpenseType).FirstOrDefault();
             return expense;
         }
 
         public async Task<List<Expense>> GetExpensesList()
         {
-            var expenses = _dbContext.Expenses.ToList();
+            var expenses = _dbContext.Expenses
+                .Include(fe => ((FuelExpense)fe).FuelExpenseType).ToList();
             return expenses;
         }
 
         public async Task<List<Expense>> GetExpenseByUserId(Guid driver)
         {
-            var expenses = _dbContext.UserVehicles
-            .Where(uv => uv.UserId == driver)
-            .SelectMany(uv => uv.Expenses)
-            .ToList();
+            var expenses = _dbContext.Expenses
+            .Include(fe => ((FuelExpense)fe).FuelExpenseType)
+            .Include(me => ((MaintenanceExpense)me).MaintenanceExpenseType)
+            .Include(oe => ((OtherExpense)oe).OtherExpenseType)
+            .Where(e => e.UserVehicle.UserId == driver).ToList();
+
+
+            //var expenses = _dbContext.UserVehicles
+            //.Where(uv => uv.UserId == driver)
+            //.SelectMany(uv => uv.Expenses)
+            //.Include(fe => (fe as FuelExpense).FuelExpenseType)
+            //.Include(me => (me as MaintenanceExpense).MaintenanceExpenseType)
+            //.Include(oe => (oe as OtherExpense).OtherExpenseType)
+            //.ToList();
+
             return expenses;
         }
 
-        public async Task<List<Expense>> GetExpenseByUserID(Guid driver, DateTime StartSearch, DateTime EndSearch)
+        public async Task<List<Expense>> GetExpenseByUserId(Guid driver, DateTime StartSearch, DateTime EndSearch)
         {
             var expenses = _dbContext.UserVehicles
                 .Where(uv => uv.UserId == driver)

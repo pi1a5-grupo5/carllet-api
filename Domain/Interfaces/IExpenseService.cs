@@ -15,7 +15,7 @@ namespace Domain.Interfaces
         Task<List<T>> GetExpensesList();
         Task<T> GetExpense(Guid ExpenseId);
         Task<List<T>> GetExpenseByUserId(Guid driver);
-        Task<List<T>> GetExpenseByUserID(Guid driver, DateTime StartSearch, DateTime EndSearch);
+        Task<List<T>> GetExpenseByUserId(Guid driver, DateTime StartSearch, DateTime EndSearch);
         Task<List<T>> GetExpenseByUserVehicleId(Guid UserVehicleId);
         Task<List<T>> GetExpenseByUserVehicleId(Guid UserVehicleId, DateTime StartSearch, DateTime EndSearch);
         Task<T> UpdateExpense(T expense);

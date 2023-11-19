@@ -2,8 +2,8 @@
 {
     public class MaintenanceExpenseRequest : ExpenseRequest
     {
-        public string MaintenanceTypeName { get; set; }
+        public string MaintenanceExpenseTypeId { get; set; }
         public string Details { get; set; }
-        public Guid OriginatingExpenseId { get; set; }
+        public Guid? OriginatingExpenseId { get; set; }
     }
 }

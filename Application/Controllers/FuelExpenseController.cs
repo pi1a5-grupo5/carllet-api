@@ -1,4 +1,5 @@
 ﻿using Application.ViewModels.Expense;
+using Application.ViewModels.Vehicle;
 using AutoMapper;
 using Domain.Entities.Budget;
 using Domain.Entities.Budget.Expenses;
@@ -26,13 +27,22 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterFuelExpense([FromBody] FuelExpenseRequest request)
         {
-            var expense = _mapper.Map<FuelExpense>(request);
-            var createdExpense = await _expenseService.RegisterExpense(expense);
-            if (createdExpense == null)
+            var expenseReq = _mapper.Map<FuelExpense>(request);
+            var expense = await _expenseService.RegisterExpense(expenseReq);
+            if (expense == null)
             {
                 return BadRequest();
             }
-            var result = _mapper.Map<FuelExpenseResponse>(createdExpense);
+            var result = new FuelExpenseResponse
+            {
+                ExpenseId = expense.ExpenseId,
+                UserVehicleId= expense.UserVehicleId,
+                ExpenseDate= expense.ExpenseDate,
+                Value = expense.Value,
+                Liters= expense.Liters,
+                FuelTypeId= expense.FuelExpenseTypeId,
+                FuelTypeName = expense.FuelExpenseType.FuelExpenseName,
+            };
             return Ok(result);
         }
 
@@ -44,8 +54,16 @@ namespace Application.Controllers
             {
                 return BadRequest();
             }
-            var result = _mapper.Map<FuelExpenseResponse>(expense);
-
+            var result = new FuelExpenseResponse
+            {
+                ExpenseId = expense.ExpenseId,
+                UserVehicleId = expense.UserVehicleId,
+                ExpenseDate = expense.ExpenseDate,
+                Value = expense.Value,
+                Liters = expense.Liters,
+                FuelTypeId = expense.FuelExpenseTypeId,
+                FuelTypeName = expense.FuelExpenseType.FuelExpenseName,
+            };
             return Ok(result);
         }
 
@@ -58,47 +76,152 @@ namespace Application.Controllers
                 return BadRequest();
 
             }
-            var result = _mapper.Map<FuelExpenseResponse>(expense);
+            var result = new FuelExpenseResponse
+            {
+                ExpenseId = expense.ExpenseId,
+                UserVehicleId = expense.UserVehicleId,
+                ExpenseDate = expense.ExpenseDate,
+                Value = expense.Value,
+                Liters = expense.Liters,
+                FuelTypeId = expense.   FuelExpenseTypeId,
+                FuelTypeName = expense.FuelExpenseType.FuelExpenseName,
+            };
+            return Ok(result);
+        }
+
+        [HttpGet("ByUser/{UserId:Guid}")]
+        public async Task<IActionResult> GetExpenseByUser(Guid UserId)
+        {
+            var expenses = await _expenseService.GetExpenseByUserId(UserId);
+            if (expenses == null || expenses.Count == 0)
+            {
+                return NotFound();
+            }
+            var result = new List<FuelExpenseResponse>();
+
+            foreach(var expense in expenses)
+            {
+                var expenseByUser = new FuelExpenseResponse
+                {
+                    ExpenseId = expense.ExpenseId,
+                    UserVehicleId = expense.UserVehicleId,
+                    ExpenseDate = expense.ExpenseDate,
+                    Value = expense.Value,
+                    Liters = expense.Liters,
+                    FuelTypeId = expense.FuelExpenseTypeId,
+                    FuelTypeName = expense.FuelExpenseType.FuelExpenseName,
+                };
+                result.Add(expenseByUser);
+            }
 
             return Ok(result);
         }
 
-        [HttpGet("ByUser/{UserVehicleId:Guid}")]
-        public async Task<IActionResult> GetExpenseByUser(Guid UserVehicleId)
+        [HttpGet("ByUser/{UserId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
+        public async Task<IActionResult> GetExpenseByUser(Guid UserId, DateTime StartSearch, DateTime EndSearch)
         {
-            var expense = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
-            if (expense == null)
+            var expenses = await _expenseService.GetExpenseByUserId(UserId, StartSearch, EndSearch);
+            if (expenses == null)
             {
                 return BadRequest();
             }
-            var result = _mapper.Map<List<FuelExpenseResponse>>(expense);
+
+            var result = new List<FuelExpenseResponse>();
+
+            foreach (var expense in expenses)
+            {
+                var expenseByUser = new FuelExpenseResponse
+                {
+                    ExpenseId = expense.ExpenseId,
+                    UserVehicleId = expense.UserVehicleId,
+                    ExpenseDate = expense.ExpenseDate,
+                    Value = expense.Value,
+                    Liters = expense.Liters,
+                    FuelTypeId = expense.FuelExpenseTypeId,
+                    FuelTypeName = expense.FuelExpenseType.FuelExpenseName,
+                };
+                result.Add(expenseByUser);
+            }
+
+            return Ok(result);
+
+        }
+
+        [HttpGet("ByUserVehicle/{UserVehicleId:Guid}")]
+        public async Task<IActionResult> GetExpenseByUserVehicle(Guid UserVehicleId)
+        {
+            var expenses = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
+            if (expenses == null)
+            {
+                return BadRequest();
+            }
+            var result = new List<FuelExpenseResponse>();
+
+            foreach (var expense in expenses)
+            {
+                var expenseByUser = new FuelExpenseResponse
+                {
+                    ExpenseId = expense.ExpenseId,
+                    UserVehicleId = expense.UserVehicleId,
+                    ExpenseDate = expense.ExpenseDate,
+                    Value = expense.Value,
+                    Liters = expense.Liters,
+                    FuelTypeId = expense.FuelExpenseTypeId,
+                    FuelTypeName = expense.FuelExpenseType.FuelExpenseName,
+                };
+                result.Add(expenseByUser);
+            }
 
             return Ok(result);
         }
 
-        [HttpGet("ByUser/{UserVehicleId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
-        public async Task<IActionResult> GetExpenseByUser(Guid UserVehicleId, DateTime StartSearch, DateTime EndSearch)
+        [HttpGet("ByUserVehicle/{UserVehicleId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
+        public async Task<IActionResult> GetExpenseByUserVehicle(Guid UserVehicleId, DateTime StartSearch, DateTime EndSearch)
         {
-            var expense = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId, StartSearch, EndSearch);
-            if (expense == null)
+            var expenses = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId, StartSearch, EndSearch);
+            if (expenses == null)
             {
                 return BadRequest();
             }
-            var result = _mapper.Map<List<FuelExpenseResponse>>(expense);
+            var result = new List<FuelExpenseResponse>();
+
+            foreach (var expense in expenses)
+            {
+                var expenseByUser = new FuelExpenseResponse
+                {
+                    ExpenseId = expense.ExpenseId,
+                    UserVehicleId = expense.UserVehicleId,
+                    ExpenseDate = expense.ExpenseDate,
+                    Value = expense.Value,
+                    Liters = expense.Liters,
+                    FuelTypeId = expense.FuelExpenseTypeId,
+                    FuelTypeName = expense.FuelExpenseType.FuelExpenseName,
+                };
+                result.Add(expenseByUser);
+            }
 
             return Ok(result);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateFuelExpense([FromBody] FuelExpenseRequest expense)
+        public async Task<IActionResult> UpdateFuelExpense([FromBody] FuelExpenseRequest request)
         {
-            var expenseReq = _mapper.Map<FuelExpense>(expense);
-            var expenseRes = await _expenseService.UpdateExpense(expenseReq);
-            if (expenseRes == null)
+            var expenseReq = _mapper.Map<FuelExpense>(request);
+            var expense = await _expenseService.UpdateExpense(expenseReq);
+            if (expense == null)
             {
                 return BadRequest();
             }
-            var result = _mapper.Map<FuelExpenseResponse>(expense);
+            var result = new FuelExpenseResponse
+            {
+                ExpenseId = expense.ExpenseId,
+                UserVehicleId = expense.UserVehicleId,
+                ExpenseDate = expense.ExpenseDate,
+                Value = expense.Value,
+                Liters = expense.Liters,
+                FuelTypeId = expense.FuelExpenseTypeId,
+                FuelTypeName = expense.FuelExpenseType.FuelExpenseName,
+            };
             return Ok(result);
         }
 
