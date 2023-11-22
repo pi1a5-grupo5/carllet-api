@@ -138,5 +138,25 @@ namespace Services
 
             return vehiclesTypes;
         }
+
+        public async Task<int> ExistVehicleBrand(string BrandName)
+        {
+            var existBrand = await _dbContext.VehicleBrands.Where(vb => vb.Name == BrandName).FirstOrDefaultAsync();
+            if (existBrand != null) {
+                return existBrand.VehicleBrandId;
+            }
+            return 0; 
+        }
+
+        public async Task<int> ExistVehicleType(string TypeName)
+        {
+            var existType = await _dbContext.VehicleTypes.Where(vt => vt.Name == TypeName).FirstOrDefaultAsync();
+            if (existType != null)
+            {
+                return existType.VehicleTypeId;
+            }
+            return 0;
+
+        }
     }
 }

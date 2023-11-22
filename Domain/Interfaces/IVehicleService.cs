@@ -17,5 +17,7 @@ namespace Domain.Interfaces
         Task<List<VehicleType>> GetVehicleTypesByBrand(int BrandId);
         Task<List<VehicleBrand>> GetVehicleBrandList();
         Task<List<VehicleType>> GetVehicleTypesList();
+        Task<int> ExistVehicleBrand(string BrandName);
+        Task<int> ExistVehicleType(string TypeName);
     }
 }

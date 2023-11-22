@@ -105,7 +105,7 @@ namespace Application.Controllers
             var earnings = await _earningService.GetEarningByUser(UserId, StartSearch, EndSearch);
             if (earnings == null)
             {
-                return NotFound();
+                return NoContent();
             }
             var result = _mapper.Map<List<EarningResponse>>(earnings);
             return Ok(result);

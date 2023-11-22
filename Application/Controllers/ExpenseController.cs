@@ -76,52 +76,59 @@ namespace Application.Controllers
             var otherExpenses = await _otherExpenseService.GetExpenseByUserId(UserId);
 
             var maintenanceResult = new List<MaintenanceExpenseResponse>();
-
-            foreach (var expense in maintenanceExpenses)
+            if (maintenanceExpenses != null)
             {
-                var expenseByUser = new MaintenanceExpenseResponse
+                foreach (var expense in maintenanceExpenses)
                 {
-                    ExpenseId = expense.ExpenseId,
-                    UserVehicleId = expense.UserVehicleId,
-                    ExpenseDate = expense.ExpenseDate,
-                    Value = expense.Value,
-                    MaintenanceTypeId = expense.MaintenanceExpenseTypeId,
-                    MaintenanceTypeName = expense.MaintenanceExpenseType.MaintenanceName,
-                    Details = expense.Details
-                };
-                maintenanceResult.Add(expenseByUser);
+                    var expenseByUser = new MaintenanceExpenseResponse
+                    {
+                        ExpenseId = expense.ExpenseId,
+                        UserVehicleId = expense.UserVehicleId,
+                        ExpenseDate = expense.ExpenseDate,
+                        Value = expense.Value,
+                        MaintenanceTypeId = expense.MaintenanceExpenseTypeId,
+                        MaintenanceTypeName = expense.MaintenanceExpenseType.MaintenanceName,
+                        Details = expense.Details
+                    };
+                    maintenanceResult.Add(expenseByUser);
+                }
             }
 
             var fuelResult = new List<FuelExpenseResponse>();
-
-            foreach (var expense in fuelExpenses)
+            if (fuelExpenses != null)
             {
-                var expenseByUser = new FuelExpenseResponse
+                foreach (var expense in fuelExpenses)
                 {
-                    ExpenseId = expense.ExpenseId,
-                    UserVehicleId = expense.UserVehicleId,
-                    ExpenseDate = expense.ExpenseDate,
-                    Value = expense.Value,
-                    Liters = expense.Liters,
-                    FuelTypeId = expense.FuelExpenseTypeId,
-                    FuelTypeName = expense.FuelExpenseType.FuelExpenseName,
-                };
-                fuelResult.Add(expenseByUser);
+                    var expenseByUser = new FuelExpenseResponse
+                    {
+                        ExpenseId = expense.ExpenseId,
+                        UserVehicleId = expense.UserVehicleId,
+                        ExpenseDate = expense.ExpenseDate,
+                        Value = expense.Value,
+                        Liters = expense.Liters,
+                        FuelTypeId = expense.FuelExpenseTypeId,
+                        FuelTypeName = expense.FuelExpenseType.FuelExpenseName,
+                    };
+                    fuelResult.Add(expenseByUser);
+                }
             }
             var otherResult = new List<OtherExpenseResponse>();
-            foreach (var expense in otherExpenses)
+            if (otherExpenses != null)
             {
-                var expenseByUser = new OtherExpenseResponse
+                foreach (var expense in otherExpenses)
                 {
-                    ExpenseId = expense.ExpenseId,
-                    UserVehicleId = expense.UserVehicleId,
-                    ExpenseDate = expense.ExpenseDate,
-                    Value = expense.Value,
-                    OtherTypeId = expense.OtherExpenseTypeId,
-                    OtherTypeName = expense.OtherExpenseType.OtherExpenseName
+                    var expenseByUser = new OtherExpenseResponse
+                    {
+                        ExpenseId = expense.ExpenseId,
+                        UserVehicleId = expense.UserVehicleId,
+                        ExpenseDate = expense.ExpenseDate,
+                        Value = expense.Value,
+                        OtherTypeId = expense.OtherExpenseTypeId,
+                        OtherTypeName = expense.OtherExpenseType.OtherExpenseName
 
-                };
-                otherResult.Add(expenseByUser);
+                    };
+                    otherResult.Add(expenseByUser);
+                }
             }
 
 
@@ -137,9 +144,9 @@ namespace Application.Controllers
         }
 
         [HttpGet("ByUser/{UserId:Guid}/{StartSearch:Datetime?}/{EndSearch:Datetime?}")]
-        public async Task<IActionResult> GetExpenseByUser(Guid UserId, DateOnly StartSearch, DateOnly EndSearch)
+        public async Task<IActionResult> GetExpenseByUser(Guid UserId, DateTime StartSearch, DateTime EndSearch)
         {
-            var result = await _expenseService.GetExpenseByUserId(UserId);
+            var result = await _expenseService.GetExpenseByUserId(UserId, StartSearch, EndSearch);
             if (result == null)
             {
                 return BadRequest();

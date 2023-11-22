@@ -45,7 +45,7 @@ public class GoalService : IGoalService
 
     public async Task<Goal> GetGoalByUser(Guid userId)
     {
-        var goal = _dbContext.Goals.Find(userId);
+        var goal = _dbContext.Goals.Where(g => g.UserId == userId).OrderByDescending(g => g.GoalInsertionDate).FirstOrDefault();
         if (goal == null)
         {
             return null;
