@@ -63,9 +63,9 @@ namespace Services
 
         public async Task<Dictionary<DateTime, decimal>> GetEarningsByUserByDays(Guid driver, int days)
         {
-            var date = DateTime.Now.AddDays(-days);
+            var date = DateTime.Now.AddDays(-days).Date;
             var earnings = _dbContext.Earnings
-                .Where(u => u.OwnerId == driver)
+                .Where(u => u.OwnerId == driver && u.InsertionDateTime >= date)
                 .ToList();
 
             var groupedEarnings = earnings

@@ -23,6 +23,7 @@ namespace Application.Controllers
         public async Task<ActionResult<GoalResponse>> PostGoal([FromBody] GoalRequest req)
         {
             var goal = _mapper.Map<Goal>(req);
+            goal.GoalInsertionDate = DateTime.Now;
             var createdGoal = await _goalService.Create(goal);
             if (createdGoal == null)
             {

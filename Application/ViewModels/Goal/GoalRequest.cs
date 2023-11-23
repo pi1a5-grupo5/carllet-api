@@ -6,5 +6,6 @@ namespace Application.ViewModels
     {
         public Guid UserId { get; set; }
         public double GoalValue { get; set; }
+
     }
 }

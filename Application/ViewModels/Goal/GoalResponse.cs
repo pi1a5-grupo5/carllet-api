@@ -7,5 +7,7 @@ namespace Application.ViewModels
         public Guid GoalId { get; set; }
         public Guid UserId { get; set; }
         public double GoalValue { get; set; }
+        public DateTime GoalInsertionDate
+        { get; set; }
     }
 }

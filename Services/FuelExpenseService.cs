@@ -42,11 +42,9 @@ namespace Services
 
         public async Task<List<FuelExpense>> GetExpenseByUserId(Guid driver)
         {
-            var fuelExpenses = _dbContext.UserVehicles
-            .Where(uv => uv.UserId == driver)
-            .SelectMany(uv => uv.Expenses.OfType<FuelExpense>())
-            .Include(fe => fe.FuelExpenseType)
-            .ToList();
+            var fuelExpenses = _dbContext.FuelExpenses
+                .Where(e => e.UserVehicle.UserId == driver).Include(fe => fe.FuelExpenseType)
+                .ToList();
 
             if (fuelExpenses == null || fuelExpenses.Count == 0)
             {
@@ -58,13 +56,9 @@ namespace Services
 
         public async Task<List<FuelExpense>> GetExpenseByUserId(Guid driver, DateTime StartSearch, DateTime EndSearch)
         {
-            var fuelExpenses = _dbContext.UserVehicles
-            .Where(uv => uv.UserId == driver)
-            .SelectMany(uv => uv.Expenses.OfType<FuelExpense>())
-            .Where(e => e.ExpenseDate <= StartSearch
-                && e.ExpenseDate >= EndSearch)
-            .Include(fe => fe.FuelExpenseType)
-            .ToList();
+            var fuelExpenses = _dbContext.FuelExpenses
+                .Where(e => e.UserVehicle.UserId == driver && e.ExpenseDate >= StartSearch && e.ExpenseDate <= EndSearch).Include(fe => fe.FuelExpenseType)
+                .ToList();
 
             if (fuelExpenses == null || fuelExpenses.Count == 0)
             {

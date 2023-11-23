@@ -40,8 +40,8 @@ namespace Application.Controllers
 
         [HttpGet("AndExpensesLastDays/{Id:guid}")]
         public async Task<IActionResult> GetEarningsAndExpensesOffLastSevenDays(Guid Id)
-        {
-            int days = 7;
+         {
+            int days = 6;
             var earningsByDay = await _earningService.GetEarningsByUserByDays(Id, days);
             var expensesByDay = await _expenseService.GetExpensesByUserByDay(Id, days);
             var earningsAndExpenses = new Dictionary<DateTime, BudgetResume>();

@@ -7,6 +7,7 @@ namespace Application.ViewModels.Vehicle
         public string VehicleBrandName { get; set;}
         public string VehicleId { get; set; }   
         public short FabricationDate { get; set; }
+        public string VehicleColor { get; set; }
         public int Odometer { get; set; }
         public bool Rented { get; set; }
     }

@@ -19,6 +19,7 @@ namespace Domain.Entities.VehicleNS
 
         [Column("ano_fabricacao")]
         public short FabricationDate { get; set; }
+        public string? VehicleColor { get; set; }
 
         [Column("hodometro")]
         public int Odometer { get; set; }

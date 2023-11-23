@@ -11,12 +11,14 @@ namespace Application.Controllers
     public class CourseController : HomeController
     {
         private readonly ICourseService _courseService;
+        private readonly IVehicleService _vehicleService;
         private readonly IMapper _mapper;
 
-        public CourseController(ICourseService courseService, IMapper mapper)
+        public CourseController(ICourseService courseService, IMapper mapper, IVehicleService vehicleService)
         {
             _courseService = courseService;
             _mapper = mapper;
+            _vehicleService = vehicleService;
         }
 
         /// <summary>

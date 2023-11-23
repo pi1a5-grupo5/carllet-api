@@ -38,7 +38,7 @@ namespace Application.Controllers
             var result = await _expenseService.DeleteExpense(expenseId);
             if (result == null)
             {
-                return BadRequest();
+                return NoContent();
             }
 
             return Ok(result);
@@ -50,7 +50,7 @@ namespace Application.Controllers
             var result = await _expenseService.GetExpensesList();
             if (result == null)
             {
-                return BadRequest();
+                return NoContent();
 
             }
             return Ok(result);
@@ -62,7 +62,7 @@ namespace Application.Controllers
             var result = await _expenseService.GetExpense(ExpenseId);
             if (result == null)
             {
-                return BadRequest();
+                return NoContent();
 
             }
             return Ok(result);
@@ -149,7 +149,7 @@ namespace Application.Controllers
             var result = await _expenseService.GetExpenseByUserId(UserId, StartSearch, EndSearch);
             if (result == null)
             {
-                return BadRequest();
+                return NoContent();
             }
             return Ok(result);
         }
@@ -160,7 +160,7 @@ namespace Application.Controllers
             var result = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId);
             if (result == null)
             {
-                return BadRequest();
+                return NoContent();
             }
             return Ok(result);
         }
@@ -171,7 +171,7 @@ namespace Application.Controllers
             var result = await _expenseService.GetExpenseByUserVehicleId(UserVehicleId, StartSearch, EndSearch);
             if (result == null)
             {
-                return BadRequest();
+                return NoContent();
             }
                 return Ok(result);
             }

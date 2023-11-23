@@ -39,6 +39,8 @@ namespace Application.Controllers
                 Details = expense.Details,
 
             };
+
+
             return Ok(result);
         }
 

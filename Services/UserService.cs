@@ -144,8 +144,17 @@ namespace Services
                 return null;
             }
 
+            foreach (var toProp in typeof(User).GetProperties())
+            {
+                var fromProp = typeof(User).GetProperty(toProp.Name);
+                var toValue = fromProp.GetValue(user, null);
+                if (toValue != null)
+                {
+                    toProp.SetValue(userToUpdate, toValue, null);
+                }
+            }
+
             // Copy the non-null properties from the incoming entity to the one in the db
-            _dbContext.Entry(userToUpdate).CurrentValues.SetValues(user);
             await _dbContext.SaveChangesAsync();
 
             userToUpdate.Password = "";

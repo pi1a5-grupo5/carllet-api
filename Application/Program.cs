@@ -38,7 +38,7 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Version = "v1",
+        Version = "v2.21",
         Title = "Tarefa Swagger",
         Description = "Tarefa da materia de PDW2, onde foi feita a implementação de API RESTful, e utilizado swagger na documentação",
         TermsOfService = new Uri("https://example.com/terms"),
@@ -58,7 +58,7 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
-
+builder.WebHost.ConfigureKestrel(opt => opt.AddServerHeader = false);
 
 var app = builder.Build();
 
@@ -73,7 +73,25 @@ app.UseSwaggerUI();
 
 app.UseAuthorization();
 
-// app.MapGet("/", () => $"Hello {target}!");
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Add("X-Xss-Protection", "1; mode=block");
+    context.Response.Headers.Add("Referrer-Policy", "no-referrer");
+    context.Response.Headers.Add("Content-Security-Policy", "base-uri 'self' www.gstatic.com; style-src 'self' fonts.googleapis.com; ");
+    context.Response.Headers.Add("Feature-Policy",
+                "vibrate 'self' ; " +
+                "geolocation 'self' ; " +
+                "push 'self' ; " +
+                "notifications 'self' ; " +
+                "fullscreen '*' ; ");
+
+    context.Response.Headers.Remove("X-Powered-By");
+    context.Response.Headers.Remove("Server");
+
+    await next();
+});
+app.UseHttpsRedirection();
 
 app.MapControllers();
 

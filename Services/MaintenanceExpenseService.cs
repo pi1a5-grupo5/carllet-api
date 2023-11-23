@@ -47,18 +47,21 @@ namespace Services
 
         public async Task<List<MaintenanceExpense>> GetExpenseByUserId(Guid driver)
         {
-                var expenses = _dbContext.UserVehicles
-        .Where(uv => uv.UserId == driver)
-        .SelectMany(uv => uv.Expenses.OfType<MaintenanceExpense>())
-        .Include(me => me.MaintenanceExpenseType)
-        .ToList();
+                var expenses = _dbContext.MaintenanceExpenses
+                .Where(e => e.UserVehicle.UserId == driver).Include(me => me.MaintenanceExpenseType)
+                .ToList();
+
 
             return expenses;
         }
 
-        public Task<List<MaintenanceExpense>> GetExpenseByUserId(Guid driver, DateTime StartSearch, DateTime EndSearch)
-        {
-            throw new NotImplementedException();
+        public async Task<List<MaintenanceExpense>> GetExpenseByUserId(Guid driver, DateTime StartSearch, DateTime EndSearch)
+        { 
+            var expenses = _dbContext.MaintenanceExpenses
+                .Where(e => e.UserVehicle.UserId == driver && e.ExpenseDate >= StartSearch && e.ExpenseDate <= EndSearch).Include(me => me.MaintenanceExpenseType)
+                .ToList();
+
+            return expenses;
         }
 
         public async Task<List<MaintenanceExpense>> GetExpenseByUserVehicleId(Guid userVehicleId)
@@ -89,6 +92,8 @@ namespace Services
         {
             _dbContext.MaintenanceExpenses.Add(expense);
             await _dbContext.SaveChangesAsync();
+
+            expense = await GetExpense(expense.ExpenseId);
             return expense;
         }
 

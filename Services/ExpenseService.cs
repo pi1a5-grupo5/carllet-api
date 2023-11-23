@@ -4,6 +4,7 @@ using Domain.Entities.Budget.Expenses;
 using Domain.Interfaces;
 using Infra.Data;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Services
 {
@@ -32,15 +33,14 @@ namespace Services
 
         public async Task<Expense> GetExpense(Guid ExpenseId)
         {
-            var expense = _dbContext.Expenses
-               .Include(fe => ((FuelExpense)fe).FuelExpenseType).FirstOrDefault();
+            var expense = _dbContext.Expenses.Find(ExpenseId);
             return expense;
         }
 
         public async Task<List<Expense>> GetExpensesList()
         {
             var expenses = _dbContext.Expenses
-                .Include(fe => ((FuelExpense)fe).FuelExpenseType).ToList();
+                .ToList();
             return expenses;
         }
 
@@ -66,10 +66,8 @@ namespace Services
 
         public async Task<List<Expense>> GetExpenseByUserId(Guid driver, DateTime StartSearch, DateTime EndSearch)
         {
-            var expenses = _dbContext.UserVehicles
-                .Where(uv => uv.UserId == driver)
-                .SelectMany(uv => uv.Expenses)
-                .Where(e => e.ExpenseDate <= StartSearch && e.ExpenseDate >= EndSearch)
+            var expenses =  _dbContext.Expenses
+                .Where(e => e.UserVehicle.UserId == driver && e.ExpenseDate >= StartSearch && e.ExpenseDate <= EndSearch)
                 .ToList();
 
             if (expenses == null || expenses.Count == 0)
@@ -126,7 +124,7 @@ namespace Services
 
         public async Task<Dictionary<DateTime, decimal>> GetExpensesByUserByDay(Guid userId, int days)
         {
-            var date = DateTime.Now.AddDays(-days);
+            var date = DateTime.Now.AddDays(-days).Date;
             var expenses = _dbContext.Expenses
                 .Where(e => e.UserVehicle.UserId == userId && e.ExpenseDate >= date)
                 .ToList();
