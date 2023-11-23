@@ -59,6 +59,12 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.WebHost.ConfigureKestrel(opt => opt.AddServerHeader = false);
+builder.Services.AddHsts(options =>
+{
+    options.Preload = true;
+    options.IncludeSubDomains = true;
+    options.MaxAge = TimeSpan.FromDays(365);
+});
 
 var app = builder.Build();
 
@@ -69,22 +75,16 @@ app.UseSwagger();
 app.UseSwaggerUI();
 //}
 
-// app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
 app.Use(async (context, next) =>
 {
     context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
     context.Response.Headers.Add("X-Xss-Protection", "1; mode=block");
+    context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
     context.Response.Headers.Add("Referrer-Policy", "no-referrer");
     context.Response.Headers.Add("Content-Security-Policy", "base-uri 'self' www.gstatic.com; style-src 'self' fonts.googleapis.com; ");
-    context.Response.Headers.Add("Feature-Policy",
-                "vibrate 'self' ; " +
-                "geolocation 'self' ; " +
-                "push 'self' ; " +
-                "notifications 'self' ; " +
-                "fullscreen '*' ; ");
+    context.Response.Headers.Add("Permissions-Policy", "accelerometer=()");
 
     context.Response.Headers.Remove("X-Powered-By");
     context.Response.Headers.Remove("Server");
@@ -92,8 +92,6 @@ app.Use(async (context, next) =>
     await next();
 });
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.MapControllers();
-
-// app.Run(url);
 app.Run();

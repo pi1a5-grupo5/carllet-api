@@ -17,7 +17,7 @@ namespace Domain.Entities
         public string Name { get; set; }
 
         [Column("nome_imagem")]
-        public string ImageName { get; set; }
+        public string? ImageName { get; set; }
 
         [Column("numero_cnh")]
         public string? Cnh { get; set; }

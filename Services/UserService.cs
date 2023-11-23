@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
 using Infra.Data;
+using System;
 
 namespace Services
 {
@@ -170,8 +171,9 @@ namespace Services
             {
                 return;
             }
+            Random rnd = new Random();
 
-            userExist.ResetPasswordToken = Guid.NewGuid().ToString();
+            userExist.ResetPasswordToken = rnd.Next(10000000, 99999999).ToString();
             userExist.ResetPassword = true;
             userExist.ResetPasswordTokenExpiration = DateTime.UtcNow.AddMinutes(15.0);
             _emailService.SendResetPasswordEmail(userExist);

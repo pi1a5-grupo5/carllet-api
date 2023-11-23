@@ -5,6 +5,7 @@ using Domain.Entities;
 using Domain.Entities.VehicleNS;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
 using Services;
 
 namespace Application.Controllers
@@ -170,7 +171,7 @@ namespace Application.Controllers
                 typeId = await _vehicleService.ExistVehicleType(request.VehicleTypeName);
                 if (typeId == 0)
                 {
-                    var createdType = await _vehicleService.CreateVehicleType(new VehicleType { Name = request.VehicleTypeName, VehicleBrandId =  brandId});
+                    var createdType = await _vehicleService.CreateVehicleType(new VehicleType { Name = request.VehicleTypeName, VehicleBrandId = brandId });
                     typeId = createdType.VehicleTypeId;
                 }
 
@@ -180,6 +181,7 @@ namespace Application.Controllers
             var vehicle = _mapper.Map<Vehicle>(request);
             var createdVehicle = await _vehicleService.CreateVehicle(vehicle);
             var createdUserVehicle = await _userVehicleService.CreateRelation(request.UserId, vehicle.VehicleId);
+
             var result = new VehicleResponse
             {
                 VehicleId = createdVehicle.VehicleId.ToString(),
@@ -191,6 +193,20 @@ namespace Application.Controllers
                 Rented = createdVehicle.Rented,
                 UserVehicleId = createdUserVehicle.UserVehicleId.ToString(),
             };
+
+            HttpClient client = new HttpClient();
+
+            var values = new Dictionary<string, string> 
+            {
+                  { "brand", result.VehicleBrandName },
+                  { "model", result.VehicleTypeName },
+                    {"brand", result.VehicleColor }
+              };
+            var content = new FormUrlEncodedContent(values);
+
+            var response = await client.PostAsync("", content);
+
+            var responseString = await response.Content.ReadAsStringAsync();
 
             return Ok(result);
         }
